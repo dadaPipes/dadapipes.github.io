@@ -45,7 +45,7 @@ Acceptence test der hvor at det kommer tættest på en bruger og samtidigt kan a
 
 Tests (acceptence tests) som dokumentation.
 
-Ny Viden !!! 
+Ny Viden !!!! 
 
 ATDD (acceptence test driven design), UTDD (unit test driven design), BDD (behavior driven design).
 
