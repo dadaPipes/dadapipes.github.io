@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>This is the HOMEPAGE | dadaPipes </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="This is the HOMEPAGE | dadaPipes ">
+      
+      
+      <link rel="icon" href="favicon.ico">
+      <link rel="stylesheet" href="public/docfx.min.css">
+      <link rel="stylesheet" href="public/main.css">
+      <meta name="docfx:navrel" content="toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="landing" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="index.html">
+            <img id="logo" class="svg" src="logo.svg" alt="dadaPipes">
+            dadaPipes
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="this-is-the-homepage">This is the <strong>HOMEPAGE</strong></h1>
+
+<p>Refer to <a href="http://daringfireball.net/projects/markdown/">Markdown</a> for how to write markdown files.</p>
+<p>TODO: Kom ind på hvordan at det jeg skriver om handle om/relaterer til Blazor og .NET ( vigtigt da jeg berører nærmest samtlige fokusområder, så hvert fokusområde er nødt til at omhandle .NET på en eller anden måde ).</p>
+<p>Nogle af de mest diskuterrede emner i forskellige online forumer, inden for .NET, er hvilken arkitektur og hvilke endpoints man skal bruge. Ofte er argumenterne one-liners som &quot;Clean Architectur is over engineering&quot;, &quot;DbContext is a Repository&quot;, &quot;Only test your endpoints&quot; osv., og man kan undre sig over, om dem som kommenterer, virkelig har en forståelse og erfaring inden for de forskellige (dele/områder/værktøjer), eller om det bare handler om præferencer.</p>
+<p>Jeg ved fra mig selv af, at jeg er <strong>super</strong> dygtig til at kritisere ting jeg ikke aner en skid om.
+I mange år tænkte jeg for eksemplel at <a href="https://www.youtube.com/watch?v=-ZjbR7Qxxeg">Björn Afzelius</a> var utrolig cringe, indtil at jeg lyttede til hans musik eller alt hvad der omhandler <a href="https://www.youtube.com/watch?v=iWa-6g-TbgI">Rick James</a> AKA <a href="https://i.pinimg.com/736x/e5/52/29/e55229099117485820ae563dab9449e7.jpg">Puddel Garn</a>, udelukende baseret på hans hår.
+Musiken falder selfølgelig ikke i enhvers smag, og som en DJ skal vide hvilken musik han skal spille, for et bestemt publikum eller event, så skal en udvikler også vide hvilket værktøj der skal bruges i en given situation, og det er umuligt at vælge det rigtige værktøj uden at have undersøgt det grundigt først.</p>
+<p>Argumenterne fra de online forumer kan også handle om <a href="https://en.wikipedia.org/wiki/Shared_information_bias">delt information bias</a>, hvor folk har delt sig i 2 grupper med hver deres viden, hvor ved at de to grupper hver især opnår consensus. Det kan holde folk fast i bruge de værktøjer de er bekendte og dygtige i.
+Det samme kan gøre sig gældene i et team hvor at man vælger at gøre det som man altid har gjort, hvilket kan være nemt, bekvemt og hurtigt at komme i gang med et projekt. Men muligvis ikke den rigtige strategi på længere sigt.</p>
+<p>&quot;It depends&quot; er det universielle svar inden for software udvikling. Så hvad er det lige præcis det kommer an på ?
+Det er nogle af de områder jeg vil dække i min blog, omkring Blazor og .NET i web baseret udvikling.</p>
+<p>Inden at jeg startede ud med bloggen, havde jeg et projekt at arbejde på.
+Jeg kendte til de store dele af kravene, troede at jeg havde helt styr på hvordan koden skulle skæres og implimenteres.</p>
+<p>Jeg tog grueligt fejl (emoji).</p>
+<p>Nogle af de ting bankede hovedet ned i tastaturet over var kompleksiteten af implementeringen af dele af koden.
+&quot;Hvorfor h... skal det være så komplekst ? Er der ikke en mere simpel måde at gøre det på ?&quot;
+Men jeg havde ikke afsøgt de værktøjer (internt link) der var til rådighed med Blazor inden at jeg gik i gang.</p>
+<p>Det primære i sowtware udvikling er at løse problemer. &quot;Har du problem ?&quot;
+Men hvordan løser man et problem ? Man bryder det ned i mindre dele. Det lyder jo meget nemt.
+Der er mange andre ting man bliver nødt til at dække:</p>
+<ul>
+<li>Hvilke værktøjer skal man vælge og hvorfor/vælge det rigtige værktøj til jobbet ? (intern link)</li>
+<li>Hvordan sikrer man at kunden får dækket alle krav til systemet ? (intern link)</li>
+<li>Hordan sikrer man at ændringer i systemet fremover ikke skaber problemer andre steder i systemet ? (internt link).</li>
+<li>Hvordan sikrer man en dækkende og overskuelig dokumentation som er nem at lave og vedligeholde ? og sikrer at den er korrekt (forkert dokumentation er værre end ikke at have nogen dokumentation) ? (internt link)</li>
+</ul>
+<p>Jeg vil give mit bud på hvordan man kan løse ovenstående problemer, med udgangspunkt i en web applikation med Blazor og .NET.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

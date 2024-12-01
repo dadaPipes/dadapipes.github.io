@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Blazor Varianter | dadaPipes </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Blazor Varianter | dadaPipes ">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <link rel="stylesheet" href="../../public/docfx.min.css">
+      <link rel="stylesheet" href="../../public/main.css">
+      <meta name="docfx:navrel" content="../../toc.html">
+      <meta name="docfx:tocrel" content="../toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../../index.html">
+            <img id="logo" class="svg" src="../../logo.svg" alt="dadaPipes">
+            dadaPipes
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="blazor-varianter">Blazor Varianter</h1>
+
+<h2 id="overvejelser-og-sammenligning-af-blazor-rammer">Overvejelser og Sammenligning af Blazor rammer</h2>
+<p>Jeg har undersøgt og sammenlignet de forskellige relevante Blazor varianter i .NET 8.0</p>
+<h3 id="blazor-web-app">Blazor Web App</h3>
+<p>Introduktionen af Blazor Web App i .NET 8.0 har gjort det muligt at mixe forskellige render modes i Blazor, til forskel for
+.NET 7.0 hvor man kun kunne vælge imellem Blazor Server og Blazor WebAssembly.</p>
+<p>Man kan sætte rendermode for hele applikationen og ikke tænke mere over det eller man kan sætte en rendermode for hver individuel komponent, så man ikke er tvunget til at bruge enten server rendering eller webassembly rendering for hele applikationen.</p>
+<p>På den ene side giver det mere fleksibilitet, men på den anden side giver det mere kopmleksitet, hvilket jeg dækker senere.
+I nogle tilfælde kan det give mening at have forskelig rendermode, men for større dele af applikationen, som en epic (en gruppering af features, eller for en gruppe af epics der er relaterede).
+(TODO: INDSÆT INTERNT LINK TIL DER HVOR JEG BESKRIVER FEATURES OG HVORDAN MAN KAN ORGANISERE KODEN DYNAMISK, UD FRA KRAVENE, I TAKT MED AT APPLIKATIONEN VOKSER).</p>
+<p>Begge har SPA funktionallitet, så de kan opdatere enkelte komponenter på en side uden at lave en fuld page refresh.</p>
+<h4 id="interactive-server">Interactive Server</h4>
+<p><strong>Sådan fungerer det</strong><br>
+Klienten viser kun det indhold som skal bruges, og bliver sendt via en SignalR-forbindelse, der muliggør realtidskommunikation mellem serveren og klienten gennem websockets (eller alternative protokoller som Server-Sent Events eller Long Polling, hvis websockets ikke er tilgængelige).</p>
+<p><strong>Interaktivitet</strong><br>
+Brugeraktivitet behandles direkte på serveren af ASP.NET Core runtime.</p>
+<p><strong>Stateful (tilstandsfuld):</strong>
+Applikationens tilstand er afhængig af serveren og håndterer forbindelsen for alle forbundne klienter og opdatering af UI.</p>
+<p><strong>Fordele:</strong></p>
+<ul>
+<li>Hurtig initial indlæsning da alt bruger aktivitet på siden forgår direkte via serveren.
+Skal kun downloade Java Script bundle displaye den første side inklusiv HTML og CSS for den første side.
+Uanset hvor stor applikationen er, vil den loade hurtigt.</li>
+<li>Lavere krav til klientens ydeevne, da alt beregnes på serveren.</li>
+<li>Man behøver kun 1 projekt da alt kører på serveren.</li>
+<li>Koden er simplere og man er ikke tvunget til at have et API lag.</li>
+</ul>
+<p><strong>Ulemper:</strong></p>
+<ul>
+<li>Netværk:<br>
+Afhængighed af en stabil netværksforbindelse. Hvis forbindelsen afbrydes, mister applikationen sin funktionalitet.</li>
+<li>Omkostninger:
+Høj belastning på serveren, hvilket kan resultere i øgede omkostninger, især ved mange samtidige brugere eller meget aktivitet.</li>
+<li>Udsving i netværksforbindelsen kan påvirke brugeroplevelsen negativt.</li>
+</ul>
+<p><strong>Sikkerhed</strong><br>
+Da hele applikationen ligger på serveren kan man sikre at det kun er brugere med de rette brugsrettigheder der har adgang til specifike begrænsede komponenter.
+Derfor(!) kan man sikre følsom kode direkte i en komponent (UI). ( Hård nød er knækket.. ).</p>
+<p>Hele koden holdes sikker på serveren og komponenter kan kun tilgås hvis man har brugerrettigheder til at tilgå dem.
+Validering af data kan derfor foregå direkte i UI, da det kun er autoriserede brugere der har adgang til serveren.
+Man skal selvfølgelig sørge for at de kun kan sende og modtage data der er relevante for dem, så de ikke kan fucke med hele systemet, men kun hvad der vedrører dem selv.</p>
+<h4 id="interactive-webassembly">Interactive WebAssembly</h4>
+<p><strong>Sådan fungerer det</strong><br>
+Hele frontend delen bliver downloaded og cached i klientens browser, inclusiv .NET WebAssembly runtime.
+UI og brugeraktivitet håndteres direkte i browseren. Ved første indlæsning af en komponent downloades hele .NET runtime sammen med applikationen til browseren og caches, hvor koden eksekveres i WebAssembly-format.
+API-kald og andre interaktioner med serveren håndteres via http(s) eller andre forbindelser som websockets.</p>
+<p><strong>Interaktivitet</strong><br>
+Brugeraktivitet håndteres i browseren på klienten via den WebAssembly baserede Blazor runtime.</p>
+<p><strong>Stateless (tilstandsløs):</strong>
+Den håndterer tilstanden af applikationen i browseren, uafhængig af serveren, da alt er lagret i browseren.</p>
+<p><strong>Fordele</strong><br>
+Kan bruges offline, efter at den er downloaded, da frontend delen ligger i browseren, derfor kan den stadig fungere, selv hvis netværksforbindelsen svigter efterfølgende.
+Hurtig UI-reaktionstid, da al interaktivitet udføres lokalt i browseren uden afhængighed af netværksforbindelsen,
+kan man opnå en hastighed der er det tæt på desktop app hastighed.</p>
+<p>Bedre skalerbarhed, da klient og server kan udvikles og skaleres separat.
+Nemmere vedligehold i tilfælde af en omfattende applikation, da kommunikationen imellem front- og backend foregår via HTTTP(S), er der en meget løs kobling og to udviklere kan arbejde i hver deres ende, uden at påvirke hinanden.
+Server projektet kan bruges til forskellige klienter.</p>
+<p><strong>Ulemper</strong></p>
+<ul>
+<li>Længere initial indlæsningstid da hele frontend delen skal downloades før at en bruger kan interiger med appen.</li>
+<li>Kræver en mere kraftfuld klientenhed, da al interaktion foregår lokalt i browseren.</li>
+<li>Er afhængig af en .NET backend for at kunne fungere, og skal ligge på den samme server, da det er backend der 'serverer' frontenden delen til browseren.</li>
+<li>Øget kompleksitet:
+Kræver et seperat server projekt i form af en API og typisk også et delt projekt bibliotek der har objekter til at transportere data imellem front- og backend.
+Implimenterer CORS for at begrænse hvilke domæner der har adgang til API’en.</li>
+</ul>
+<p><strong>Sikkerhed</strong>
+Validering i UI er ikke beskyttet da det kan manipuleres direkte i browseren. Oven i hatten, så er alle UI komponenter downloaded og catched i browseren og en bruger har derfor adgang til alle dele af frontend delen.
+Validering SKAL derfor sikres på backend delen (serveren) for at være sikker.</p>
+<p>Du må ikke sige det til nogen.. men hvis man højreklikker på et website, trykker inspect, klikker på 'application' knappen, kan man finde filerne under 'cache storage'. Ingenting er gemt eller glemt i <a href="https://developer.chrome.com/docs/devtools">Dev tools</a>.</p>
+<p>De forskellige dele af UI er derfor <strong>IKKE</strong> sikret imod brugere uden de rigtige retigheder. Den begrænsede adgang man kan tilføje i Blazor er rent kosmetisk.
+Derfor er man nødt til at sikre sin API og det er ikke nok bare at sikre sin UI komponenter.</p>
+<h4 id="interactive-auto">Interactive Auto</h4>
+<p>Fungerer på samme måde som Blazor WebAssembly, men bruger .NET runtime på serveren indtil at hele applikationen er downloaded og catched i browseren.</p>
+<h3 id="blazor-standalone">Blazor Standalone</h3>
+<h2 id="læringsmål">Læringsmål</h2>
+<h3 id="viden-huske-og-forstå">Viden (Huske og Forstå)</h3>
+<p><strong>Jeg kan identificere de forskellige Blazor rendermodes</strong><br>
+Jeg har viden om de forskellige Blazor rendermodes, herunder Blazor Server, Blazor WebAssembly og Blazor Web App med Interactive Auto.</p>
+<p><strong>Jeg kan beskrive forskellene mellem Blazor Server og Blazor WebAssembly</strong><br>
+Jeg forstår de grundlæggende forskelle i arkitektur og performance, som adskiller Blazor Server og Blazor WebAssembly.</p>
+<p><strong>Jeg kan forklare anvendelsen af Blazor rendermodes i webapplikationer</strong><br>
+Jeg har viden om, hvordan Blazor rendermodes anvendes i forhold til specifikke webapplikationers krav til skalering, hastighed og brugeroplevelse.</p>
+<h3 id="færdigheder-anvende-og-analysere">Færdigheder (Anvende og Analysere)</h3>
+<p><strong>Jeg kan anvende Blazor rendermodes i udvikling af en webapplikation</strong>
+Jeg er i stand til at vælge og implementere den rette Blazor rendermode baseret på applikationens krav og miljøforhold.</p>
+<p><strong>Jeg kan analysere, hvilken Blazor rendermode der er mest effektiv i et givet scenarie</strong><br>
+Jeg kan vurdere behovene for en applikation og analysere, om Blazor Server eller Blazor WebAssembly vil være mest effektiv i forhold til performance, sikkerhed og netværkskrav.</p>
+<p><strong>Jeg kan optimere en Blazor-applikation ved at vælge passende rendermode</strong><br>
+Jeg er i stand til at vælge den rette Blazor rendermode for at optimere både performance og brugeroplevelse i en webapplikation.</p>
+<h3 id="kompetencer-evaluere-og-skabe">Kompetencer (Evaluere og Skabe)</h3>
+<p><strong>Jeg kan evaluere de tekniske og praktiske konsekvenser af valget af Blazor rendermode</strong><br>
+Jeg kan vurdere, hvordan valget af Blazor rendermode påvirker faktorer som sikkerhed, netværksafhængighed og applikationens skalerbarhed.</p>
+<p><strong>Jeg kan skabe en webapplikation, der kombinerer Blazor Server og Blazor WebAssembly på en hensigtsmæssig måde</strong><br>
+Jeg er i stand til at kombinere forskellige Blazor rendermodes i én applikation for at opnå optimal performance og funktionalitet, afhængigt af de specifikke krav.</p>
+<p><strong>Jeg kan kombinere Blazor rendermodes med designmønstre for at opnå et specifikt mål</strong><br>
+Jeg kan integrere Blazor rendermodes med passende designmønstre (fx client-side og server-side separation) for at opnå applikationens mål om fleksibilitet, effektivitet og vedligeholdelse.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

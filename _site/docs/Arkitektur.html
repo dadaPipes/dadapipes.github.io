@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Arkitektur | dadaPipes </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Arkitektur | dadaPipes ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="dadaPipes">
+            dadaPipes
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="arkitektur">Arkitektur</h1>
+
+<p>2 populære arkitekturer der bliver brugt i .NET til webudvikling er Clean Architectur (lagdelt arkitektur) og Vertical Slice Architecture (VSA).</p>
+<p>Jeg tager udgangspunkt i en API uden et klient (UI) projekt, men har stadig et 'Shared' projekt, for at kunne dele data i C# for både Klient og Server projekterne.</p>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_lag-delt-arkitektur" role="tab" aria-controls="tabpanel_1_lag-delt-arkitektur" data-tab="lag-delt-arkitektur" tabindex="0" aria-selected="true">Lag delt arkitektur</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_vertical-slice-arkitektur" role="tab" aria-controls="tabpanel_1_vertical-slice-arkitektur" data-tab="vertical-slice-arkitektur" tabindex="-1">Vertical Slice Arkitektur</a>
+</li>
+</ul>
+<section id="tabpanel_1_lag-delt-arkitektur" role="tabpanel" data-tab="lag-delt-arkitektur">
+
+<p>I en lagdelt arkitektur har man forskellige, typisk separeret af foldere eller projekter.
+Det kunne være Applications lag med endpoints/controllers, Data lag med repositories og et domæne lag med domæne modeler/ entities. Der findes flere forskellige nuancer af lagdelte arkitekturer, men fællesnævneren er at ….</p>
+<p><strong>Fordele</strong><br>
+Tydelig adskillelse af ansvar:
+Application indeholder forretningslogik.
+Infrastructure håndterer tekniske detaljer.
+Domain indeholder centrale objekter og regler.</p>
+<p>Testbarhed:
+Du kan teste UserService uafhængigt af databasen ved at mocke IUserRepository.</p>
+<p>Udvidelighed:
+Hvis du ønsker at udskifte EF Core med noget andet, behøver du kun ændre UserRepository.</p>
+<p>Arbejder man på en feature, ved man præcis hvordan at den skal skæres/deles, da hver del af koden har en bestemt plads.
+Hele kodebasen er bygget op på den samme måde, så det kan fungere som bander på en bowlingbane. Man holder sig inden for banen og skyder ikke ved siden af. Det kan give en mere ensartet kode, hvor man kender flowet på forhånd.
+Ofte følger denne form for arkitektur SOLID principels og DRY til hvert punktum og komma.
+De forskellige lag i applikationen kan nemt skiftes ud, da der er en løs kobling mellem lagene og brugen af interfaces typisk er høj, hvilket også gør det nemt at unit teste enkelte metoder.
+Hvis et af målene er at man nemt kan skifte et lag ud, skal alle dele i det lag have et interface og unit testes.
+Derved opnår man ikke kun at kontrakten mellem interface og implementiering overholdes, men også at omplementeringen af interfacet overholder kravene, da alle unit tests skal bestå, og man sikrer sig dermed at det er implementeret korrekt.</p>
+<p><strong>Ulemper</strong><br>
+Man er tvunget til at dele meget simpel kode ud på flere forskellige filer.
+Koden er låst fast i det samme mønster igennem hele applikationen, allerede inden at man skriver det første stykke kode.
+Nogle arktitekturer deler lagene med projekter frem for foldere, for at gøre det nemmere at skifte de forskellige lag ud, i tilfælde af at man skulle få brug for det engang i fremtiden.
+Et typisk argument i .NET er at man nemmere kan skifte databasen ud med en anden, hvis man bruger repositories og interfaces for de selv samme repositories. Men Microsoft har udviklet en ORM (EF Core) som virker som et repository via DbContext, og den kan bruges på mange forskellige databaser.
+Høj brug af interfaces og unit tests, hvilket gør det tidskrævende at implementere koden og samtidigt gør koden mere kompleks.</p>
+<p>Pull requests: Det bliver mere uoverskueligt at gå igennem opdatering af kode der er skubbet til github og få et overblik og de dele af koden der er ændret. På samme måde er det også mere komplekst at godkende en pull request.</p>
+<h4 id="clean-architecture-eksempel">Clean Architecture eksempel</h4>
+<p><img src="https://elitecsoft.com/wp-content/uploads/2023/03/Clean-Architecture-DDD.jpg" alt="clean architecture diagram"></p>
+<h5 id="mappestruktur">Mappestruktur</h5>
+<p>Jeg har inkludered eksempler på klasser i mapperne, for at illustrerer hvordan det ser ud i en meget lille applikation.
+Man kan tænke sig til hvordan sværhedsgraden, i at finde rundt i de forskellige mapper, stiger liniært, i takt med at applikationen vokser.
+Ikke kun på grund af antallet af mapper, men også pga antallet a filer der er i hver mappe.</p>
+<p>I eksemplet har jeg lænet mig op af High Cohesion/Low Coupling, da relaterede emdpoints er samlet i en UserController, Service metoder er samlet i en UserService osv.
+Der er low coupling i mellem lagene, via interfaces.</p>
+<p>Fordelen ved at bruge class library projects er at hver del kan have deres egen afhængigheder og er isolerede i det enkelte class library project.
+For eksempel er EF Core Nuget pakken isoleret i <strong>Persistence</strong> projektet i <strong>Infrastructure</strong> mappen.</p>
+<h5 id="presentation-mappe">Presentation (mappe)</h5>
+<p><strong>Ansvar</strong>: UI-laget, der håndterer input og output fra brugeren via API'en.</p>
+<p><strong>API</strong> (Class library)
+Kalder applikationslaget (fx UserService) for at udføre handlinger og returnere resultater til klienten.</p>
+<pre><code class="lang-HTML">Presentation/
+├── API/
+│   └── UserController
+</code></pre>
+<h5 id="infrastructure-mappe">Infrastructure (mappe)</h5>
+<p><strong>Ansvar</strong>: Implementerer tekniske detaljer, såsom datatilgang eller eksterne services.</p>
+<p><strong>Infrastructure</strong> (Class library project)
+Implementerer generelle infrastrukturtjeneste interfaces fra domain-laget</p>
+<p><strong>Repositories</strong> (Class library project)<br>
+Implementerer Repository interfaces fra domain-laget for at kommunikere med databasen.</p>
+<p><strong>Persistence</strong> (Class library project)
+Database relaterede klasser</p>
+<pre><code class="lang-HTML">Infrastructure/
+├── Infrastructure/
+│   └── Logger
+    └── FileStorageService
+    └── EmmailService
+├── Repositories/
+│   └── UserRepository
+├── Persistence/
+│   ├── DbContext
+│   └── Migrations
+</code></pre>
+<h5 id="core-mappe">Core (mappe)</h5>
+<p><strong>Ansvar</strong>: Forretningslogik og applikationsregler.</p>
+<p><strong>Interfaces</strong> (Class library project)
+Interfaces til datatilgang, så domain-laget er uafhængigt af infrastrukturen.</p>
+<ul>
+<li><strong>RepositoryInterfaces</strong> (mappe)
+Indeholder interfaces til repositories, som muliggør datatilgang og gør domain-laget uafhængigt af den konkrete databaseimplementering.</li>
+<li><strong>ServiceInterfaces</strong> (mappe)
+Indeholder interfaces til services, som definerer forretningslogik og gør domain-laget uafhængigt af konkrete serviceimplementeringer.</li>
+<li><strong>InfrastructureInterfaces</strong> (mappe)
+Indeholder interfaces til infrastrukturtjenester som logning, filopbevaring og email-tjenester, hvilket gør domain-laget uafhængigt af konkrete infrastrukturtjenester.</li>
+</ul>
+<p><strong>Entities</strong> (Class library project)
+Domæne-entiteter, der repræsenterer konkrete ting i systemet.</p>
+<p><strong>Application</strong> (Class library project)
+Indeholder forretningslogik relateret til Domæne-entiteter og kalder et relateret repository til datatilgang.</p>
+<pre><code class="lang-HTML">Core/
+├── Domain/
+│   ├── Interfaces/
+│   │   ├── RepositoryInterfaces
+│   │   │   └── IUserInterface
+│   │   └── ServiceInterfaces
+│   │   │   └── IUserService
+│   │   └── InfrastructureInterfaces
+│   │       └── ILogger
+│   │       └── FileStorageService
+│   │       └── EmmailService
+│   └── Entities/
+│       └── User
+├── Application/
+│   └── UserService
+
+</code></pre>
+<h5 id="shared-class-library-project">Shared (Class Library Project)</h5>
+<p><strong>Ansvar</strong>: Overfører data mellem lag.</p>
+<p><strong>UserDto (mappe)</strong><br>
+Indeholder dataoverførselsobjekter relateret til brugere og inkluderer valideringslogik.</p>
+<pre><code class="lang-HTML">├──Shared/
+└── UserDto/
+    └── CreateUserDto
+        └── CreateUserDto.CreateUserDtoValidator
+</code></pre>
+<h5 id="modelering">Modelering</h5>
+<p>Det er muligt at modelerere på low-level, som [indsæt nogle navne på low-level diagrammer] niveau da man allerede har fastlagt programmeringsmønstre der skal følges.
+Hvis fokus er på low-level design, så øger det kompleksiten ved at sikre sporbarhed imellem design diagrammer og kode.
+En interesant bekymrer sig typisk ikke om hvordan at koden er implementeret, men har fokus på interactivitet.
+Low-level design bør derfor kun benyttes, hvis en en udvikler vil modelere for at få et overblik over en feature, inden at den bliver implementeret.</p>
+<h5 id="tests">Tests</h5>
+<p>Det er muligt at planlægge unit tests allerede inden at man har implementeret koden, da man ved hvilke dele der skal testes og hvad der skal testes for.
+Hvilket gør det muligt for UTDD(TODO: internt link &quot;Unit Test Driven Design&quot;).</p>
+<p>Da det primære mål er at kunne skifte hele implementationen of Core laget ud, som er der hvor at alt forretningslogikken er placeret, er det ikke nok kun at dække det med interfaces.
+Interfaces sikrer en meget begrænset kontrakt til dens implimentation, da den kun sørger for at retur type og argumenter bliver inplementeret.
+Den sikrer dermed en 'happy path', men sikrer ikke 'edge cases'.
+Ved at unit teste interfaces, kan man sikre at 'edge cases' også bliver sikret, hvis man har dækket alle interfaces i Core laget, med et Core test projekt.</p>
+</section>
+<section id="tabpanel_1_vertical-slice-arkitektur" role="tabpanel" data-tab="vertical-slice-arkitektur" aria-hidden="true" hidden="hidden">
+
+<p>Man deler koden op i lodrette snit, typisk per feature, som er placeret i 1 folder.
+I en serverside applikation hvor at både front- og backend kører på serveren, kan et snit bestå af en Blazor komponent og alt loggiken der hører til den specifike komponent.
+I en WebAssembly applikation, som er delt op i flere projekter, vil man have foldere med det samme navn i hver projekt, som har alt hvad der er hører til den specifike feature.</p>
+<p><strong>Fordele</strong><br>
+Det er nemmere at overskue en feature når det hele ligger i den samme folder, i stedet for at den er spredt over flere foldere og projekter.
+I tilfælde at et distribueret system med et Client, Server og Shared projekt, kommer man ikke uden om at det bliver spredt ud, men det er stadig begrænset og folderne hedder det samme og er delt op på samme måde.</p>
+<p>Da koden er delt op per feature bliver det nemmere, for udviklere der er nye til kodebasen, at sætte sig ind i hvordan den fungere.</p>
+<p>Det bliver nemmere at debugge koden da alt relevant kode er samlet i den samme folder.</p>
+<p>Der er ingen kobling imellem de forskellige feature snit, så en ændring i et snit kommer ikke til at påvirke et andet. Det har ingen sideeffekter, som er en ting der får det til at løbe koldt ned af ryggen på mange udviklere, når de skal skubbe kode til production.
+Udviklere er mere frie til at implimentere den konkrete kode og løse problemerne på en måde de mener er bedst. En feature kan ses som en black box, hvor at man kan sende et request og få et response.
+Man kan med sikker hånd implementere integration tests (TODO: Acceptence tests (automatiserede) ?), der går på tværs af forskellige dele af systemet, på det højeste niveau, da den berørte kode er samlet 1 sted. Som nævnt under (TODO: Ligger det her under tests eller hvor ?) <a href="Tests.html">tests</a>, så er de dele af koden som bliver brugt på tværs af snittene unit testet.</p>
+<p>Man <strong>KAN</strong> bruge unit tests i en feature, men det er ikke påkrævet for at sikre sig at brugerens krav er overholdt.
+Eksempler på hvor at det kunne være en fordel at implementere en unit test, kunne være hvis man har en meget kompleks metode/funktion, hvor man så kan køre den test for at se om den virker efter hensigten, frem for at skulle debugge den hver gang at man laver en ændring i den. Det er dog mere op til den enkelte udviklers præference, frem for et overordnet krav.
+Man kan sammenligne det med at unit teste private metoder:
+En privat metode understøtter en public metode og er derved en del af implementeringen af den public metode.
+På samme måde er en metode i et snit, med til at understøtte en feature i at overholde kravende.</p>
+<p>Pull request: Det er nemt at se hvad der er ændret tilbage i tiden da koden er samlet i de samme folder/foldere. På samme måde er det også mere overskueligt at godkende en pull request.</p>
+<p><strong>Ulemper</strong><br>
+Da der ikke er nogen kode delt imellem lagene, vil man kunne komme ud for at skulle gentage sig selv 😱, det taler imod <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a> ( gentag ikke dig selv ). Regler er til for at brydes, og hvis man er en erfaren udvikler, vil man vide at det ikke alt tid giver mening at være regelrytter.</p>
+<p>Delt forretningslogik vil man dog presse ned i domæne laget, i de tilfælde hvor det giver mening. TODO: ( SE: Hvordan man udvikler en feature )</p>
+<h4 id="vertical-slice-eksempel">Vertical Slice eksempel</h4>
+<p><img src="https://th.bing.com/th/id/OIP.5cQqVrfniTluO0xqs-uGqQAAAA?rs=1&amp;pid=ImgDetMain" alt="vertical slice diagram"></p>
+<h5 id="mappestruktur-1">Mappestruktur</h5>
+<p><strong>TODO:</strong>
+SKRIV OM SÅ DET PASSER FOR VSA:
+&quot;Jeg har inkludered eksempler på klasser i mapperne, for at illustrerer hvordan det ser ud i en meget lille applikation.
+Man kan tænke sig til hvordan sværhedsgraden, i at finde rundt i de forskellige mapper, stiger liniært, i takt med at applikationen vokser.
+Ikke kun på grund af antallet af mapper, men også pga antallet a filer der er i hver mappe.</p>
+<p>I eksemplet har jeg lænet mig op af High Cohesion/Low Coupling, da relaterede emdpoints er samlet i en UserController, Service metoder er samlet i en UserService osv.
+Der er low coupling i mellem lagene, via interfaces.</p>
+<p>Fordelen ved at bruge class library projects er at hver del kan have deres egen afhængigheder og er isolerede i det enkelte class library project.
+For eksempel er EF Core Nuget pakken isoleret i <strong>Persistence</strong> projektet i <strong>Infrastructure</strong> mappen.&quot;</p>
+<p><strong>Infrastructure (mappe)</strong><br>
+Indeholder infrastrukturtjenester som logning, filopbevaring og email-tjenester.</p>
+<p><strong>Persistence (mappe)</strong><br>
+Indeholder database relaterede klasser</p>
+<p><strong>Domain (mappe)</strong><br>
+Domæne-entiteter, der repræsenterer konkrete ting i systemet.</p>
+<pre><code class="lang-HTML">Infrastructure/
+│ ├── Logger
+│ ├── FileStorageService
+│ └── EmmailService
+Persistence/
+│ ├── DbContext
+│ └── Migrations
+Domain/
+│ ├── User
+Features/
+├── User
+</code></pre>
+<p><strong>Features (mappe)</strong><br>
+Eksemplerne illusterer at en udvikler er fri til at implementerer koden som det passer bedst for den enkelte brugssag.</p>
+<p>I et simpelt brugstilfælde kan man nøjes med at implementere koden i et endpoint.</p>
+<p><strong>Eksempel 1</strong></p>
+<pre><code class="lang-HTML">├── Features/
+│   ├── User
+│   │   ├── Create
+│   │   │   └── Endpoint.cs
+</code></pre>
+<p>I et mere komplekst brugstilfælde kan det være at det giver mere mening at dele koden op i mindre bider, for at øge læsbarheden.
+I nogle tilfælde kan det være at man har et komplekst data access object som man gerne vil lave en unit test til, så man er fri for at debugge det manuelt, for at være sikker på at det er implementeret korrekt.</p>
+<p><strong>Eksempel 2</strong></p>
+<pre><code class="lang-HTML">├── Features/
+│   ├── User
+│   │   ├── Create
+│   │   │   ├── Endpoint.cs
+│   │   │   ├── Repository.cs
+│   │   │   ├── IRepository.cs
+│   │   │   ├── Mapper.cs 
+│   │   │   └── Service.cs
+</code></pre>
+<h5 id="shared-class-library-project-1">Shared (Class library Project)</h5>
+<p><strong>Ansvar</strong>: Overfører data mellem lag.</p>
+<p><strong>UserDto (mappe)</strong><br>
+Indeholder dataoverførselsobjekter relateret til brugere og inkluderer valideringslogik.</p>
+<pre><code class="lang-HTML">├──Shared/
+└── UserDto/
+    └── CreateUserDto
+        └── CreateUserDto.CreateUserDtoValidator
+</code></pre>
+<h5 id="modelering-1">Modelering</h5>
+<p>Man kan holde det simpelt og fokusere på high-level diagrammer og på hvad interesanten gerne vil med applikationen.
+Det er mere effektivt at lade udvikleren, der skal implementere en feature, om detaljerne.
+Derved kan man lade koden diktere hvordan at den skal implementeres(link til Jimmi Bogard video).</p>
+<p>Det er muligt at modelere på et low-level niveau, men oftest er det mere effektivt at bruge en [TDD](internt link) tilgang til endpoints, og så [lade koden diktere hvordan en feature skal implementeres](link til Jimmi Bogard video).</p>
+<p>Derved kan man have mere tid og fokus på high-level diagrammer som betyder noget for interesanten, da de som oftest ikke har interesse i at vide hvordan at koden er implementeret.</p>
+<h5 id="tests-1">Tests</h5>
+<p>Da hver feature mappe er isoleret fra de andre, kan man nemt debugge en feature for at finde en mulig fejl. Når man ændrer i koden, og får rettet op på fejlen, så er man sikker på at det ikke har sideeffekter til andre features.</p>
+<p>Den mest effektive tilgang til tests ved VSA er en [ATDD](TODO:internt link) tilgang, med fokus på endpoints.
+Man kan, men bør ikke fokusere på [unit tests](TODO: internt link), med mindre at man har komplekse objekter, hvor at det kan være tidsbesparende at skrive en test først, i stedet for at debugge for at være sikker på at den gør som den skal.</p>
+<p>Da de forskellige features har adgang til domæne laget, er det værdifuldt at unit teste alt foretnings logik i domæne laget, for at sikre sig at den gør som den skal. 1 fejl i domænet kan have sideeffekter i flere features og vil ikke være isoleret til domænet selv.</p>
+</section>
+</div>
+
+<p>Man ser ofte, når man læser om arkitektur, at en bestemt arkitektur passe godt til en bestemt størrelse.
+Baseret på hvor kompleks den er, hvor nem den er at overskue, hvad teamet kender til, eller andre udvikler baserede parametre.
+Men det er som nævnt baseret på hvad man tænker som udvikler.</p>
+<p>Det der burde være i fokus er ikke noget af det overnævnte, men hvad kravene til applikationen er og hvad der passer sig bedst til applikationen.</p>
+<p>Som udgangspunkt er det en go' ide at holde det simpelt(KISS link), og man skal ikke spekulere på hvad det måske kan udvikle sig til engang i fremtiden (YAGNY link), da det som udgangspunkt vil komplisere kodebasen og kompleksitet koster penge i implementering og vedligehold.</p>
+<p>Med arkitektur i fokus, så er Vertical Slice rchitecture den mest simple at starte ud med.
+Hver skive har 1 fokusområde og alt hvad den skive skal have er samlet i 1 folder.
+Hvis man engang i fremtiden skulle få brug for at genbruge domæne delen af applikationen, så kan man opdatere 1 skive af gangen, indtil at man have et domæne der kan skilles fra resten af applikationen, udrulles og deles på tværs af andre projekter.</p>
+<p>Repositories har sine fordele men er ikke altid bydende nødvendige. Især ikke når man kan bruge en ORM(Object Relational Mapper) som <a href="https://learn.microsoft.com/en-us/ef/core/">EF CORE</a>, der fungerer som data access lag til en database.
+Skulle man få brug for at skifte til en anden database (YAGNY), så understøtter EF CORE mange <a href="https://learn.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli">forskellige</a> allerede via DbContext.</p>
+<p>Når man afsøger kravene til applikationen, kan man i modeleringsfasen, dele applikationen op i dele som i [Feature Driven Development](<a href="/docs/Udvikling.html?tabs=fdd%2Ccontroller#tabpanel_1_fdd">Feature Driven Development</a>
+) 'Theme', 'Epic', 'Feature' og 'User Story', som så kan afspejle mappe strukturen i applikationen, hvilket giver sporbarhed imellem modelen og applikationen.
+Udover at give sporbarhed, så er der heller ikke så giver det, som applikationen udvikler og udvider sig, en klar afgrænsning af domænet. Noget som ellers kan være svært at nå til enighed i et team.
+På sigt kan, hvis applikationen bliver stor nok og det giver mening, en del af applikationen nemt skilles fra og håndteres som sin egen service, der kan bruges i andre applikationer.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

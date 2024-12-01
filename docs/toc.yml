@@ -1,0 +1,19 @@
+items:
+- name: Primære læringsmål
+  href: Læringsmål.md
+- name: TechRamme
+  href: TechRamme/toc.yml
+- name: Arkitektur
+  href: Arkitektur.md
+- name: Udvikling
+  href: Udvikling.md
+- name: Tests
+  href: Tests.md
+- name: Docker
+  href: Docker.md
+- name: CI/CD
+  href: CICD.md
+- name: Eksempler på anvendelse
+  href: EksPåAndvendelse/toc.yml
+- name: Afslutning
+  href: Afslutning.md

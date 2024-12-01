@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Udviklings metoder | dadaPipes </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Udviklings metoder | dadaPipes ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../logo.svg" alt="dadaPipes">
+            dadaPipes
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="udviklings-metoder">Udviklings metoder</h1>
+
+<p>TODO: opdtater: Ser man bort fra projekthåndteringen, som jeg ikke dækker i denne blog, og fokuserer på udviklingsmetoden så .. ( hvad er det egentlig at jeg gerne vil have fokus på her ? )
+En kort beskrivelse af nogle iterative systemudviklings metoder for at dække de relevante områder.</p>
+<h2 id="eksempler-på-udviklings-metoder">Eksempler på udviklings metoder</h2>
+<div class="tabGroup" id="tabgroup_1">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_1_fdd" role="tab" aria-controls="tabpanel_1_fdd" data-tab="fdd" tabindex="0" aria-selected="true">Feature-Driven Development</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_tdd" role="tab" aria-controls="tabpanel_1_tdd" data-tab="tdd" tabindex="-1">Test-Driven Development</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_bdd" role="tab" aria-controls="tabpanel_1_bdd" data-tab="bdd" tabindex="-1">Behavior-Driven Development</a>
+</li>
+</ul>
+<section id="tabpanel_1_fdd" role="tabpanel" data-tab="fdd">
+
+<p><strong>Grundlæggende principper og tilgang</strong>
+FDD er en model-drevet proces, hvor udviklingsarbejdet struktureres omkring små, veldokumenterede funktioner, der kan implementeres på få dage. Fokus ligger på at opretholde kontinuerlig fremdrift og at levere funktionalitet, der er reel og målbar.</p>
+<p><strong>De fem processer i FDD</strong>
+FDD følger fem nøgleprocesser:</p>
+<p>Udarbejdelse af en overordnet model (<strong>Develop an Overall Model</strong>):
+Projektet starter med en forståelse af domænet og en model, som beskriver systemets kernestruktur og -adfærd. Dette involverer workshops og samarbejde mellem udviklere og domæneeksperter.</p>
+<p>Udarbejdelse af en funktionel liste (<strong>Build a Features List</strong>):
+Udviklerne opdeler systemet i mindre dele, kaldet funktioner. Funktionerne beskrives som &quot;handlinger udført på et resultat for en given kunde&quot; og organiseres i områder (business domains).</p>
+<p>Planlægning baseret på funktioner (<strong>Plan by Feature</strong>):
+Funktionerne prioriteres og grupperes i udviklingsmilepæle. Denne proces skaber en detaljeret plan, som guider det iterative arbejde.</p>
+<p>Design af funktioner (<strong>Design by Feature</strong>):
+Hver funktion designes af et lille team i tæt samarbejde, hvor designet sikrer, at funktionen kan implementeres på en struktureret måde.</p>
+<p>Implementering af funktioner (<strong>Build by Feature</strong>):
+Funktionerne kodes, testes og integreres i systemet. Denne proces gentages iterativt, indtil projektet er færdigt.</p>
+<p><a href="https://en.wikipedia.org/wiki/Feature-driven_development">Wikipedia</a> om FDD.</p>
+</section>
+<section id="tabpanel_1_tdd" role="tabpanel" data-tab="tdd" aria-hidden="true" hidden="hidden">
+
+<p>Test-Driven Development (TDD) er en softwareudviklingsmetodologi, hvor testskrivning er integreret som en central del af udviklingsprocessen. Det er en iterativ udviklingsmetode, der fokuserer på at skrive tests før implementering af funktionalitet.</p>
+<p><strong>Hovedidéen bag TDD</strong><br>
+TDD har som kerneprincip at skrive automatiserede tests for den ønskede funktionalitet, før selve implementeringen påbegyndes. Det hjælper med at sikre, at al kode, der skrives, opfylder kravene og fungerer korrekt.</p>
+<p>Denne tilgang understøtter hurtigere fejlidentifikation og sikrer, at ny kode ikke bryder eksisterende funktionalitet.</p>
+<p><strong>TDD-processen</strong>
+TDD følger en fast cyklus, kendt som Red-Green-Refactor:</p>
+<ul>
+<li><p>Red (skriv en test)
+Start med at skrive en test, der beskriver en ny funktion eller en ændring. Testen skal fejle, fordi funktionaliteten endnu ikke er implementeret.</p>
+</li>
+<li><p>Green (implementer funktionalitet):
+Skriv netop nok kode til at få testen til at bestå. Dette sikrer, at udviklingen er fokuseret og minimal.</p>
+</li>
+<li><p>Refactor (forbedr koden):
+Optimer koden uden at ændre dens adfærd. Refactorering sikrer, at koden er nemmere at læse og vedligeholdelsesvenlig, mens alle tests stadig passerer.</p>
+</li>
+</ul>
+<p>Processen gentages for hver ny funktion eller ændring, hvilket sikrer en iterativ og kontrolleret udviklingsproces.</p>
+<p>Levende dokumentation:
+Tests fungerer som dokumentation for systemets funktionalitet og kan bruges til at forstå, hvad koden gør.</p>
+<p><strong>Eksempel på TDD i praksis</strong>
+Lad os sige, at vi skal udvikle en funktion til at beregne summen af to tal:</p>
+<p><strong>Red:</strong>
+Skriv en test, der kontrollerer, om Add(2, 3) returnerer 5. Testen fejler, fordi funktionen endnu ikke er implementeret.</p>
+<p><strong>Green:</strong>
+Implementér en simpel version af funktionen:</p>
+<pre><code class="lang-csharp">public int Add(int a, int b) 
+{
+    return a + b;
+}
+</code></pre>
+<p>Testen består nu.</p>
+<p><strong>Refactor:</strong>
+Overvej, om koden kan optimeres eller generaliseres.</p>
+<p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Wikipedia</a></p>
+</section>
+<section id="tabpanel_1_bdd" role="tabpanel" data-tab="bdd" aria-hidden="true" hidden="hidden">
+
+<p>Behavior-Driven Development (BDD) er en softwareudviklingsmetodologi, der bygger videre på Test-Driven Development (TDD) og fokuserer på at fremme samarbejde mellem udviklere, testere og forretningsinteressenter. BDD er designet til at hjælpe teams med at forstå og definere, hvordan en applikation skal opføre sig i forskellige situationer.</p>
+<p><strong>Hovedidéen bag BDD</strong><br>
+BDD sigter mod at bygge en fælles forståelse af applikationens krav ved at beskrive dem i et simpelt og klart sprog, der er forståeligt for både tekniske og ikke-tekniske interessenter. Fokus er på at definere &quot;adfærden&quot; (behavior) af softwaren i forhold til forretningsværdi og brugeroplevelse.</p>
+<p>Denne tilgang gør brug af specifikationer skrevet i naturligt sprog kombineret med eksekverbare tests, der fungerer som dokumentation for applikationens forventede adfærd.</p>
+<p><strong>Nøgleprincipper i BDD</strong></p>
+<ul>
+<li><p>Samarbejde mellem roller:
+BDD fremmer samarbejde mellem udviklere, testere og forretningsinteressenter for at sikre, at alle har en fælles forståelse af kravene.</p>
+</li>
+<li><p>Brug af naturligt sprog:
+Krav beskrives ofte i et format som <a href="https://cucumber.io/docs/gherkin/">Gherkin-syntaks</a>, hvilket gør det lettere at dele og forstå.</p>
+</li>
+<li><p>Eksekverbare specifikationer:
+Testene fungerer både som kravspecifikation og dokumentation. De kører automatisk og bekræfter, at applikationen opfører sig som forventet.</p>
+</li>
+<li><p>BDD's struktur: Given-When-Then
+BDD bruger ofte et Given-When-Then mønster til at definere funktionaliteter og scenarier:</p>
+</li>
+</ul>
+<p>Given: En given kontekst eller forudsætning.
+When: En bestemt handling eller hændelse.
+Then: Den forventede adfærd eller resultat.
+Eksempel:</p>
+<pre><code class="lang-gherkin">Scenario: User logs in successfully
+  Given the user is on the login page
+  When they enter valid credentials
+  Then they should be redirected to the dashboard
+</code></pre>
+<p><a href="https://cucumber.io/">Cucumber</a>: Bruges til at skrive og køre Gherkin-scenarier.
+<a href="https://docs.reqnroll.net/latest/index.html">SpecFlow</a>: En .NET-implementering af Cucumber.
+Disse værktøjer integrerer med testautomatiseringsværktøjer og gør det muligt at køre scenarierne som testcases.</p>
+<p><a href="https://en.wikipedia.org/wiki/Behavior-driven_development#Story_versus_specification">Wikipedia</a>.</p>
+</section>
+</div>
+<h2 id="eksempler-på-brug-af-termer-i-forhold-til-minimal-api-vs-controllers">Eksempler på brug af termer i forhold til Minimal API vs. Controllers</h2>
+<p>Når man beslutter, <a href="https://www.mountaingoatsoftware.com/blog/stories-epics-and-themes">hvilke termer der passer bedst i en given situation</a>, afhænger det af, om man arbejder med Controllers eller Minimal API, da strukturen og organiseringen af kode varierer.</p>
+<div class="tabGroup" id="tabgroup_2">
+<ul role="tablist">
+<li role="presentation">
+<a href="#tabpanel_2_controller" role="tab" aria-controls="tabpanel_2_controller" data-tab="controller" tabindex="0" aria-selected="true">Controller</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_2_minimal-api" role="tab" aria-controls="tabpanel_2_minimal-api" data-tab="minimal-api" tabindex="-1">Minimal API</a>
+</li>
+</ul>
+<section id="tabpanel_2_controller" role="tabpanel" data-tab="controller">
+
+<p>Bruger man controllers i .NET, vil det være en ide at tænke over hvad der dækker en gruppe af endpoints (TODO: eksempel).
+Bruger man Minimal API, hvor at et endpoint kan være i en fil for sig selv, kan man reflektere over hvilken term man bruger for 1 enkelt endpoint (TODO: eksempel).</p>
+<p><strong>Eksempel: Brug af termer for grupperede endpoints</strong><br>
+Theme (højere niveau):
+&quot;User Management&quot; kan være temaet for alle endpoints, der håndterer brugere.</p>
+<p><strong>Epic:</strong><br>
+&quot;Manage Users&quot; kan være en overordnet epic, som beskriver flere funktioner såsom oprettelse, redigering, og sletning af brugere.</p>
+<p><strong>Feature:</strong>
+En feature kan være &quot;User Registration&quot;.</p>
+<p><strong>Story:</strong>
+En specifik story kan være &quot;As an admin, I want to register a new user with email and password.&quot;</p>
+<p><strong>Konkrete eksempler på endpoints i en UserController:</strong>
+POST /users – Opret bruger (story for User Registration).
+GET /users/{id} – Hent bruger.
+PUT /users/{id} – Opdater bruger.
+DELETE /users/{id} – Slet bruger.</p>
+<p>Her vil en controller give mening som en gruppering for endpoints relateret til &quot;User Management&quot;, og man kan bruge termer som feature eller story til at specificere formålet med hvert endpoint.</p>
+</section>
+<section id="tabpanel_2_minimal-api" role="tabpanel" data-tab="minimal-api" aria-hidden="true" hidden="hidden">
+
+<p>Med Minimal API kan hvert endpoint implementeres uafhængigt, ofte i sin egen fil. Dette gør det muligt at tænke på hvert endpoint som en isoleret enhed, og terminologien kan tilpasses denne granularitet.</p>
+<p>Eksempel: Brug af termer for enkeltstående endpoints
+Feature:
+Et enkelt endpoint kan ses som en feature i sig selv, fx &quot;User Registration&quot;.</p>
+<p>Story:
+Et endpoint kan implementere en specifik story, fx &quot;As an admin, I want to delete a user by ID.&quot;</p>
+<p>Konkrete eksempler på Minimal API-endpoints i separate filer:</p>
+<p>CreateUserEndpoint.cs:</p>
+<pre><code class="lang-csharp">Copy code
+app.MapPost(&quot;/users&quot;, (UserDto user) =&gt; { 
+    // Logic for creating a user
+}).WithTags(&quot;User Management&quot;);
+Term: Feature/story → &quot;User Registration.&quot;
+</code></pre>
+<p>DeleteUserEndpoint.cs:</p>
+<pre><code class="lang-csharp">Copy code
+app.MapDelete(&quot;/users/{id}&quot;, (int id) =&gt; {
+    // Logic for deleting a user
+}).WithTags(&quot;User Management&quot;);
+Term: Story → &quot;Delete a user by ID.&quot;
+</code></pre>
+<p>Med Minimal API kan man fokusere på mere granulære termer, da hvert endpoint ofte er implementeret for sig selv og ikke nødvendigvis grupperes naturligt som i controllers.</p>
+</section>
+</div>
+
+<p>Valget af termer afhænger af, hvordan kodebasen er struktureret:</p>
+<p><strong>Controller-tilgang</strong>: Brug termer som theme og epic til at beskrive grupper af endpoints og feature eller story til at beskrive individuelle endpoints inden for en gruppe.</p>
+<p><strong>Minimal API</strong>: Brug mere detaljerede termer, hvor hvert endpoint kan beskrives som en feature eller story, da de ofte ikke grupperes på samme måde.</p>
+<p>Det vigtigste er, at teamet er enige om terminologien og dens anvendelse.</p>
+<p>Hvordan kagen skal skæres og med hvilke værktøjer er ikke hugget i sten. Det vigtigste er at man kender mulighederne så man kan bruge dem <a href="https://medium.com/@davidrhyswhite/tdd-fdd-bdd-7f6c6cb9485b">som det passer bedst</a>.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

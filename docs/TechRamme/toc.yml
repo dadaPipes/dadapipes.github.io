@@ -1,0 +1,9 @@
+items:
+- name: Valg af Tech Ramme
+  href: TechRamme.md
+- name: Blazor
+  href: Blazor.md
+- name: MudBlazor
+  href: MudBlazor.md
+- name: API
+  href: Api.md
