@@ -61,4 +61,4 @@ Tests i Client og API. Da der kan være et team der atbejder på hver især Clie
 Kom ind på Publlic vs Private tests og sammenlign det med acceptence test/intergration tests af endpoints.
 Hvad der giver mest værdi for den tid man bruger på dem og at det giver mere frihed til at ændre i koden uden at man kommer til at bryde unnit tests. [The Magic Tricks of Testing by Sandi Metz](https://www.youtube.com/watch?v=URSWYvyc42M) DER ER INDEKSERING MED TIDSPUNKTER I KOMMENTARENE, BRUG DEM!.
 
-Indsæt links:
+Indsæt links: ...
