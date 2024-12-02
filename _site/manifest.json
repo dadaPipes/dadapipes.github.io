@@ -201,16 +201,6 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "implementering/Blazor.md",
-      "output": {
-        ".html": {
-          "relative_path": "implementering/Blazor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
       "source_relative_path": "implementering/WebApi.md",
       "output": {
         ".html": {
@@ -231,20 +221,20 @@
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "implementering/docker.md",
+      "source_relative_path": "implementering/blazor.md",
       "output": {
         ".html": {
-          "relative_path": "implementering/docker.html"
+          "relative_path": "implementering/blazor.html"
         }
       },
       "version": ""
     },
     {
       "type": "Conceptual",
-      "source_relative_path": "implementering/newFile.md",
+      "source_relative_path": "implementering/docker.md",
       "output": {
         ".html": {
-          "relative_path": "implementering/newFile.html"
+          "relative_path": "implementering/docker.html"
         }
       },
       "version": ""
