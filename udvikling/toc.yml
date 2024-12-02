@@ -7,3 +7,5 @@ items:
   href: authentication.md
 - name: Docker
   href: docker.md
+- name: NewFile
+  href: newFile.md
