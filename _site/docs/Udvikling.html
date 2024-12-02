@@ -13,7 +13,7 @@
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
-      
+      <meta name="docfx:rel" content="../">
       
       
       <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/Udvikling.md/#L1">
@@ -44,7 +44,7 @@
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="dadaPipes">
+            <img id="logo" class="svg" src="../images/pair-of-socks-50.png" alt="dadaPipes">
             dadaPipes
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navpanel">
             <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
             </div>
           </div>
         </div>
@@ -100,21 +104,28 @@ En kort beskrivelse af nogle iterative systemudviklings metoder for at dække de
 </ul>
 <section id="tabpanel_1_fdd" role="tabpanel" data-tab="fdd">
 
-<p><strong>Grundlæggende principper og tilgang</strong>
+<p><strong>Grundlæggende principper og tilgang</strong><br>
 FDD er en model-drevet proces, hvor udviklingsarbejdet struktureres omkring små, veldokumenterede funktioner, der kan implementeres på få dage. Fokus ligger på at opretholde kontinuerlig fremdrift og at levere funktionalitet, der er reel og målbar.</p>
-<p><strong>De fem processer i FDD</strong>
+<p><strong>De 5 processer i FDD</strong>
 FDD følger fem nøgleprocesser:</p>
-<p>Udarbejdelse af en overordnet model (<strong>Develop an Overall Model</strong>):
+<ol>
+<li><p>Udarbejdelse af en overordnet model (<strong>Develop an Overall Model</strong>):
 Projektet starter med en forståelse af domænet og en model, som beskriver systemets kernestruktur og -adfærd. Dette involverer workshops og samarbejde mellem udviklere og domæneeksperter.</p>
-<p>Udarbejdelse af en funktionel liste (<strong>Build a Features List</strong>):
+</li>
+<li><p>Udarbejdelse af en funktionel liste (<strong>Build a Features List</strong>):
 Udviklerne opdeler systemet i mindre dele, kaldet funktioner. Funktionerne beskrives som &quot;handlinger udført på et resultat for en given kunde&quot; og organiseres i områder (business domains).</p>
-<p>Planlægning baseret på funktioner (<strong>Plan by Feature</strong>):
+</li>
+<li><p>Planlægning baseret på funktioner (<strong>Plan by Feature</strong>):
 Funktionerne prioriteres og grupperes i udviklingsmilepæle. Denne proces skaber en detaljeret plan, som guider det iterative arbejde.</p>
-<p>Design af funktioner (<strong>Design by Feature</strong>):
+</li>
+<li><p>Design af funktioner (<strong>Design by Feature</strong>):
 Hver funktion designes af et lille team i tæt samarbejde, hvor designet sikrer, at funktionen kan implementeres på en struktureret måde.</p>
-<p>Implementering af funktioner (<strong>Build by Feature</strong>):
+</li>
+<li><p>Implementering af funktioner (<strong>Build by Feature</strong>):
 Funktionerne kodes, testes og integreres i systemet. Denne proces gentages iterativt, indtil projektet er færdigt.</p>
-<p><a href="https://en.wikipedia.org/wiki/Feature-driven_development">Wikipedia</a> om FDD.</p>
+</li>
+</ol>
+<p><a href="https://en.wikipedia.org/wiki/Feature-driven_development">Wikipedia</a></p>
 </section>
 <section id="tabpanel_1_tdd" role="tabpanel" data-tab="tdd" aria-hidden="true" hidden="hidden">
 
@@ -269,6 +280,7 @@ Term: Story → &quot;Delete a user by ID.&quot;
       </div>
     </main>
 
+    <div class="container-xxl search-results" id="search-results"></div>
 
     <footer class="border-top text-secondary">
       <div class="container-xxl">

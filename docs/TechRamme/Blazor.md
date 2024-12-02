@@ -96,9 +96,7 @@ Derfor er man nødt til at sikre sin API og det er ikke nok bare at sikre sin UI
 
 Fungerer på samme måde som Blazor WebAssembly, men bruger .NET runtime på serveren indtil at hele applikationen er downloaded og catched i browseren.
 
----
-
-### Blazor Standalone
+# [Blazor Standalone](#tab/blazor-standalone)
 
 Blazor Standalone er en bunke statiske filer som HTML CSS of Java Script.
 Den har den de samme fordele og ulemper som Blazor Standalone, men adskilder sig stadig på nogle punkter.
@@ -123,7 +121,7 @@ Der findes meget sparsom dokumentation om hvordan man sikrer Blazor Standalone m
 Idioten her fattede ikke en skid af alt det, før efter at have brugt 4 uger på at sikre Blazor Standalone med cookies, hvilket i den grad øgede kompleksiteten i frontend delen.
 Til gengæld er jeg fri for at være afhægig af en tedje part udbyder, og kan sikre applicationen via Microsoft Identity endpoints eller lave mine egne ( hvis ikke at jeg har brug for en lang række endpoints jeg ikke skal bruge).
 
-### PWA
+# [Progressive Web App](#tab/progressive-web-app)
 
 Hele applikationen kan downloades til en klient.
 Ordet ’Progressive’ kommer af at en bruger starter med at opdage applikationen, som kører i en browser, og derefter kan progress/fortsætte med at installerer applikationen på sin enhed.
@@ -144,8 +142,10 @@ Hvis der udrulles en opdatering som ikke kan bruges med en tidligere version, er
 - Hvis en bruger ikke har netværksforbindelse, kan man ikke authentikeres og få en access token, og har derved ikke adgang til dele af applikationen som kræver authentikering.
 
 **Begrænsninger**  
-Den har **IKKE** adgang til Operations Systemet, så den kan ikke gøre brug af eksempelvis kammera.
+Den har **IKKE** adgang til klientens Operations System, da den kører i browserens sandbox, så den kan ikke gøre brug af eksempelvis kammera på en telefon.
 Til gengæld gør det den mere sikker, da den ikke kan manipulere, opsnappe eller plante ting i klienten.
+
+---
 
 ## Læringsmål
 

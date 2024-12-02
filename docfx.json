@@ -14,7 +14,7 @@
     "resource": [
       {
         "files": [
-          "images/**"
+          "images/pair-of-socks-50.png"
         ]
       }
     ],
@@ -26,7 +26,8 @@
     "globalMetadata": {
       "_appName": "dadaPipes",
       "_appTitle": "dadaPipes",
-      "_enableSearch": false,
+      "_appLogoPath": "images/pair-of-socks-50.png",
+      "_enableSearch": true,
       "pdf": false
     }
   }

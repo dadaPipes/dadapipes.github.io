@@ -1,7 +1,15 @@
 {
-  "source_base_path": "C:/Users/dadaP/source/repos/GithubPagesBlog",
+  "source_base_path": "C:/Users/dadaP/source/repos/dadapipes.github.io",
   "xrefmap": "xrefmap.yml",
   "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
     {
       "type": "Conceptual",
       "source_relative_path": "docs/Afslutning.md",
@@ -44,6 +52,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/Dokumentation.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Dokumentation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/EksPåAndvendelse/RandomEksempel.md",
       "output": {
         ".html": {
@@ -61,16 +79,6 @@
         },
         ".json": {
           "relative_path": "docs/EksPåAndvendelse/toc.json"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/Læringsmål.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/Læringsmål.html"
         }
       },
       "version": ""
@@ -182,11 +190,31 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "images/pair-of-socks-50.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/pair-of-socks-50.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
         ".html": {
           "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "læringsmål.md",
+      "output": {
+        ".html": {
+          "relative_path": "læringsmål.html"
         }
       },
       "version": ""
@@ -200,6 +228,69 @@
         },
         ".json": {
           "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "udvikling/Blazor.md",
+      "output": {
+        ".html": {
+          "relative_path": "udvikling/Blazor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "udvikling/WebApi.md",
+      "output": {
+        ".html": {
+          "relative_path": "udvikling/WebApi.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "udvikling/authentication.md",
+      "output": {
+        ".html": {
+          "relative_path": "udvikling/authentication.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "udvikling/docker.md",
+      "output": {
+        ".html": {
+          "relative_path": "udvikling/docker.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "udvikling/server.md",
+      "output": {
+        ".html": {
+          "relative_path": "udvikling/server.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "udvikling/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "udvikling/toc.html"
+        },
+        ".json": {
+          "relative_path": "udvikling/toc.json"
         }
       },
       "version": ""

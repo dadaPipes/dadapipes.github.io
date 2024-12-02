@@ -13,7 +13,7 @@
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
-      
+      <meta name="docfx:rel" content="../">
       
       
       <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/Tests.md/#L1">
@@ -44,7 +44,7 @@
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="dadaPipes">
+            <img id="logo" class="svg" src="../images/pair-of-socks-50.png" alt="dadaPipes">
             dadaPipes
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navpanel">
             <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
             </div>
           </div>
         </div>
@@ -102,6 +106,7 @@ Alle andre yoga øvelser eksisterer kun som støttende øvelser, for at gøre de
 I fuld stack vil det være en test der tager udganspunkt i UI og i en API som konsumeres af andre vil det tage udganspunkt i et endpoint.
 Alle andre tests eksiterer kun som støttende tests, der gør det nemmere at sørge for at acceptence testen lyser grøn.</p>
 <p>Da acceptence testen er udviklet i sammarbejde med product owner. er det på samme måde som skrædderstillingen i yoga, den test der gør det nemmest for en udvikler at slappe af i kroppen.</p>
+<p><a href="https://www.youtube.com/watch?v=RBcJYt2g_gE">Tengiz Tutizani</a> giver en forklaring på hvordan at man kan automatisere Acceptence tests i .NET.</p>
 <p>Støttende tests (unit tests osv):
 ved komplekse metoder ( fuck mit komplekse objekt der skal opdateres og alle de ting der skal tjekkes for!! ) (Derfor er det også nemmere at finde frem til acceptence tests med PO. Det ansvar ligger hos dem, da vi jo ikke kan læse deres tanker og gerne skulle undgå at være arogante).</p>
 <p>TODO: (link til fetature page) Eksempel på en feature og acceptance test
@@ -125,7 +130,10 @@ Bruger man en arkitektur som giver udvikleren mere frie tøjler, som eksempelvis
 <p>Tests i Client og API. Da der kan være et team der atbejder på hver især Client og Server projektet, kan man med fordel lave både acceptence tests i klient projektet og intergration tests for endpoints i API'en.</p>
 <p>Kom ind på Publlic vs Private tests og sammenlign det med acceptence test/intergration tests af endpoints.
 Hvad der giver mest værdi for den tid man bruger på dem og at det giver mere frihed til at ændre i koden uden at man kommer til at bryde unnit tests. <a href="https://www.youtube.com/watch?v=URSWYvyc42M">The Magic Tricks of Testing by Sandi Metz</a> DER ER INDEKSERING MED TIDSPUNKTER I KOMMENTARENE, BRUG DEM!.</p>
-<p>Indsæt links:</p>
+<p>Indsæt links: ...</p>
+<p><a href="https://github.com/ttutisani/Xunit.Gherkin.Quick">Xunit.Gherkin.Quick</a>
+<a href="https://reqnroll.net/about/">Reqnroll</a>
+<a href="https://www.mountaingoatsoftware.com/agile/user-stories">User Stories</a></p>
 
 </article>
 
@@ -142,6 +150,7 @@ Hvad der giver mest værdi for den tid man bruger på dem og at det giver mere f
       </div>
     </main>
 
+    <div class="container-xxl search-results" id="search-results"></div>
 
     <footer class="border-top text-secondary">
       <div class="container-xxl">

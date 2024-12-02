@@ -1,2 +1,6 @@
+- name: Læringsmål
+  href: læringsmål.md
+- name: Udvikling
+  href: udvikling/
 - name: Docs
   href: docs/

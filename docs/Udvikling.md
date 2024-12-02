@@ -7,28 +7,28 @@ En kort beskrivelse af nogle iterative systemudviklings metoder for at dække de
 
 # [Feature-Driven Development](#tab/fdd)
 
-**Grundlæggende principper og tilgang**
+**Grundlæggende principper og tilgang**  
 FDD er en model-drevet proces, hvor udviklingsarbejdet struktureres omkring små, veldokumenterede funktioner, der kan implementeres på få dage. Fokus ligger på at opretholde kontinuerlig fremdrift og at levere funktionalitet, der er reel og målbar.
 
-**De fem processer i FDD**
+**De 5 processer i FDD**
 FDD følger fem nøgleprocesser:
 
-Udarbejdelse af en overordnet model (**Develop an Overall Model**):
+1. Udarbejdelse af en overordnet model (**Develop an Overall Model**):
 Projektet starter med en forståelse af domænet og en model, som beskriver systemets kernestruktur og -adfærd. Dette involverer workshops og samarbejde mellem udviklere og domæneeksperter.
 
-Udarbejdelse af en funktionel liste (**Build a Features List**):
+2. Udarbejdelse af en funktionel liste (**Build a Features List**):
 Udviklerne opdeler systemet i mindre dele, kaldet funktioner. Funktionerne beskrives som "handlinger udført på et resultat for en given kunde" og organiseres i områder (business domains).
 
-Planlægning baseret på funktioner (**Plan by Feature**):
+3. Planlægning baseret på funktioner (**Plan by Feature**):
 Funktionerne prioriteres og grupperes i udviklingsmilepæle. Denne proces skaber en detaljeret plan, som guider det iterative arbejde.
 
-Design af funktioner (**Design by Feature**):
+4. Design af funktioner (**Design by Feature**):
 Hver funktion designes af et lille team i tæt samarbejde, hvor designet sikrer, at funktionen kan implementeres på en struktureret måde.
 
-Implementering af funktioner (**Build by Feature**):
+5. Implementering af funktioner (**Build by Feature**):
 Funktionerne kodes, testes og integreres i systemet. Denne proces gentages iterativt, indtil projektet er færdigt.
 
-[Wikipedia](https://en.wikipedia.org/wiki/Feature-driven_development) om FDD.
+[Wikipedia](https://en.wikipedia.org/wiki/Feature-driven_development)
 
 # [Test-Driven Development](#tab/tdd)
 

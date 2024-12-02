@@ -13,7 +13,7 @@
       <meta name="docfx:navrel" content="../../toc.html">
       <meta name="docfx:tocrel" content="../toc.html">
       
-      
+      <meta name="docfx:rel" content="../../">
       
       
       <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/TechRamme/Blazor.md/#L1">
@@ -44,7 +44,7 @@
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../../index.html">
-            <img id="logo" class="svg" src="../../logo.svg" alt="dadaPipes">
+            <img id="logo" class="svg" src="../../images/pair-of-socks-50.png" alt="dadaPipes">
             dadaPipes
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navpanel">
             <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
             </div>
           </div>
         </div>
@@ -103,6 +107,12 @@ I nogle tilfælde kan det give mening at have forskelig rendermode, men for stø
 </li>
 <li role="presentation">
 <a href="#tabpanel_1_interactive-auto" role="tab" aria-controls="tabpanel_1_interactive-auto" data-tab="interactive-auto" tabindex="-1">Interactive Auto</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_blazor-standalone" role="tab" aria-controls="tabpanel_1_blazor-standalone" data-tab="blazor-standalone" tabindex="-1">Blazor Standalone</a>
+</li>
+<li role="presentation">
+<a href="#tabpanel_1_progressive-web-app" role="tab" aria-controls="tabpanel_1_progressive-web-app" data-tab="progressive-web-app" tabindex="-1">Progressive Web App</a>
 </li>
 </ul>
 <section id="tabpanel_1_interactive-server" role="tabpanel" data-tab="interactive-server">
@@ -174,8 +184,8 @@ Derfor er man nødt til at sikre sin API og det er ikke nok bare at sikre sin UI
 
 <p>Fungerer på samme måde som Blazor WebAssembly, men bruger .NET runtime på serveren indtil at hele applikationen er downloaded og catched i browseren.</p>
 </section>
-</div>
-<h3 id="blazor-standalone">Blazor Standalone</h3>
+<section id="tabpanel_1_blazor-standalone" role="tabpanel" data-tab="blazor-standalone" aria-hidden="true" hidden="hidden">
+
 <p>Blazor Standalone er en bunke statiske filer som HTML CSS of Java Script.
 Den har den de samme fordele og ulemper som Blazor Standalone, men adskilder sig stadig på nogle punkter.</p>
 <p>Den er server uafhængig.
@@ -193,7 +203,9 @@ En mulig årsag er at Blazor som statiske filer, ikke er nært så populært som
 Der findes meget sparsom dokumentation om hvordan man sikrer Blazor Standalone med cookies, hvilket er det rekomenderede, da browseren håndterer cookies, uden at eksponere dem for Java Script.</p>
 <p>Idioten her fattede ikke en skid af alt det, før efter at have brugt 4 uger på at sikre Blazor Standalone med cookies, hvilket i den grad øgede kompleksiteten i frontend delen.
 Til gengæld er jeg fri for at være afhægig af en tedje part udbyder, og kan sikre applicationen via Microsoft Identity endpoints eller lave mine egne ( hvis ikke at jeg har brug for en lang række endpoints jeg ikke skal bruge).</p>
-<h3 id="pwa">PWA</h3>
+</section>
+<section id="tabpanel_1_progressive-web-app" role="tabpanel" data-tab="progressive-web-app" aria-hidden="true" hidden="hidden">
+
 <p>Hele applikationen kan downloades til en klient.
 Ordet ’Progressive’ kommer af at en bruger starter med at opdage applikationen, som kører i en browser, og derefter kan progress/fortsætte med at installerer applikationen på sin enhed.</p>
 <p><strong>Fordele</strong></p>
@@ -214,8 +226,10 @@ Hvis der udrulles en opdatering som ikke kan bruges med en tidligere version, er
 <li>Hvis en bruger ikke har netværksforbindelse, kan man ikke authentikeres og få en access token, og har derved ikke adgang til dele af applikationen som kræver authentikering.</li>
 </ul>
 <p><strong>Begrænsninger</strong><br>
-Den har <strong>IKKE</strong> adgang til Operations Systemet, så den kan ikke gøre brug af eksempelvis kammera.
+Den har <strong>IKKE</strong> adgang til klientens Operations System, da den kører i browserens sandbox, så den kan ikke gøre brug af eksempelvis kammera på en telefon.
 Til gengæld gør det den mere sikker, da den ikke kan manipulere, opsnappe eller plante ting i klienten.</p>
+</section>
+</div>
 <h2 id="læringsmål">Læringsmål</h2>
 <h3 id="viden-huske-og-forstå">Viden (Huske og Forstå)</h3>
 <p><strong>Jeg kan identificere de forskellige Blazor rendermodes</strong><br>
@@ -254,6 +268,7 @@ Jeg kan integrere Blazor rendermodes med passende designmønstre (fx client-side
       </div>
     </main>
 
+    <div class="container-xxl search-results" id="search-results"></div>
 
     <footer class="border-top text-secondary">
       <div class="container-xxl">

@@ -28,6 +28,8 @@ Alle andre tests eksiterer kun som støttende tests, der gør det nemmere at sø
 
 Da acceptence testen er udviklet i sammarbejde med product owner. er det på samme måde som skrædderstillingen i yoga, den test der gør det nemmest for en udvikler at slappe af i kroppen.
 
+[Tengiz Tutizani](https://www.youtube.com/watch?v=RBcJYt2g_gE) giver en forklaring på hvordan at man kan automatisere Acceptence tests i .NET.
+
 Støttende tests (unit tests osv): 
 ved komplekse metoder ( fuck mit komplekse objekt der skal opdateres og alle de ting der skal tjekkes for!! ) (Derfor er det også nemmere at finde frem til acceptence tests med PO. Det ansvar ligger hos dem, da vi jo ikke kan læse deres tanker og gerne skulle undgå at være arogante).
 
@@ -62,3 +64,7 @@ Kom ind på Publlic vs Private tests og sammenlign det med acceptence test/inter
 Hvad der giver mest værdi for den tid man bruger på dem og at det giver mere frihed til at ændre i koden uden at man kommer til at bryde unnit tests. [The Magic Tricks of Testing by Sandi Metz](https://www.youtube.com/watch?v=URSWYvyc42M) DER ER INDEKSERING MED TIDSPUNKTER I KOMMENTARENE, BRUG DEM!.
 
 Indsæt links: ...
+
+[Xunit.Gherkin.Quick](https://github.com/ttutisani/Xunit.Gherkin.Quick)
+[Reqnroll](https://reqnroll.net/about/)
+[User Stories](https://www.mountaingoatsoftware.com/agile/user-stories)

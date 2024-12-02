@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Blazor | dadaPipes </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Blazor | dadaPipes ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/udvikling/Blazor.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/pair-of-socks-50.png" alt="dadaPipes">
+            dadaPipes
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="blazor">Blazor</h1>
+
+<h2 id="intro">Intro</h2>
+<p>Jeg havde valgt Blazor Standalone fordi at jeg var sikker på at det var det eneste der understøttede <a href="/docs/TechRamme/Blazor.html?tabs=progressive-web-app#tabpanel_1_progressive-web-app">PWA</a>, hvilket var et vigtigt krav til applikationen.
+Men det viste sig senere, efter at have udviklet den første Epic, at det ikke kun var Standalone der understøttede <a href="/docs/TechRamme/Blazor.html?tabs=progressive-web-app#tabpanel_1_progressive-web-app">PWA</a>.</p>
+<p>Det var en dyr fejl, da det gjorde mange ting meget mere besværligt.
+Af skade bliver man klog, men lige det her kunne jeg godt have været foruden.</p>
+<p>Da Blazor Standalone, som med React, Vue og Angular, <em>ikke</em> kræver en .NET server til at serve UI'en, er der ikke helt så meget der støtter Blazor Standalone, som fx Blazor Web App, der kræver en .NET server for at serve UI'en.</p>
+<p>Oven i hatten, så er Blazor som et front end framework, der ikke er afhængig af en bestemt form for server, ikke så populært som fx React, Angular og Vue. Derfor eksisterer der heller ikke dokumentation for Blazor Standalone, på lige fod med de Java Script baserede frameworks.</p>
+<p>På den ene side ville det have været meget nemmere, hvis jeg havde valgt Blazor Web App, hvor jeg bare kunne scaffolde eksempelvis, Docker og Identity i applikationen, så det havde virket på magisk vis, hvor at Client og Server spiller sammen fra start.
+På den anden side, så fik jeg lært noget om hvordan tingene fungere bag om det magiske tæppe.</p>
+<p><strong>Lad os starte hårdt ud fra toppen</strong></p>
+<h3 id="main-layout">Main Layout</h3>
+<pre><code class="lang-csharp">@using Microsoft.AspNetCore.Components.Routing
+@using MudBlazor
+@inherits LayoutComponentBase
+
+&lt;MudThemeProvider /&gt;
+&lt;MudPopoverProvider /&gt;
+&lt;MudDialogProvider /&gt;
+&lt;MudSnackbarProvider /&gt;
+
+&lt;MudLayout&gt;
+    &lt;MudAppBar Elevation=&quot;1&quot;&gt;
+        &lt;AuthorizeView Roles=&quot;Admin&quot;&gt;
+            &lt;MudButton Variant=&quot;Variant.Filled&quot;
+                       Color=&quot;Color.Secondary&quot; 
+                       OnClick=&quot;@ToggleDrawer&quot;&gt;
+                       Admin&lt;/MudButton&gt;
+        &lt;/AuthorizeView&gt;
+
+        &lt;MudNavLink Href=&quot;/&quot; Match=&quot;NavLinkMatch.All&quot;&gt;
+            &lt;MudButton Variant=&quot;Variant.Filled&quot; 
+                       Color=&quot;Color.Primary&quot;&gt;
+                       Home&lt;/MudButton&gt;
+        &lt;/MudNavLink&gt;
+
+        &lt;AuthorizeView Roles=&quot;Admin, Judge, DogHandler&quot;&gt;
+            &lt;Authorized&gt;
+                &lt;MudNavLink Href=&quot;/logout&quot; Match=&quot;NavLinkMatch.All&quot;&gt;
+                    &lt;MudButton Variant=&quot;Variant.Filled&quot; 
+                               Color=&quot;Color.Primary&quot;&gt;
+                               Logout&lt;/MudButton&gt;
+                &lt;/MudNavLink&gt;
+            &lt;/Authorized&gt;
+            &lt;NotAuthorized&gt;
+                &lt;MudNavLink Href=&quot;/login&quot;&gt;
+                    &lt;MudButton Variant=&quot;Variant.Filled&quot; 
+                               Color=&quot;Color.Primary&quot;&gt;
+                               Login&lt;/MudButton&gt;
+                &lt;/MudNavLink&gt;
+            &lt;/NotAuthorized&gt;
+        &lt;/AuthorizeView&gt;
+    &lt;/MudAppBar&gt;
+
+    &lt;MudDrawer @bind-Open=&quot;@_open&quot; 
+               ClipMode=&quot;DrawerClipMode.Always&quot; 
+               Elevation=&quot;2&quot; 
+               Variant=&quot;@DrawerVariant.Temporary&quot; 
+               Color=&quot;Color.Primary&quot;&gt;
+        
+        &lt;MudDrawerHeader&gt;
+            &lt;MudText Typo=&quot;Typo.h6&quot;&gt;Admin&lt;/MudText&gt;
+        &lt;/MudDrawerHeader&gt;
+
+        &lt;MudNavMenu&gt;
+            &lt;MudNavLink Match=&quot;NavLinkMatch.All&quot; 
+                        Href=&quot;/admin/guide&quot; 
+                        Icon=&quot;@Icons.Material.Filled.People&quot; 
+                        IconColor=&quot;Color.Inherit&quot;&gt;
+                        Admin Guide&lt;/MudNavLink&gt;
+            
+            &lt;MudNavLink Match=&quot;NavLinkMatch.All&quot; 
+                        Href=&quot;/admin/users&quot; 
+                        Icon=&quot;@Icons.Material.Filled.LocalLibrary&quot; 
+                        IconColor=&quot;Color.Inherit&quot;&gt;
+                        Manage Users&lt;/MudNavLink&gt;
+
+            &lt;MudNavGroup Title=&quot;Edit Template&quot; 
+                         Icon=@Icons.Material.Filled.AddModerator 
+                         IconColor=&quot;Color.Inherit&quot; 
+                         Expanded=&quot;false&quot;&gt;
+
+                &lt;MudNavLink Match=&quot;NavLinkMatch.All&quot; 
+                            Href=&quot;/admin/template&quot;&gt;
+                            Rallyfield Templates&lt;/MudNavLink&gt;
+
+                &lt;MudNavLink Match=&quot;NavLinkMatch.All&quot; 
+                            Href=&quot;/admin/rallyfield-rules&quot;&gt;
+                            Rallyfield Rules&lt;/MudNavLink&gt;
+
+            &lt;/MudNavGroup&gt;
+
+            &lt;MudNavLink Match=&quot;NavLinkMatch.All&quot; 
+                        Href=&quot;/admin/claims&quot; 
+                        Icon=@Icons.Material.Filled.AddModerator 
+                        IconColor=&quot;Color.Inherit&quot;&gt;
+                        Claims&lt;/MudNavLink&gt;
+
+        &lt;/MudNavMenu&gt;
+    &lt;/MudDrawer&gt;
+
+    &lt;MudMainContent&gt;
+        @Body
+    &lt;/MudMainContent&gt;
+&lt;/MudLayout&gt;
+
+@code {
+    private bool _open = false;
+
+    private void ToggleDrawer()
+    {
+        _open = !_open;
+    }
+}
+</code></pre>
+<h3 id="exerciseformcs">ExerciseForm.cs</h3>
+<pre><code class="lang-csharp">@inject ImageProcessingService ImageService
+@inject ExerciseService ExerciseService
+@inject TypeService TypeService
+@inject TempoService TempoService
+@inject ObstacleService ObstacleService;
+
+&lt;MudForm Model=&quot;exercise&quot; 
+         @ref=&quot;form&quot; 
+         Validation=&quot;@(validator.ValidateValue)&quot; 
+         ValidationDelay=&quot;0&quot;&gt;
+
+    &lt;MudTextField @bind-Value=&quot;exercise.Number&quot;
+                  For=&quot;@(() =&gt; exercise.Number)&quot;
+                  Immediate=&quot;true&quot;
+                  Label=&quot;Number&quot;
+                  Variant=&quot;Variant.Outlined&quot;
+                  Class=&quot;mx-4&quot; /&gt;
+
+    &lt;MudTextField @bind-Value=&quot;exercise.Name&quot;
+                  For=&quot;@(() =&gt; exercise.Name)&quot;
+                  Immediate=&quot;true&quot;
+                  Label=&quot;Name*&quot;
+                  Variant=&quot;Variant.Outlined&quot;
+                  Class=&quot;mx-4&quot; /&gt;
+
+    &lt;MudTextField @bind-Value=&quot;exercise.Description&quot;
+                  For=&quot;@(() =&gt; exercise.Description)&quot;
+                  Immediate=&quot;true&quot;
+                  Label=&quot;Description&quot;
+                  Lines=&quot;5&quot;
+                  Variant=&quot;Variant.Outlined&quot;
+                  Class=&quot;mx-4&quot; /&gt;
+
+    &lt;MudField Class=&quot;ma-4&quot; Variant=&quot;Variant.Outlined&quot;&gt;
+
+        &lt;MudText Typo=&quot;Typo.h6&quot; Class=&quot;ma-4&quot;&gt;Side Handling&lt;/MudText&gt;
+
+        &lt;MudCheckBox @ref=&quot;LeftHandledCheckbox&quot;
+                     @bind-Value=&quot;exercise.PositionLeft&quot;
+                     For=&quot;@(() =&gt; exercise.PositionLeft)&quot;
+                     Label=&quot;Left&quot;
+                     Class=&quot;mx-4&quot; /&gt;
+
+        &lt;MudCheckBox @ref=&quot;RightHandledCheckbox&quot;
+                     @bind-Value=&quot;exercise.PositionRight&quot;
+                     For=&quot;@(() =&gt; exercise.PositionRight)&quot;
+                     Label=&quot;Right&quot;
+                     Class=&quot;mx-4&quot; /&gt;
+    &lt;/MudField&gt;
+
+    &lt;MudSelect @ref=&quot;levelSelect&quot;
+               T=&quot;GetLevelTemplate&quot; 
+               @bind-Value=&quot;selectedLevel&quot;
+               ToStringFunc=&quot;@(l =&gt; l.Name)&quot;
+               Variant=&quot;Variant.Outlined&quot;
+               MultiSelection=&quot;false&quot;
+               Label=&quot;Select level&quot;
+               Class=&quot;ma-4&quot;&gt;
+
+        @foreach (var level in levels)
+        {
+            &lt;MudSelectItem T=&quot;GetLevelTemplate&quot; Value=&quot;@level&quot;&gt;
+                @level.Name
+            &lt;/MudSelectItem&gt;
+        }
+    &lt;/MudSelect&gt;
+
+    &lt;MudSelect @ref=&quot;typeSelect&quot;
+               @bind-SelectedValues=&quot;selectedTypes&quot;
+               ToStringFunc=&quot;@(t =&gt; t.Name)&quot;
+               Variant=&quot;Variant.Outlined&quot;
+               MultiSelection=&quot;true&quot;
+               Label=&quot;Select exercise types&quot;
+               Class=&quot;ma-4&quot;&gt;
+
+        @foreach (var type in types)
+        {
+            &lt;MudSelectItem T=&quot;GetTypeTemplate&quot; Value=&quot;@type&quot;&gt;
+                @type.Name
+            &lt;/MudSelectItem&gt;
+        }
+    &lt;/MudSelect&gt;
+
+    &lt;MudSelect @ref=&quot;tempoSelect&quot;
+               @bind-SelectedValues=&quot;selectedTempos&quot;
+               ToStringFunc=&quot;@(t =&gt; t.Name)&quot;
+               Variant=&quot;Variant.Outlined&quot;
+               MultiSelection=&quot;true&quot;
+               Label=&quot;Select exercise tempos&quot;
+               Class=&quot;ma-4&quot;&gt;
+
+        @foreach (var tempo in tempos)
+        {
+            &lt;MudSelectItem T=&quot;GetTempoTemplate&quot; Value=&quot;@tempo&quot;&gt;
+                @tempo.Name
+            &lt;/MudSelectItem&gt;
+        }
+    &lt;/MudSelect&gt;
+
+    &lt;MudSelect @ref=&quot;obstacleSelect&quot;
+               @bind-SelectedValues=&quot;selectedObstacles&quot;
+               ToStringFunc=&quot;@(t =&gt; t.Name)&quot;
+               Variant=&quot;Variant.Outlined&quot;
+               MultiSelection=&quot;true&quot;
+               Label=&quot;Select obstacles&quot;
+               Class=&quot;ma-4&quot;&gt;
+
+        @foreach (var obstacle in obstacles)
+        {
+            &lt;MudSelectItem T=&quot;GetObstacleTemplate&quot; Value=&quot;@obstacle&quot;&gt;
+                @obstacle.Name
+            &lt;/MudSelectItem&gt;
+        }
+    &lt;/MudSelect&gt;
+
+    &lt;MudField Class=&quot;ma-4&quot; Variant=&quot;Variant.Outlined&quot;&gt;
+        &lt;MudStack Class=&quot;pa-4&quot;&gt;
+
+            @if (!string.IsNullOrEmpty(b64))
+            {
+                &lt;MudImage Src=&quot;@b64&quot; Alt=&quot;Uploaded Image&quot; ObjectFit=&quot;ObjectFit.Contain&quot; Width=&quot;100&quot; /&gt;
+            }
+
+            &lt;MudFileUpload @ref=&quot;@imageUpload&quot;
+                           T=&quot;IBrowserFile&quot;
+                           @bind-Files=&quot;uploadedImage&quot;
+                           Accept=&quot;.png, .jpg, .jpeg&quot;
+                           OnFilesChanged=&quot;UploadImageToFormAsync&quot;
+                           MaximumFileCount=&quot;1&quot;&gt;
+
+                &lt;ActivatorContent&gt;
+                    &lt;MudButton Variant=&quot;Variant.Filled&quot;
+                               Color=&quot;Color.Primary&quot;
+                               StartIcon=&quot;@Icons.Material.Filled.CloudUpload&quot;&gt;
+                        Upload image file
+                    &lt;/MudButton&gt;
+                &lt;/ActivatorContent&gt;
+
+            &lt;/MudFileUpload&gt;
+
+        &lt;/MudStack&gt;
+    &lt;/MudField&gt;
+
+    &lt;MudButton Variant=&quot;Variant.Filled&quot;
+               Color=&quot;Color.Primary&quot;
+               Class=&quot;ml-auto&quot;
+               OnClick=&quot;@(async () =&gt; await Submit())&quot;&gt;
+        Save
+    &lt;/MudButton&gt;
+
+&lt;/MudForm&gt;
+
+@code {
+    [Inject] ISnackbar snackbar { get; set; }
+
+    MudForm form                                  = new();
+    MudCheckBox&lt;bool&gt; LeftHandledCheckbox         = new();
+    MudCheckBox&lt;bool&gt; RightHandledCheckbox        = new();
+    MudSelect&lt;GetLevelTemplate&gt; levelSelect       = new();
+    MudSelect&lt;GetTypeTemplate&gt; typeSelect         = new();
+    MudSelect&lt;GetTempoTemplate&gt; tempoSelect       = new();
+    MudSelect&lt;GetObstacleTemplate&gt; obstacleSelect = new();
+    IBrowserFile? uploadedImage;
+    MudFileUpload&lt;IBrowserFile&gt;? imageUpload;
+
+    string b64;
+    CreateExerciseTemplate exercise           = new();
+    CreateExerciseTemplateValidator validator = new();
+
+    GetLevelTemplate selectedLevel = new();
+    List&lt;GetLevelTemplate&gt; levels = [];
+
+    IEnumerable&lt;GetTypeTemplate&gt; selectedTypes                 = [];
+    public List&lt;GetTypeTemplate&gt; types                         = [];
+    IEnumerable&lt;GetTempoTemplate&gt; selectedTempos               = [];
+    public  List &lt;GetTempoTemplate&gt; tempos                     = [];
+    IEnumerable&lt;GetObstacleTemplate&gt; selectedObstacles         = [];
+    public List&lt;GetObstacleTemplate&gt; obstacles                 = [];
+
+    [Parameter] public EventCallback&lt;GetExerciseTemplate&gt; OnExerciseAdded { get; set; }
+
+    public void LoadLevels(List&lt;GetLevelTemplate&gt; levels)
+    {
+        this.levels = levels;
+    }
+    
+    public void LoadPartialTemplateData(List&lt;GetLevelTemplate&gt; levels, List&lt;GetTypeTemplate&gt; types, List&lt;GetTempoTemplate&gt; tempos, List&lt;GetObstacleTemplate&gt; obstacles)
+    {
+        this.levels    = levels;
+        this.types     = types;
+        this.tempos    = tempos;
+        this.obstacles = obstacles;
+        //StateHasChanged();
+    }
+    
+    public void AddNewLevel(GetLevelTemplate level)
+    {
+        levels.Add(level);
+        StateHasChanged();
+    }
+
+    public void AddNewExerciseType(GetTypeTemplate type)
+    {
+        types.Add(type);
+        StateHasChanged();
+    }
+
+    public void AddNewExerciseTempo(GetTempoTemplate tempo)
+    {
+        tempos.Add(tempo);
+        StateHasChanged();
+    }
+
+    public void AddNewObstacle(GetObstacleTemplate obstacle)
+    {
+        obstacles.Add(obstacle);
+        StateHasChanged();
+    }
+
+    public void UpdateLevel(GetLevelTemplate updatedLevel)
+    {
+        var levelToRemove = levels.Find(t =&gt; t.Id == updatedLevel.Id);
+
+        if (levelToRemove is not null)
+        {
+            levels.Remove(levelToRemove);
+            levels.Add(updatedLevel);
+            typeSelect.Clear();
+            StateHasChanged();
+        }
+        else
+        {
+            snackbar.Add(&quot;Could not find type&quot;, Severity.Error);
+            Console.WriteLine(&quot;Could not find type to remove before update.&quot;);
+            return;
+        }
+    }
+
+    public void UpdateExerciseType(GetTypeTemplate updatedType)
+    {
+        var typeToRemove = types.Find(t =&gt; t.Id == updatedType.Id);
+
+        if (typeToRemove is not null)
+        {
+            types.Remove(typeToRemove);
+            types.Add(updatedType);
+            typeSelect.Clear();
+            StateHasChanged();
+        }
+        else
+        {
+            snackbar.Add(&quot;Could not find type&quot;, Severity.Error);
+            Console.WriteLine(&quot;Could not find type to remove before update.&quot;);
+            return;
+        }
+    }
+
+    public void UpdateExerciseTempo(GetTempoTemplate updatedTempo)
+    {
+        var tempoToRemove = tempos.Find(t =&gt; t.Id == updatedTempo.Id);
+
+        if (tempoToRemove is not null)
+        {
+            tempos.Remove(tempoToRemove);
+            tempos.Add(updatedTempo);
+            tempoSelect.Clear();
+            StateHasChanged();
+        }
+        else
+        {
+            snackbar.Add(&quot;Could not find tempo&quot;, Severity.Error);
+            Console.WriteLine(&quot;Could not find tempo to remove before update.&quot;);
+            return;
+        }
+    }
+
+    public void UpdateObstacle(GetObstacleTemplate updatedObstacle)
+    {
+        var obstacleToRemove = obstacles.Find(t =&gt; t.Id == updatedObstacle.Id);
+
+        if (obstacleToRemove is not null)
+        {
+            obstacles.Remove(obstacleToRemove);
+            obstacles.Add(updatedObstacle);
+            obstacleSelect.Clear();
+            StateHasChanged();
+        }
+        else
+        {
+            snackbar.Add(&quot;Could not find type&quot;, Severity.Error);
+            Console.WriteLine(&quot;Could not find type to remove before update.&quot;);
+            return;
+        }
+    }
+
+    public void RemoveExerciseTypeTemplate(GetTypeTemplate type)
+    {
+        types.Remove(type);
+        typeSelect.Clear();
+        StateHasChanged();
+    }
+
+    public void RemoveTempoTemplate(GetTempoTemplate tempo)
+    {
+        tempos.Remove(tempo);
+        tempoSelect.Clear();
+        StateHasChanged();
+    }
+
+    public void RemoveObstacle(GetObstacleTemplate obstacle)
+    {
+        obstacles.Remove(obstacle);
+        obstacleSelect.Clear();
+        StateHasChanged();
+    }
+
+    
+    async Task Submit()
+    {
+        await form.Validate();
+        if (!form.IsValid)
+        {
+            snackbar.Add(&quot;Invalid form&quot;, Severity.Error);
+            return;
+        }
+        try
+        {
+            var createdExercise = await ExerciseService.CreateExerciseAsync(exercise, selectedLevel, selectedTypes, selectedTempos, selectedObstacles, uploadedImage);
+
+            await form.ResetAsync();
+            exercise.PositionLeft = false;
+            exercise.PositionRight = false;
+            await imageUpload.ClearAsync();
+            b64 = string.Empty;
+            await typeSelect.Clear();
+            await tempoSelect.Clear();
+            await obstacleSelect.Clear();
+
+            await OnExerciseAdded.InvokeAsync(createdExercise);
+            snackbar.Add(&quot;Exercise succesfully Saved.&quot;, Severity.Success);
+        }
+        catch (HttpRequestException ex)
+        {
+            snackbar.Add(&quot;An error occurred while saving. Please check your network connection.&quot;, Severity.Error);
+            Console.WriteLine($&quot;HTTP error: {ex.Message}&quot;);
+        }
+        catch (InvalidOperationException ex)
+        {
+            snackbar.Add(&quot;An error occurred while processing the response from the server.&quot;, Severity.Error);
+            Console.WriteLine($&quot;Invalid operation: {ex.Message}&quot;);
+        }
+        catch (Exception ex)
+        {
+            snackbar.Add(&quot;An unexpected error occurred while saving the exercice template.&quot;, Severity.Error);
+            Console.WriteLine($&quot;Unexpected error: {ex.Message}&quot;);
+        }
+    }
+
+    async Task UploadImageToFormAsync()
+    {
+        var fileSizeBytes = uploadedImage.Size;
+
+        try
+        {
+            // Log the initial file size
+            Console.WriteLine($&quot;Initial file size: {fileSizeBytes} bytes&quot;);
+
+            if (fileSizeBytes &gt;= 512000) // Max size for Base64 conversion
+            {
+                Console.WriteLine($&quot;File size exceeds {512000 / 1024 / 1024:F2} MB limit&quot;);
+                snackbar.Add(&quot;Max file size for Base64 conversion is 0.5 MB&quot;, Severity.Warning);
+            }
+
+            b64 = await ImageService.ConvertToBase64Async(uploadedImage);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;Error during upload: {ex.Message}&quot;);
+            snackbar.Add(&quot;An error occurred doing image upload&quot;, Severity.Error);
+        }
+    }
+}
+</code></pre>
+<p>De forskellige dele af en exercise, består af mindre dele som en bruger har valgt i de forudgående forms.
+Jeg har samlet variablerne i <code>LoadPartialTemplateData()</code> som argumenter, for at kunne samle dem,
+og lavet den public, så den kan modtage data fra andre steder i applikationen og opdatere komponenten.</p>
+<p><a href="https://docs.fluentvalidation.net/en/latest/">FluentValidation</a> .NET bibliotek for validering.
+Det er et meget populært og udbredt, men Blazor understøtter det ikke direkte, da det primært er for Server side.
+Da en af hovedårsagerne til at jeg valgte Blazor til min .NET API, var at jeg kunne bruge C# klasser eller records til DTO's, så jeg kunne bruge de samme objekter i både front og backend.
+Ved at bruge de samme objekter til at transportere data mellem front og backend, kan jeg bruge den samme validerings kode i begge ender, i stedet for at holde styr på validering begge steder, eller droppe validering i front end, da det ville være nemmere at holde styr på og det vigtigste at sikre er serveren.</p>
+<p>Med <a href="https://mudblazor.com/components/form#using-fluent-validation">MudBlazor</a> kan jeg bruge Fluent validation i mine DTO's og bruge de DTO's i både Blazor components og i mine endpoints og dermed nå frem til den samme validering i både front- og backend.</p>
+<h3 id="createexercisetemplate">CreateExerciseTemplate</h3>
+<p><code>exercise</code> som er den model jeg bruger for exerciseTemplate formen er en implementering af <code>CreateExerciseTemplate</code>.
+<code>validator</code> er en implementering af <code>CreateExerciseTemplateValidator</code> der validerer <code>CreateExerciseTemplate</code></p>
+<pre><code class="lang-csharp">namespace DogObedience.Shared.Admin.Templates.ExerciseTemplate;
+
+public class CreateExerciseTemplate
+{
+    public bool IsTemplate { get; set; } = true;
+    public int Number { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public bool PositionLeft { get; set; }
+    public bool PositionRight { get; set; }
+    public string Color { get; set; } = string.Empty;
+    public int LevelId { get; set; }
+    public ICollection&lt;CreateTypeTemplate&gt; Types { get; set; } = [];
+    public ICollection&lt;CreateTempoTemplate&gt; Tempos { get; set; } = [];
+    public ICollection&lt;CreateObstacleTemplate&gt; Obstacles { get; set; } = [];
+    public IFormFile? ImageFile { get; set; }
+}
+
+public class CreateExerciseTemplateValidator : AbstractValidator&lt;CreateExerciseTemplate&gt;
+{
+    public CreateExerciseTemplateValidator()
+    {
+        RuleFor(x =&gt; x.Number).NotEmpty();
+        RuleFor(x =&gt; x.Name).NotEmpty();
+        RuleFor(x =&gt; x.Description).NotEmpty();
+        RuleFor(x =&gt; x.ImageFile.Length).LessThanOrEqualTo(512000); // Max size for Base64 conversion
+        RuleFor(x =&gt; x.Types).NotEmpty();
+        RuleFor(x =&gt; x.Tempos).NotEmpty();
+        RuleFor(x =&gt; x.Obstacles).NotEmpty();
+    }
+
+    public Func&lt;object, string, Task&lt;IEnumerable&lt;string&gt;&gt;&gt; ValidateValue =&gt; async (model, propertyName) =&gt;
+    {
+        var result = await ValidateAsync(ValidationContext&lt;CreateExerciseTemplate&gt;.CreateWithOptions((CreateExerciseTemplate)model, x =&gt; x.IncludeProperties(propertyName)));
+        if (result.IsValid)
+            return Array.Empty&lt;string&gt;();
+        return result.Errors.Select(e =&gt; e.ErrorMessage);
+    };
+}
+</code></pre>
+<h3 id="exercisedatagrid">ExerciseDataGrid</h3>
+<p>Er af tilsvarende kompleksitet som ExerciseForm</p>
+<pre><code class="lang-csharp">
+@inject ExerciseService ExerciseService 
+@inject TypeService TypeService
+@inject TempoService TempoService
+@inject ObstacleService ObstacleService;
+@inject ImageProcessingService ImageService
+
+@if (exercises == null || exercises.Count() == 0)
+{
+    &lt;p&gt;No exercise created yet.&lt;/p&gt;
+}
+
+&lt;MudDataGrid T=&quot;GetExerciseTemplate&quot; 
+             Items=&quot;@exercises&quot; 
+             ReadOnly=&quot;@false&quot; 
+             EditMode=&quot;@DataGridEditMode.Form&quot;
+             Bordered=&quot;true&quot; 
+             Dense=&quot;true&quot; 
+             Hover=&quot;true&quot;
+             EditTrigger=&quot;@DataGridEditTrigger.OnRowClick&quot;
+             CommittedItemChanges=&quot;@CommittedItemChanges&quot;&gt;
+
+    &lt;Columns&gt;
+        &lt;PropertyColumn Property=&quot;x =&gt; x.Number&quot; /&gt;
+        &lt;PropertyColumn Property=&quot;x =&gt; x.Name&quot; /&gt;
+        &lt;PropertyColumn Property=&quot;x =&gt; x.Description&quot; /&gt;
+
+        &lt;PropertyColumn Property=&quot;x =&gt; x.Types&quot;&gt;
+            &lt;EditTemplate&gt;
+                &lt;MudSelect T=&quot;GetTypeTemplate&quot;
+                           @bind-SelectedValues=&quot;@context.Item.Types&quot;
+                           ToStringFunc=&quot;@(t =&gt; t.Name)&quot;
+                           MultiSelection=&quot;true&quot;&gt;
+
+                    @foreach (var type in types)
+                    {
+                    &lt;MudSelectItem T=&quot;GetTypeTemplate&quot;&gt;
+                            @type.Name
+                        &lt;/MudSelectItem&gt;
+                    }
+
+                &lt;/MudSelect&gt;
+            &lt;/EditTemplate&gt;
+            &lt;CellTemplate&gt;
+                @string.Join(&quot;, &quot;, context.Item.Types.Select(x =&gt; x.Name))
+            &lt;/CellTemplate&gt;
+        &lt;/PropertyColumn&gt;
+
+        &lt;PropertyColumn Property=&quot;x =&gt; x.Tempos&quot;&gt;
+            &lt;EditTemplate&gt;
+                &lt;MudSelect T=&quot;GetTempoTemplate&quot;
+                           @bind-SelectedValues=&quot;@context.Item.Tempos&quot;
+                           ToStringFunc=&quot;@(t =&gt; t.Name)&quot;
+                           MultiSelection=&quot;true&quot;&gt;
+
+                    @foreach (var tempo in tempos)
+                    {
+                    &lt;MudSelectItem T=&quot;GetTempoTemplate&quot;&gt;
+                            @tempo.Name
+                        &lt;/MudSelectItem&gt;
+                    }
+
+                &lt;/MudSelect&gt;
+            &lt;/EditTemplate&gt;
+            &lt;CellTemplate&gt;
+                @string.Join(&quot;, &quot;, context.Item.Tempos.Select(x =&gt; x.Name))
+            &lt;/CellTemplate&gt;
+        &lt;/PropertyColumn&gt;
+
+        &lt;PropertyColumn Property=&quot;x =&gt; x.PositionLeft&quot; Title=&quot;Left Handled&quot;&gt;
+            &lt;EditTemplate&gt;
+                &lt;MudCheckBox @bind-Value=&quot;context.Item.PositionLeft&quot; Label=&quot;Left&quot;/&gt;
+            &lt;/EditTemplate&gt;
+        &lt;/PropertyColumn&gt;
+
+        &lt;PropertyColumn Property=&quot;x =&gt; x.PositionRight&quot; Title=&quot;Right Handled&quot;&gt;
+            &lt;EditTemplate&gt;
+                &lt;MudCheckBox @bind-Value=&quot;context.Item.PositionRight&quot; Label=&quot;Right&quot;/&gt;
+            &lt;/EditTemplate&gt;
+        &lt;/PropertyColumn&gt;
+
+        &lt;PropertyColumn Property=&quot;x =&gt; x.Obstacles&quot;&gt;
+            &lt;EditTemplate&gt;
+                &lt;MudSelect T=&quot;GetObstacleTemplate&quot;
+                           @bind-SelectedValues=&quot;@context.Item.Obstacles&quot;
+                           ToStringFunc=&quot;@(o =&gt; o.Name)&quot;
+                           MultiSelection=&quot;false&quot;&gt;
+
+                    @foreach (var obstacle in obstacles)
+                    {
+                        &lt;MudSelectItem T=&quot;GetObstacleTemplate&quot;&gt;
+                            @obstacle.Name
+                        &lt;/MudSelectItem&gt;
+                    }
+
+                &lt;/MudSelect&gt;
+            &lt;/EditTemplate&gt;
+            &lt;CellTemplate&gt;
+                &lt;MudStack Row=&quot;true&quot; Class=&quot;d-flex align-center&quot;&gt;
+                    
+                    &lt;MudText&gt;@string.Join(&quot;, &quot;, context.Item.Obstacles.Select(x =&gt; x.Name))&lt;/MudText&gt;
+                    
+                    @if (context.Item.B64 is not null)
+                    {
+                        &lt;MudImage Src=&quot;@context.Item.B64&quot;
+                                  Alt=&quot;Exercise Image&quot;
+                                  ObjectFit=&quot;ObjectFit.Contain&quot;
+                                  Width=&quot;100&quot; /&gt;
+                    }
+                    else
+                    {
+                        &lt;p&gt;No image available&lt;/p&gt;
+                    }
+
+                &lt;/MudStack&gt;
+            &lt;/CellTemplate&gt;
+        &lt;/PropertyColumn&gt;
+
+        &lt;PropertyColumn Property=&quot;x =&gt; x.ImageFile&quot; Title=&quot;Image&quot;&gt;
+            &lt;EditTemplate&gt;
+                &lt;MudFileUpload @ref=&quot;@imageUpload&quot;
+                               T=&quot;IBrowserFile&quot;
+                               @bind-Files=&quot;@context.Item.ImageFile&quot;
+                               Accept=&quot;.png, .jpg, .jpeg&quot;
+                               OnFilesChanged=&quot;async (e) =&gt; await UploadImageToDataGridAsync(context.Item.ImageFile)&quot;
+                               MaximumFileCount=&quot;1&quot;&gt;
+                    &lt;ActivatorContent&gt;
+                        &lt;MudButton Variant=&quot;Variant.Filled&quot;
+                                   Color=&quot;Color.Primary&quot;
+                                   StartIcon=&quot;@Icons.Material.Filled.CloudUpload&quot;&gt;
+                            Upload image file
+                        &lt;/MudButton&gt;
+                    &lt;/ActivatorContent&gt;
+                &lt;/MudFileUpload&gt;
+            &lt;/EditTemplate&gt;
+            &lt;CellTemplate&gt;
+                @if (context.Item.B64 is not null)
+                {
+                    &lt;MudImage Src=&quot;@context.Item.B64&quot;
+                              Alt=&quot;Exercise Image&quot; 
+                              ObjectFit=&quot;ObjectFit.Contain&quot; 
+                              Width=&quot;100&quot; /&gt;
+                }
+                else
+                {
+                    &lt;p&gt;No image available&lt;/p&gt;
+                }
+            &lt;/CellTemplate&gt;
+        &lt;/PropertyColumn&gt;
+
+        &lt;TemplateColumn CellClass=&quot;d-flex justify-end&quot;&gt;
+            &lt;CellTemplate&gt;
+                &lt;MudIconButton 
+                    Size=&quot;@Size.Medium&quot; 
+                    Icon=&quot;@Icons.Material.Filled.Delete&quot; 
+                    Color=&quot;Color.Error&quot;
+                    OnClick=&quot;async (e) =&gt; await DeleteExerciseAsync(context.Item.Id)&quot; /&gt;
+            &lt;/CellTemplate&gt;
+        &lt;/TemplateColumn&gt;
+
+    &lt;/Columns&gt;
+&lt;/MudDataGrid&gt;
+
+@code {
+
+    [Inject] ISnackbar snackbar { get; set; }
+
+    string dataGridB64 = string.Empty;
+    IBrowserFile image;
+    MudFileUpload&lt;IBrowserFile&gt; imageUpload;
+    List&lt;GetLevelTemplate&gt; levels        = [];
+    List&lt;GetExerciseTemplate&gt; exercises  = [];
+    List&lt;GetTypeTemplate&gt; types          = [];
+    List&lt;GetTempoTemplate&gt; tempos        = [];
+    List&lt;GetObstacleTemplate&gt; obstacles  = [];
+
+    public void LoadExerciseTemplates(List&lt;GetExerciseTemplate&gt; exercises)
+    {
+        this.exercises = exercises;
+        StateHasChanged();
+    }
+
+    public void LoadPartialTemplateData(List&lt;GetLevelTemplate&gt; levels, List&lt;GetTypeTemplate&gt; types, List&lt;GetTempoTemplate&gt; tempos, List&lt;GetObstacleTemplate&gt; obstacles)
+    {
+        this.levels    = levels;
+        this.types     = types;
+        this.tempos    = tempos;
+        this.obstacles = obstacles;
+        StateHasChanged();
+    }
+
+    public void AddNewExercise(GetExerciseTemplate newExerciseType)
+    {
+        exercises.Add(newExerciseType);
+        StateHasChanged();
+    }
+
+    async Task CommittedItemChanges(GetExerciseTemplate exercise)
+    {
+        try
+        {
+            var updatedExercise = await ExerciseService.UpdateExerciseTemplateAsync(exercise);
+
+            var exerciseToRemove = exercises.Find(e =&gt; e.Id == exercise.Id);
+            
+            if(exercise is not null)
+            {
+                exercises.Remove(exerciseToRemove);
+                exercises.Add(updatedExercise);
+            }
+
+            StateHasChanged();
+            snackbar.Add(&quot;Exercise succesfully updated&quot;, Severity.Success);
+        }
+        catch (HttpRequestException ex)
+        {
+            snackbar.Add(&quot;An error occurred while saving. Please check your network connection.&quot;, Severity.Error);
+            Console.WriteLine($&quot;HTTP error: {ex.Message}&quot;);
+        }
+        catch (InvalidOperationException ex)
+        {
+            snackbar.Add(&quot;An error occurred while processing the response from the server.&quot;, Severity.Error);
+            Console.WriteLine($&quot;Invalid operation: {ex.Message}&quot;);
+        }
+        catch (Exception ex)
+        {
+            snackbar.Add(&quot;An unexpected error occurred while updating exercise template.&quot;, Severity.Error);
+            Console.WriteLine($&quot;Unexpected error: {ex.Message}&quot;);
+        }
+    }
+
+    async Task DeleteExerciseAsync(int? id)
+    {
+        try
+        {
+            await ExerciseService.DeleteExerciseTemplateAsync(id);
+            var exerciseToRemove = exercises.Find(p =&gt; p.Id == id);
+            if (exerciseToRemove is not null)
+            {
+                exercises.Remove(exerciseToRemove);
+                snackbar.Add(&quot;Exercise template successfully deleted.&quot;, Severity.Success);
+            }
+            else
+            {
+                snackbar.Add(&quot;No exercise template found with the given ID.&quot;, Severity.Warning);
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            snackbar.Add(&quot;An error occurred while saving. Please check your network connection.&quot;, Severity.Error);
+            Console.WriteLine($&quot;HTTP error: {ex.Message}&quot;);
+        }
+        catch (InvalidOperationException ex)
+        {
+            snackbar.Add(&quot;An error occurred while processing the response from the server.&quot;, Severity.Error);
+            Console.WriteLine($&quot;Invalid operation: {ex.Message}&quot;);
+        }
+        catch (Exception ex)
+        {
+            snackbar.Add(&quot;An unexpected error occurred while deleting exercise templates.&quot;, Severity.Error);
+            Console.WriteLine($&quot;Unexpected error: {ex.Message}&quot;);
+        }
+    }
+
+    async Task UploadImageToDataGridAsync(IBrowserFile image) =&gt; dataGridB64 = await ImageService.ConvertToBase64Async(image);
+}
+</code></pre>
+<h3 id="exerciseservice">ExerciseService</h3>
+<p>Har ansvaret for at send og modtage data fra Serveren.
+Da jeg ikke kunne sende en fil som en del af et C# object, men stadig skulle sende 1 object til serveren, endte det med
+at jeg måtte bruge et <a href="https://learn.microsoft.com/en-us/dotnet/api/system.net.http.multipartformdatacontent?view=net-8.0">multipartformdatacontent</a> og så mappe hver property til en navngiven multipartformdata property.
+Jeg skulle så samtidig sørge for at det endpoint jeg sender multipartformdata objektet til, er sat op så at det kan modtage et objekt der har de samme property navne og variabler.</p>
+<p>Hovedårsagen til denne kompleksitet er at man ikke kan stole på hvad som bliver uploaded på Client side.
+Havde koden været på serveren, havde den været mere sikker, og jeg ville kunne scanne den for virus og sende den direkte til en database eller et <a href="https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction">blob storage</a>.</p>
+<pre><code class="lang-csharp">namespace DogObedience.Client.Features.Admin.Templates.ExerciseTemplate;
+
+public class ExerciseService
+{
+    private readonly HttpClient _httpClient;
+    private readonly ImageProcessingService _imageProcessingService;
+
+    public ExerciseService(HttpClient httpClient, ImageProcessingService imageProcessingService)
+    {
+        _httpClient = httpClient;
+        _imageProcessingService = imageProcessingService;
+    }
+
+    public async Task&lt;GetExerciseTemplate&gt; CreateExerciseAsync(
+        CreateExerciseTemplate exercise, 
+        GetLevelTemplate selectedLevel, 
+        IEnumerable&lt;GetTypeTemplate&gt; selectedTypes,
+        IEnumerable&lt;GetTempoTemplate&gt; selectedTempos,
+        IEnumerable&lt;GetObstacleTemplate&gt; selectedObstacles,
+        IBrowserFile imageFile)
+    {
+        try
+        {
+            var content = new MultipartFormDataContent
+            {
+                // Exercise template data
+                { new StringContent(exercise.Number.ToString()), &quot;Number&quot; },
+                { new StringContent(exercise.Name), &quot;Name&quot; },
+                { new StringContent(exercise.Description), &quot;Description&quot; },
+                { new StringContent(exercise.PositionLeft.ToString()), &quot;PositionLeft&quot; },
+                { new StringContent(exercise.PositionRight.ToString()), &quot;PositionRight&quot; },
+
+                // Level template data
+                { new StringContent(selectedLevel.Id.ToString()), &quot;LevelId&quot; },
+                { new StringContent(selectedLevel.Name), &quot;Level.Name&quot; },
+                { new StringContent(selectedLevel.Color), &quot;Color&quot; },
+            };
+            
+            // Types
+            int typeIndex = 0;
+            foreach (var type in selectedTypes)
+            {
+                content.Add(new StringContent(type.IsTemplate.ToString()), $&quot;Types[{typeIndex}].IsTemplate&quot;);
+                content.Add(new StringContent(type.Name), $&quot;Types[{typeIndex}].Name&quot;);
+                typeIndex++;
+            }
+            
+            // Tempos
+            int tempoIndex = 0;
+            foreach (var tempo in selectedTempos)
+            {
+                content.Add(new StringContent(tempo.IsTemplate.ToString()), $&quot;Tempos[{tempoIndex}].IsTemplate&quot;);
+                content.Add(new StringContent(tempo.Name), $&quot;Tempos[{tempoIndex}].Name&quot;);
+                tempoIndex++;
+            }
+            
+            // Obstacles
+            int obstacleIndex = 0;
+            foreach (var obstacle in selectedObstacles)
+            {
+                content.Add(new StringContent(obstacle.IsTemplate.ToString()), $&quot;Obstacles[{obstacleIndex}].IsTemplate&quot;);
+                content.Add(new StringContent(obstacle.Name), $&quot;Obstacles[{obstacleIndex}].Name&quot;);
+                content.Add(new StringContent(obstacle.B64), $&quot;Obstacles[{obstacleIndex}].B64&quot;);
+                obstacleIndex++;
+            }
+            
+            // ImageFile
+            await using var fileStream = imageFile.OpenReadStream();
+            using var streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue(imageFile.ContentType);
+            
+            content.Add(streamContent, &quot;ImageFile&quot;, imageFile.Name);
+            
+            var response = await _httpClient.PostAsync(&quot;api/admin/field-template/level-template/exercise-template&quot;, content);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($&quot;Request failed with status code {response.StatusCode}: {errorContent}&quot;);
+            }
+
+            var createdExercise = await response.Content.ReadFromJsonAsync&lt;GetExerciseTemplate&gt;();
+            if (createdExercise is not null)
+            {
+                return createdExercise;
+            }
+
+            throw new InvalidOperationException(&quot;Failed to deserialize the response content.&quot;);
+
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($&quot;An HTTP error occurred: {ex.Message}&quot;);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;An unexpected error occurred: {ex.Message}&quot;);
+            throw;
+        }
+    }
+
+    public async Task&lt;List&lt;GetExerciseTemplate&gt;&gt; GetExerciseTemplatesAsync()
+    {
+        try
+        {
+            var response = await _httpClient.GetAsync(&quot;api/admin/field-template/level-template/exercise-template&quot;);
+            if (!response.IsSuccessStatusCode)
+            {
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                    return [];
+
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($&quot;Request failed with status code {response.StatusCode}: {errorContent}&quot;);
+
+            }
+
+            var exercises = await response.Content.ReadFromJsonAsync&lt;List&lt;GetExerciseTemplate&gt;&gt;();
+            if (exercises is not null)
+            {
+                return exercises;
+            }
+
+            throw new InvalidOperationException(&quot;Failed to deserialize the response content.&quot;);
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($&quot;An HTTP error occurred: {ex.Message}&quot;);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;An unexpected error occurred: {ex.Message}&quot;);
+            throw;
+        }
+    }
+
+    public async Task&lt;GetExerciseTemplate&gt; UpdateExerciseTemplateAsync(GetExerciseTemplate exercise)
+    {
+        if (exercise == null)
+            throw new ArgumentNullException(nameof(exercise), &quot;Exercise cannot be null.&quot;);
+
+        if (exercise.Level == null)
+            throw new ArgumentNullException(nameof(exercise.Level), &quot;Exercise.Level cannot be null.&quot;);
+
+        try
+        {
+            var content = new MultipartFormDataContent
+            {
+                // Exercise template data
+                { new StringContent(exercise.Id.ToString()), &quot;Id&quot; },
+                { new StringContent(exercise.IsTemplate.ToString()), &quot;IsTemplate&quot; },
+                { new StringContent(exercise.Number.ToString()), &quot;Number&quot; },
+                { new StringContent(exercise.Name), &quot;Name&quot; },
+                { new StringContent(exercise.Description), &quot;Description&quot; },
+                { new StringContent(exercise.PositionLeft.ToString()), &quot;PositionLeft&quot; },
+                { new StringContent(exercise.PositionRight.ToString()), &quot;PositionRight&quot; },
+                { new StringContent(exercise.B64), &quot;B64&quot; },
+                
+                // Level template data
+                { new StringContent(exercise.LevelId.ToString()), &quot;LevelId&quot; },
+                { new StringContent(exercise.Level.Name), &quot;Level.Name&quot; },
+                { new StringContent(exercise.Level.Color), &quot;Level.Color&quot; }
+            };
+
+            // Types
+            int typeIndex = 0;
+            foreach (var type in exercise.Types)
+            {
+                content.Add(new StringContent(type.Id.ToString()), $&quot;Types[{typeIndex}].Id&quot;);
+                content.Add(new StringContent(type.IsTemplate.ToString()), $&quot;Types[{typeIndex}].IsTemplate&quot;);
+                content.Add(new StringContent(type.Name), $&quot;Types[{typeIndex}].Name&quot;);
+                typeIndex++;
+            }
+
+            // Tempos
+            int tempoIndex = 0;
+            foreach (var tempo in exercise.Tempos)
+            {
+                content.Add(new StringContent(tempo.Id.ToString()), $&quot;Tempos[{tempoIndex}].Id&quot;);
+                content.Add(new StringContent(tempo.IsTemplate.ToString()), $&quot;Tempos[{tempoIndex}].IsTemplate&quot;);
+                content.Add(new StringContent(tempo.Name), $&quot;Tempos[{tempoIndex}].Name&quot;);
+                tempoIndex++;
+            }
+
+            // Obstacles
+            int obstacleIndex = 0;
+            foreach (var obstacle in exercise.Obstacles)
+            {
+                content.Add(new StringContent(obstacle.Id.ToString()), $&quot;Obstacles[{obstacleIndex}].Id&quot;);
+                content.Add(new StringContent(obstacle.IsTemplate.ToString()), $&quot;Obstacles[{obstacleIndex}].IsTemplate&quot;);
+                content.Add(new StringContent(obstacle.Name), $&quot;Obstacles[{obstacleIndex}].Name&quot;);
+                
+                if (exercise.ImageFile is not null)
+                {
+                    var b64 = await _imageProcessingService.ConvertToBase64Async(exercise.ImageFile);
+
+                    content.Add(new StringContent(b64), $&quot;Obstacles[{obstacleIndex}].B64&quot;);
+                }
+                else
+                {
+                    content.Add(new StringContent(exercise.B64), $&quot;Obstacles[{obstacleIndex}].B64&quot;);
+                }
+
+                obstacleIndex++;
+            }
+
+            var response = await _httpClient.PutAsync($&quot;api/admin/field-template/level-template/exercise-template/{exercise.Id}&quot;, content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($&quot;Request failed with status code {response.StatusCode}: {errorContent}&quot;);
+            }
+
+            var updatedExercise = await response.Content.ReadFromJsonAsync&lt;GetExerciseTemplate&gt;();
+            if (updatedExercise is not null)
+            {
+                return updatedExercise;
+            }
+
+            throw new InvalidOperationException(&quot;Failed to deserialize the response content.&quot;);
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($&quot;An HTTP error occurred: {ex.Message}&quot;);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;An unexpected error occurred: {ex.Message}&quot;);
+            throw;
+        }
+    }
+
+    public async Task DeleteExerciseTemplateAsync(int? id)
+    {
+        if (id is null)
+        {
+            throw new ArgumentNullException(nameof(id), &quot;ID cannot be null&quot;);
+        }
+
+        try
+        {
+            var response = await _httpClient.DeleteAsync($&quot;api/admin/field-template/level-template/exercise-template/{id}&quot;);
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await response.Content.ReadAsStringAsync();
+                throw new HttpRequestException($&quot;Request failed with status code {response.StatusCode}: {errorContent}&quot;);
+            }
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.WriteLine($&quot;An HTTP error occurred: {ex.Message}&quot;);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($&quot;An unexpected error occurred: {ex.Message}&quot;);
+            throw;
+        }
+    }
+}
+</code></pre>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/dadaPipes/dadapipes.github.io/blob/main/udvikling/Blazor.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

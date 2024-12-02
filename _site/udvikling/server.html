@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Server | dadaPipes </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Server | dadaPipes ">
+      
+      
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/udvikling/server.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/pair-of-socks-50.png" alt="dadaPipes">
+            dadaPipes
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="server">Server</h1>
+
+<h3 id="controller">Controller</h3>
+<p><code>CreateExerciseTemplate</code> og <code>UpdateExerciseTemplate</code> er begge de samme objekter som er brugt i Blazor komponenterne.
+Det vil sige at de har den samme validering. Hvis der skulle være en ondsindet bruger der forsøger sig med at sende korupt data ned til serveren, Fx 150% rabat, så får brugeren ikke penge tilbage, hver gang at de køber noget.
+Nu er dette ikke en online shop, men ideen er den samme. Vi vil kun have saniteret data ned til vores server, hvor de basekyttede dele af forretings logikken ligger.</p>
+<p>Det er ikke altid at det er nok at sanitere data ved kun at lade bestemte typer af data med bestemte navne få adgang.
+Filer kan gå hen og være et et våben, som <a href="https://frpnet.net/wp-content/uploads/2016/02/Kryptonite-Batman-V-Superman-1024x569.jpg">kryptonit</a> er for Superman. Man ved aldrig hvad der gemmer sig, uanset hvad file typen er, da det kan <a href="https://cloudprotection.withsecure.com/blog/2024/05/30/countering-the-risks-of-file-type-spoofing-in-cybersecurity/#:%7E:text=Attackers%20often%20employ%20a%20simple%20trick%20called%20file,like%20a%20text%20%28.txt%29%20or%20image%20file%20%28.jpg%29.">spoofes</a>. Det har ikke været et særligt højt krav, og har derfor ikke haft et så stort fokus, da det er meget få og betroede brugere der kommer til at have adgang til at uploade filer. Derfor er det ikke noget der er blevet implementeret.</p>
+<p>Man kan bruge data annotations til at få ASP.NET Core til at lave json output som kan bruges af biblioteker som Swagger til at lave testbar dokumentation.
+Eksemplet herunder vil dokumentere at enpointed kan give en Status code 400 BadRequest.<br>
+<code>[ProducesResponseType(StatusCodes.Status400BadRequest)]</code></p>
+<p>Hvad jeg så fandt ud af senere hen var at det var fuldstændigt unødigt, da de kan dokumentere sig selv med <a href="https://learn.microsoft.com/en-us/aspnet/core/web-api/advanced/conventions?view=aspnetcore-8.0">web API conventions</a>.
+Så sparer man da de linier kode.</p>
+<pre><code class="lang-csharp">namespace DogObedience.Server.Features.Admin.Templates.ExerciseTemplate;
+
+[ApiExplorerSettings(GroupName = &quot;admin/templates&quot;)]
+[Authorize(Roles = &quot;Admin&quot;)]
+[Route(&quot;api/admin/field-template/level-template/exercise-template&quot;)]
+[ApiController]
+
+public class ExerciseController : ControllerBase
+{
+    private readonly ExerciseService _exerciseService;
+
+    public ExerciseController(ExerciseService service)
+    {
+        _exerciseService = service;
+    }
+
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(GetExerciseTemplate))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task&lt;IActionResult&gt; CreateExerciseTemplate([FromForm] CreateExerciseTemplate exercise)
+    {
+        var result = await _exerciseService.CreateExerciseTemplateAsync(exercise);
+
+        return StatusCode(201, result.Value);
+    }
+
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List&lt;GetExerciseTemplate&gt;))]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task&lt;IActionResult&gt; GetAllExerciseTemplates()
+    {
+        var result = await _exerciseService.GetAllExerciseTemplatesAsync();
+
+        if (result.IsFailed)
+            return NotFound(result.Errors);
+
+        return Ok(result.Value);
+    }
+
+    [HttpPut(&quot;{id}&quot;)]
+    public async Task&lt;IActionResult&gt; UpdateExerciseTemplate(int id, [FromForm] UpdateExerciseTemplate exercise)
+    {
+        var updatedExercise = await _exerciseService.UpdateExerciseTemplate(id, exercise);
+
+        return Ok(updatedExercise);
+    }
+
+    [HttpDelete(&quot;{id}&quot;)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task&lt;IActionResult&gt; DeleteExerciseTemplate(int id)
+    {
+        var result = await _exerciseService.DeleteExerciseTemplate(id);
+
+        if (result.IsFailed)
+            return NotFound(result.Errors);
+
+        return NoContent();
+    }
+}
+</code></pre>
+<h3 id="service">Service</h3>
+<pre><code class="lang-csharp">public async Task&lt;GetExerciseTemplate&gt; UpdateExerciseTemplate(int dtoId, UpdateExerciseTemplate exerciseToUpdate)
+    {
+        var existingExercise = await _context.Exercises
+                                             .Include(e =&gt; e.Tempos)
+                                             .Include(e =&gt; e.Level)
+                                             .Include(e =&gt; e.Types)
+                                             .Include(e =&gt; e.Obstacles)
+                                             .FirstOrDefaultAsync(e =&gt; e.Id == dtoId)
+                                             ?? throw new Exception(&quot;Exercise template not found.&quot;);
+
+        // Update basic properties of the exercise
+        _context.Entry(existingExercise).CurrentValues.SetValues(exerciseToUpdate);
+
+        // Update the LevelId
+        if (exerciseToUpdate.LevelId != 0)
+        {
+            var existingLevel = await _context.Levels.FirstOrDefaultAsync(l =&gt; l.Id == exerciseToUpdate.LevelId)
+                                 ?? throw new Exception(&quot;Level not found.&quot;);
+
+            existingExercise.LevelId = existingLevel.Id;
+        }
+
+        // Update Types
+        var typesToRemove = existingExercise.Types
+                             .Where(existingType =&gt; exerciseToUpdate.Types.All(t =&gt; t.Id != existingType.Id))
+                             .ToList();
+
+        _context.ExerciseTypes.RemoveRange(typesToRemove);
+
+        foreach (var type in exerciseToUpdate.Types)
+        {
+            var existingType = existingExercise.Types.FirstOrDefault(et =&gt; et.Id == type.Id);
+            if (existingType != null)
+            {
+                _context.Entry(existingType).CurrentValues.SetValues(type);
+            }
+            else
+            {
+                existingExercise.Types.Add(new ExerciseType
+                {
+                    Name = type.Name,
+                    IsTemplate = type.IsTemplate,
+                    ExerciseId = dtoId // Set foreign key
+                });
+            }
+        }
+
+        // Update Tempos
+        var temposToRemove = existingExercise.Tempos
+                             .Where(existingTempo =&gt; exerciseToUpdate.Tempos.All(t =&gt; t.Id != existingTempo.Id))
+                             .ToList();
+
+        _context.ExerciseTempos.RemoveRange(temposToRemove);
+
+        foreach (var tempo in exerciseToUpdate.Tempos)
+        {
+            var existingTempo = existingExercise.Tempos.FirstOrDefault(et =&gt; et.Id == tempo.Id);
+            if (existingTempo != null)
+            {
+                _context.Entry(existingTempo).CurrentValues.SetValues(tempo);
+            }
+            else
+            {
+                existingExercise.Tempos.Add(new ExerciseTempo
+                {
+                    Name = tempo.Name,
+                    IsTemplate = tempo.IsTemplate,
+                    ExerciseId = dtoId // Set foreign key
+                });
+            }
+        }
+
+        // Update Obstacles
+        var obstaclesToRemove = existingExercise.Obstacles
+                                 .Where(existingObstacle =&gt; exerciseToUpdate.Obstacles.All(o =&gt; o.Id != existingObstacle.Id))
+                                 .ToList();
+
+        _context.Obstacles.RemoveRange(obstaclesToRemove);
+
+        foreach (var obstacle in exerciseToUpdate.Obstacles)
+        {
+            var existingObstacle = existingExercise.Obstacles.FirstOrDefault(o =&gt; o.Id == obstacle.Id);
+            if (existingObstacle != null)
+            {
+                _context.Entry(existingObstacle).CurrentValues.SetValues(obstacle);
+            }
+            else
+            {
+                existingExercise.Obstacles.Add(new Obstacle
+                {
+                    Name = obstacle.Name,
+                    IsTemplate = obstacle.IsTemplate,
+                    B64 = obstacle.B64,
+                    ExerciseId = dtoId // Set foreign key
+                });
+            }
+        }
+
+        // Save changes to the database
+        await _context.SaveChangesAsync();
+
+        // Map the updated exercise to the DTO and return
+        var updatedExercise = _map.ToGetExercise(existingExercise);
+
+        return updatedExercise;
+    }
+
+    async Task&lt;string&gt; ConvertToB64(IFormFile image)
+    {
+        await using var ms = new MemoryStream();
+        await image.CopyToAsync(ms);
+        var bytes = ms.ToArray();
+        var b64 = Convert.ToBase64String(bytes);
+
+        return $&quot;data:{image.ContentType};base64,{b64}&quot;;
+    }
+</code></pre>
+<h4 id="mapper">Mapper</h4>
+<pre><code class="lang-csharp">public void UpdateToEntity(Exercise e, UpdateExerciseTemplate dto)
+    {
+        // Update basic properties
+        e.Id            = dto.Id;
+        e.Number        = dto.Number;
+        e.IsTemplate    = dto.IsTemplate;
+        e.Name          = dto.Name;
+        e.Description   = dto.Description;
+        e.PositionLeft  = dto.PositionLeft;
+        e.PositionRight = dto.PositionRight;
+        e.B64           = dto.B64;
+        e.LevelId       = dto.LevelId;
+        // Remove types that exist in the database but not in the DTO
+        var typesToRemove = e.Types
+            .Where(existingType =&gt; !dto.Types.Any(dtoType =&gt; dtoType.Id == existingType.Id))
+            .ToList();
+
+        foreach (var typeToRemove in typesToRemove)
+        {
+            e.Types.Remove(typeToRemove);
+        }
+
+        // Add or update types from DTO
+        foreach (var type in dto.Types)
+        {
+            var existingType = e.Types.FirstOrDefault(et =&gt; et.Id == type.Id);
+            if (existingType != null)
+            {
+                // Update existing entity
+                existingType.IsTemplate = false;
+                existingType.Name = type.Name;
+            }
+            else
+            {
+                // Add new entity
+                e.Types.Add(new ExerciseType
+                {
+                    IsTemplate = false,
+                    Name = type.Name
+                });
+            }
+        }
+
+        // Update Tempos
+        // Find existing tempos to remove
+        var temposToRemove = e.Tempos
+            .Where(existingTempo =&gt; dto.Tempos.All(dtoTempo =&gt; dtoTempo.Id != existingTempo.Id))
+            .ToList();
+
+        foreach (var tempoToRemove in temposToRemove)
+        {
+            e.Tempos.Remove(tempoToRemove);
+        }
+
+        // Add or update tempos from DTO
+        foreach (var tempoDto in dto.Tempos)
+        {
+            var existingTempo = e.Tempos.FirstOrDefault(et =&gt; et.Id == tempoDto.Id);
+            if (existingTempo != null)
+            {
+                // Update existing entity
+                existingTempo.Name = tempoDto.Name;
+            }
+            else
+            {
+                // Add new entity
+                e.Tempos.Add(new ExerciseTempo
+                {
+                    IsTemplate = false,
+                    Name = tempoDto.Name
+                    
+                });
+            }
+        }
+    }
+</code></pre>
+<p>De metoder der er gennemgået her er nok til den slemme side når det kommer til kompleksitet.
+Men det illusterer meget godt hvordan mindre at målet med færre driftomkostninger kan få implementerings- og vedligeldelsesomkostningerne til at stige.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/dadaPipes/dadapipes.github.io/blob/main/udvikling/server.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          <span>Made with <a href="https://dotnet.github.io/docfx">docfx</a></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

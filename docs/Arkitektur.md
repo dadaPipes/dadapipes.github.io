@@ -303,9 +303,19 @@ Man ser ofte, når man læser om arkitektur, at en bestemt arkitektur passe godt
 Baseret på hvor kompleks den er, hvor nem den er at overskue, hvad teamet kender til, eller andre udvikler baserede parametre.
 Men det er som nævnt baseret på hvad man tænker som udvikler.
 
-Det der burde være i fokus er ikke noget af det overnævnte, men hvad kravene til applikationen er og hvad der passer sig bedst til applikationen.
+Det der burde være i fokus er ikke noget af det overnævnte, men hvad kravene til applikationen er og hvad der passer sig bedst til applikationen. Jo mere kompliseret applikationen er, jo mere koster det at udvikle og vedligeholde.
+
+```mermaid
+xychart-beta
+  title "Monthly Sales Data"
+  x-axis [Jan, Feb, Mar, Apr]
+  y-axis "Sales ($)" 0 --> 10000
+  line [8000, 6000, 4000, 2000]
+  line [2000, 4000, 6000, 8000]
+```
 
 Som udgangspunkt er det en go' ide at holde det simpelt(KISS link), og man skal ikke spekulere på hvad det måske kan udvikle sig til engang i fremtiden (YAGNY link), da det som udgangspunkt vil komplisere kodebasen og kompleksitet koster penge i implementering og vedligehold.
+Der skal derfor være en meget god grund til at man vælger Clean Architektur, for at kunne retfærdigøre den øgede kompleksitet.
 
 Med arkitektur i fokus, så er Vertical Slice rchitecture den mest simple at starte ud med.
 Hver skive har 1 fokusområde og alt hvad den skive skal have er samlet i 1 folder.
@@ -314,7 +324,7 @@ Hvis man engang i fremtiden skulle få brug for at genbruge domæne delen af app
 Repositories har sine fordele men er ikke altid bydende nødvendige. Især ikke når man kan bruge en ORM(Object Relational Mapper) som [EF CORE](https://learn.microsoft.com/en-us/ef/core/), der fungerer som data access lag til en database.
 Skulle man få brug for at skifte til en anden database (YAGNY), så understøtter EF CORE mange [forskellige](https://learn.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli) allerede via DbContext.
 
-Når man afsøger kravene til applikationen, kan man i modeleringsfasen, dele applikationen op i dele som i [Feature Driven Development]([Feature Driven Development](/docs/Udvikling.html?tabs=fdd%2Ccontroller#tabpanel_1_fdd)
-) 'Theme', 'Epic', 'Feature' og 'User Story', som så kan afspejle mappe strukturen i applikationen, hvilket giver sporbarhed imellem modelen og applikationen.
+Når man afsøger kravene til applikationen, kan man i modeleringsfasen, dele applikationen op i dele som i [Feature Driven Development](/docs/Udvikling.html?tabs=fdd%2Ccontroller#tabpanel_1_fdd)
+'Theme', 'Epic', 'Feature' og 'User Story', som så kan afspejle mappe strukturen i applikationen, hvilket giver sporbarhed imellem modelen og applikationen.
 Udover at give sporbarhed, så er der heller ikke så giver det, som applikationen udvikler og udvider sig, en klar afgrænsning af domænet. Noget som ellers kan være svært at nå til enighed i et team.
 På sigt kan, hvis applikationen bliver stor nok og det giver mening, en del af applikationen nemt skilles fra og håndteres som sin egen service, der kan bruges i andre applikationer.

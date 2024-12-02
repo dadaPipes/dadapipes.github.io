@@ -2,21 +2,21 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>API | dadaPipes </title>
+      <title>Dokumentation | dadaPipes </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="API | dadaPipes ">
+      <meta name="title" content="Dokumentation | dadaPipes ">
       
       
-      <link rel="icon" href="../../favicon.ico">
-      <link rel="stylesheet" href="../../public/docfx.min.css">
-      <link rel="stylesheet" href="../../public/main.css">
-      <meta name="docfx:navrel" content="../../toc.html">
-      <meta name="docfx:tocrel" content="../toc.html">
+      <link rel="icon" href="../favicon.ico">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
       
-      <meta name="docfx:rel" content="../../">
+      <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/TechRamme/Api.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/Dokumentation.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -30,7 +30,7 @@
       <meta name="loc:copy" content="Copy">
       <meta name="loc:downloadPdf" content="Download PDF">
 
-      <script type="module" src="./../../public/docfx.min.js"></script>
+      <script type="module" src="./../public/docfx.min.js"></script>
 
       <script>
         const theme = localStorage.getItem('theme') || 'auto'
@@ -43,8 +43,8 @@
     <header class="bg-body border-bottom">
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
-          <a class="navbar-brand" href="../../index.html">
-            <img id="logo" class="svg" src="../../images/pair-of-socks-50.png" alt="dadaPipes">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/pair-of-socks-50.png" alt="dadaPipes">
             dadaPipes
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -85,15 +85,32 @@
         </div>
 
         <article data-uid="">
-<h1 id="api">API</h1>
+<h1 id="dokumentation">Dokumentation</h1>
 
-<p>Skriv om API, controllers, minimal API og FastEdnpoints, helt overordnet.</p>
-<p>Kode Eksempel: Opdatering af det mest komplekse objekt og hvordan det håndteres i interactive Server og interactive WebAssembly.</p>
+<p>Hvad giver mening at dokumentere og hvorfor ?</p>
+<p>Acceptence tests for at PO og udviklere kan se hvad systemet kan, gør og begrænsninger i forskellige komponenter.</p>
+<p>Delte objekter:
+API:
+Utility:
+Domæne modeller:
+Globale objekter:</p>
+<ul>
+<li>Error response i API.</li>
+<li>andre globale objekter EKS (?)</li>
+</ul>
+<p>summary, XML comments, DocFX, <a href="https://marketplace.visualstudio.com/items?itemName=sergeb.GhostDoc">GhostDoc</a></p>
+<p>Automatiseret dokumentation er tidsbesparende, færre fejl og bliver opdateret automatisk.
+API: DocFX statisk documentation og .NET .json der kan bruges til API tests i eksemplevis Swagger.</p>
+<p>Ved at dokumentere Acceptence Tests med xunit.gherkin.quick og DocFX, giver det et overblik for både product owner og udviklere der arbejder op applikationen. Det er især værdifuldt for Product Owner, da de hurtigt kan få et overblik over <strong>hvad</strong> det at systemet gør, uden at kende til detaljerne omkring <strong>hvordan</strong> at det gør det.
+Man sikrer sig også at dokumentationen altid er up to date samtidig med at man sikrer sporbarhed imellem kravene til applikationen og hvordan systemt virker.</p>
+<p>Ved at dokumentere kravene til applikationen, bliver det nemmere for nye udviklere at sætte sig ind i hvad systemet gør.
+Ved at dokumentere de dele af koden som man ved bliver brugt af forskellige andre dele af koden og som kan bruges når der laves nye features, så kan man nøjes med at kigge i dokumentationen frem for at grave ned i implementeringe af de forskellige objekter, for at finde ud af hvordan at de virker. Selve implementeringen at et objekt er ofte ikke så interesant.</p>
+<p>Med en gennemført dokumentation af systemet og kodebasen får man et bedre overblik.</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/TechRamme/Api.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/Dokumentation.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
