@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>Design | dadaPipes </title>
+      <title>Web API | dadaPipes </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="Design | dadaPipes ">
+      <meta name="title" content="Web API | dadaPipes ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -13,10 +13,10 @@
       <meta name="docfx:navrel" content="../toc.html">
       <meta name="docfx:tocrel" content="toc.html">
       
+      <meta name="docfx:rel" content="../">
       
       
-      
-      
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/implementering/WebApi.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -44,7 +44,7 @@
       <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
         <div class="container-xxl flex-nowrap">
           <a class="navbar-brand" href="../index.html">
-            <img id="logo" class="svg" src="../logo.svg" alt="dadaPipes">
+            <img id="logo" class="svg" src="../images/pair-of-socks-50.png" alt="dadaPipes">
             dadaPipes
           </a>
           <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,6 +52,10 @@
           </button>
           <div class="collapse navbar-collapse" id="navpanel">
             <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
             </div>
           </div>
         </div>
@@ -81,42 +85,13 @@
         </div>
 
         <article data-uid="">
-<h1 id="design">Design</h1>
+<h1 id="web-api">Web API</h1>
 
-<h2 id="feature-driven-design">Feature Driven Design</h2>
-<p>FDD blev designet til at følge en fem-trins udviklingsproces, der i høj grad er bygget op omkring diskrete &quot;featureprojekter&quot;. Projektets livscyklus ser sådan ud:</p>
-<ol>
-<li>Udvikle en overordnet model</li>
-<li>Opret en liste over feature</li>
-<li>Planlæg efter feature</li>
-<li>Design efter feature</li>
-<li>Byg efter feature</li>
-</ol>
-<p><strong>FDD's styrker</strong></p>
-<ul>
-<li>Enkel fem-trins proces giver mulighed for hurtigere udvikling</li>
-<li>Giver større teams mulighed for at flytte produkter fremad med kontinuerlig succes</li>
-<li>Udnytter foruddefinerede udviklingsstandarder, så teams er i stand til at bevæge sig hurtigt</li>
-</ul>
-<p><strong>FDD's svagheder omfatter</strong></p>
-<ul>
-<li>Fungerer ikke effektivt til mindre projekter</li>
-<li>Mindre skriftlig dokumentation, hvilket kan føre til forvirring (lad os fikse det (internt link))</li>
-<li>Meget afhængig af ledende udviklere eller programmører</li>
-</ul>
-<p>Feature folderere kan grupperes logisk hvis der er defineret epics i modeleringsfasen når man undersøger kravene til systemet</p>
-<p><a href="https://www.mountaingoatsoftware.com/blog/stories-epics-and-themes">https://www.mountaingoatsoftware.com/blog/stories-epics-and-themes</a>
-<a href="https://www.productplan.com/glossary/feature-driven-development/">https://www.productplan.com/glossary/feature-driven-development/</a></p>
-<h2 id="test-driven-design">Test Driven Design</h2>
-<p>Link til at sammenligne og skrive ud fra:</p>
-<p><a href="https://medium.com/@davidrhyswhite/tdd-fdd-bdd-7f6c6cb9485b">Sammenligning</a></p>
-<p><a href="https://en.wikipedia.org/wiki/Feature-driven_development">FDD</a>
-<a href="https://en.wikipedia.org/wiki/Test-driven_development">TDD</a>
-<a href="https://en.wikipedia.org/wiki/Behavior-driven_development">BDD</a></p>
 
 </article>
 
         <div class="contribution d-print-none">
+          <a href="https://github.com/dadaPipes/dadapipes.github.io/blob/main/implementering/WebApi.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>
@@ -128,6 +103,7 @@
       </div>
     </main>
 
+    <div class="container-xxl search-results" id="search-results"></div>
 
     <footer class="border-top text-secondary">
       <div class="container-xxl">
