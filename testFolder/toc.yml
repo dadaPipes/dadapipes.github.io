@@ -1,5 +1,5 @@
 items:
 - name: TestOne
   href: testOne.md
-- name: TestTwo
-  href: testTwo.md
+- name: Blazor
+  href: blazor.md
