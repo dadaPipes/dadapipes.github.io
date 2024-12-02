@@ -103,5 +103,15 @@
     "href": "læringsmål.html",
     "title": "Læringsmål | dadaPipes",
     "keywords": "Læringsmål Primære: Blazor og ASP.NET Viden (Huske of Forstå) Blazor Identificere forskelle mellem Blazor Server og Blazor WebAssembly – herunder forskellen mellem Bazor WebAssembly og Blazor Server, og hvilke fordele og ulemper de hver især medfører. ASP.NET Core Redegøre for ASP.NET Core’s arkitektur og anvendelse i webudvikling, herunder hvordan frameworket understøtter skalerbarhed og responsive API’er. Færdigheder (Anvende og Analysere) Blazor Udvikle og tilpasse komponenter i Blazor til at skabe en brugervenlig og interaktiv frontend. ASP.NET Core Implementere RESTful API’er med ASP.NET Core, der effektivt håndterer CRUD-operationer og understøtter integrationen med en frontend udviklet i Blazor. Analyse af dataflow og komponentinteraktioner i Blazor – analysere, hvordan data håndteres og udveksles effektivt mellem Blazor-komponenter og backend. Kompetencer (Evaluere og Skabe) Evaluering af teknologi: Bedømme og begrunde valget mellem Blazor WebAssembly og Blazor Server baseret på performancekrav, udviklingstid og brugerbehov. Design og udvikling af en samlet webapplikation: Kombinere Blazor og ASP.NET Core i en skalerbar løsning, der håndterer både frontend og backend på en måde, der understøtter både brugervenlighed og dataintegritet. Sekundære: Database, Sikkerhed og Docker Viden (Huske og Forstå) Database: Forklare grundlæggende databaseoperationer og forstå forskellen mellem relationelle og NoSQL-databaser. Sikkerhed: Identificere centrale sikkerhedsprincipper, såsom autentifikation og autorisation, og hvordan de kan implementeres i ASP.NET Core. Docker: Redegøre for Docker’s anvendelsesområder i softwareudvikling, herunder containerisering af applikationer for at sikre konsistens og skalerbarhed. Færdigheder (Anvende og Analysere) Database: Behandle data med Entity Framework Core i ASP.NET Core, samt integrere databasen med Blazor-frontend. Sikkerhed: Implementere basale sikkerhedsmekanismer i ASP.NET Core, f.eks. via autentifikation og beskyttelse af API’er. Docker: Afprøve og applikationen i en Docker-container, hvilket muliggør lettere test og drift på tværs af forskellige miljøer. Kompetencer (Evaluere og Skabe) Sikkerhedsvurdering: Evaluere og sikre backend-løsningen mod almindelige trusler. Feedbackhåndtering og iterativ udvikling: Sikre kontinuerlig forbedring af applikationen ved at facilitere feedback fra Product Owner gennem iterativ udvikling, hvor test og evaluering muliggøres ved at trække den nyeste version fra Docker Hub."
+  },
+  "testFolder/testOne.html": {
+    "href": "testFolder/testOne.html",
+    "title": "Test One | dadaPipes",
+    "keywords": "Test One"
+  },
+  "testFolder/testTwo.html": {
+    "href": "testFolder/testTwo.html",
+    "title": "TestTwo | dadaPipes",
+    "keywords": "TestTwo"
   }
 }
