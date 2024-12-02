@@ -1,8 +1,4 @@
 items:
-- name: Blazor
-  href: blazor.md
-- name: Server
-  href: server.md
 - name: Authentication
   href: authentication.md
 - name: Docker
