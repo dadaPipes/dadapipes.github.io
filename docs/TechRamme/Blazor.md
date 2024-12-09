@@ -2,7 +2,7 @@
 
 ## Overvejelser og Sammenligning af Blazor rammer
 
-Jeg har undersøgt og sammenlignet de forskellige relevante Blazor varianter i .NET 8.0
+Jeg har undersøgt og sammenlignet de forskellige relevante Blazor varianter, for web udvikling, i .NET 8.0
 
 ### Blazor Web App
 

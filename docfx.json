@@ -14,10 +14,17 @@
     "resource": [
       {
         "files": [
-          "images/pair-of-socks-50.png"
+          "images/**"
         ]
       }
     ],
+    "markdownEngineProperties": {
+      "plantUml": {
+          "outputFormat": "svg",
+          "remoteUrl": "http://www.plantuml.com/plantuml/",
+          "renderingMode": "remote"
+      }
+    },
     "output": "_site",
     "template": [
       "default",

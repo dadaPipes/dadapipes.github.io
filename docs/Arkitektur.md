@@ -43,6 +43,93 @@ Pull requests: Det bliver mere uoverskueligt at gå igennem opdatering af kode d
 
 ##### Mappestruktur
 
+###### Clean Architectur interactive server
+
+```mermaid
+block-beta
+  columns 3
+  afhdgjyfkigloydl,iydi:3
+  block:group1:2
+    columns 2
+    h i j k
+  end
+  g
+  block:group2:3
+    %% columns auto (default)
+    leoopl megsrgsrg srgsrgn srgsrgo srgsrgp srgq sgrr
+  end
+```
+
+```plantuml
+
+package "Server" {
+  package "FeatureOne" {
+    class ComponentOne
+    class ViewModelOne
+    class ServiceOne
+  }
+  package "FeatureTwo" {
+    class ComponentTwo
+    class ViewModelTwo
+    class ServiceTwo
+  }
+  package "FeatureThree" {
+    class ComponentThree
+    class ViewModelThree
+    class ServiceThree
+    class RepoThree
+  }
+}
+
+package "Domain" {
+  class EntityOne
+  class EntityTwo
+  class EntityThree
+}
+
+ComponentOne --> ViewModelOne 
+ViewModelOne --> ServiceOne
+ServiceOne --> EntityOne 
+
+ComponentTwo --> ViewModelTwo
+ViewModelTwo --> ServiceTwo
+
+ComponentThree --> ViewModelThree
+ViewModelThree --> ServiceThree 
+ServiceThree --> RepoThree
+```
+
+###### Clean Architectur interactive WebAssembly
+
+```plantuml
+package Client {
+  package Feature One {
+  }
+  package Feature One {
+  }
+  package Feature One {
+  }
+}
+
+package Server {
+  package Feature One {
+  }
+  package Feature One {
+  }
+  package Feature One {
+  }
+}
+
+package Shared {
+  package Feature One {
+  }
+  package Feature One {
+  }
+  package Feature One {
+  }
+}
+```
+
 Jeg har inkludered eksempler på klasser i mapperne, for at illustrerer hvordan det ser ud i en meget lille applikation.
 Man kan tænke sig til hvordan sværhedsgraden, i at finde rundt i de forskellige mapper, stiger liniært, i takt med at applikationen vokser.
 Ikke kun på grund af antallet af mapper, men også pga antallet a filer der er i hver mappe.
@@ -195,9 +282,20 @@ Delt forretningslogik vil man dog presse ned i domæne laget, i de tilfælde hvo
 
 #### Vertical Slice eksempel
 
-![vertical slice diagram](https://th.bing.com/th/id/OIP.5cQqVrfniTluO0xqs-uGqQAAAA?rs=1&pid=ImgDetMain)
+**Interactive Server**  
 
-##### Mappestruktur
+Man kan implementere hver feature så den passer bedst.
+I den simpleste form vil der bare være en component, men det er op til udvikleren at implementere en feature så den passer bedst.
+
+<img src="/images/VSA_InteractiveServer.png" alt="drawing" width="40%" />
+
+**Interactive WebAssembly**  
+
+<img src="/images/VSA_InteractiveWebAssembly.png" alt="drawing" width="40%" />
+
+I den simpleste form er en feature en folder i **Client**, med en komponent, og koden skrives i kode blokken.
+I den simpleste form er en feature en folder i **Server** med et endpoint.
+I den simpleste form er en feature en folder i **Shared** en DTO, til at transportere data imellem **Client** og **Server**.
 
 **TODO:**
 SKRIV OM SÅ DET PASSER FOR VSA:
@@ -305,13 +403,22 @@ Men det er som nævnt baseret på hvad man tænker som udvikler.
 
 Det der burde være i fokus er ikke noget af det overnævnte, men hvad kravene til applikationen er og hvad der passer sig bedst til applikationen. Jo mere kompliseret applikationen er, jo mere koster det at udvikle og vedligeholde.
 
+Ting der kan øge omkstningerne og som man skal overveje inden:
+
+- Navigere og overskue koden (man bruger mere tid på at læse kode en at skrive den)
+- Tilføje en ny feature
+- Ændre på en feature
+- Antal af tests
+- Antallet af abstraktioner
+- Mængde af kode
+
 ```mermaid
 xychart-beta
-  title "Monthly Sales Data"
-  x-axis [Jan, Feb, Mar, Apr]
-  y-axis "Sales ($)" 0 --> 10000
-  line [8000, 6000, 4000, 2000]
-  line [2000, 4000, 6000, 8000]
+  title "Omkostninger per feature"
+  x-axis "Features (Antal)" [0, 10, 20, 30, 40, 50, 60,70, 80, 90, 100]
+  y-axis "Omkostninger" 0 --> 10000
+  line [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10.000]
+  line [2000, 4000, 6000, 8000, 10.000, 12.000, 14.000, 16.000, 18.000, 20.000]
 ```
 
 Som udgangspunkt er det en go' ide at holde det simpelt(KISS link), og man skal ikke spekulere på hvad det måske kan udvikle sig til engang i fremtiden (YAGNY link), da det som udgangspunkt vil komplisere kodebasen og kompleksitet koster penge i implementering og vedligehold.

@@ -191,6 +191,26 @@
     },
     {
       "type": "Resource",
+      "source_relative_path": "images/VSA_InteractiveServer.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/VSA_InteractiveServer.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/VSA_InteractiveWebAssembly.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/VSA_InteractiveWebAssembly.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
       "source_relative_path": "images/pair-of-socks-50.png",
       "output": {
         "resource": {
@@ -200,11 +220,11 @@
       "version": ""
     },
     {
-      "type": "Conceptual",
-      "source_relative_path": "implementering/WebApi.md",
+      "type": "Resource",
+      "source_relative_path": "images/pair-of-socks-96.png",
       "output": {
-        ".html": {
-          "relative_path": "implementering/WebApi.html"
+        "resource": {
+          "relative_path": "images/pair-of-socks-96.png"
         }
       },
       "version": ""
@@ -278,39 +298,6 @@
       "output": {
         ".html": {
           "relative_path": "læringsmål.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "testFolder/testOne.md",
-      "output": {
-        ".html": {
-          "relative_path": "testFolder/testOne.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "testFolder/testTwo.md",
-      "output": {
-        ".html": {
-          "relative_path": "testFolder/testTwo.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Toc",
-      "source_relative_path": "testFolder/toc.yml",
-      "output": {
-        ".html": {
-          "relative_path": "testFolder/toc.html"
-        },
-        ".json": {
-          "relative_path": "testFolder/toc.json"
         }
       },
       "version": ""
