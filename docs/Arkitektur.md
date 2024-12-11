@@ -1,19 +1,32 @@
 # Arkitektur
 
-2 populære arkitekturer der bliver brugt i .NET til webudvikling er Clean Architectur (lagdelt arkitektur) og Vertical Slice Architecture (VSA).
+2 populære arkitekturer der bliver brugt i .NET til webudvikling er Clean Architecture (lagdelt arkitektur) og Vertical Slice Architecture (lodrette skiver).
+Begge kan bruges i en monolit eller et distribueret system med en API eller ved brug af micro services.
 
-Jeg tager udgangspunkt i en API uden et klient (UI) projekt, men har stadig et 'Shared' projekt, for at kunne dele data i C# for både Klient og Server projekterne.
-
-# [Lag delt arkitektur](#tab/lag-delt-arkitektur)
-
-I en lagdelt arkitektur har man forskellige, typisk separeret af foldere eller projekter.
-Det kunne være Applications lag med endpoints/controllers, Data lag med repositories og et domæne lag med domæne modeler/ entities. Der findes flere forskellige nuancer af lagdelte arkitekturer, men fællesnævneren er at ….
+# [Clean Architecture](#tab/ca)
 
 **Fordele**  
-Tydelig adskillelse af ansvar:
-Application indeholder forretningslogik.
-Infrastructure håndterer tekniske detaljer.
-Domain indeholder centrale objekter og regler.
+Tydelig adskillelse af ansvar i hvert lag.
+
+- Application Core
+  - Entities
+  - Interfaces
+  - Domain Services
+
+- Infrastructure
+  - EF Core Typer
+    - DbContext
+    - Migrations
+  - Data Access Implementations typer
+    - Repositories
+  - Infrastructure-specifike services
+    - FileLogger
+    - EmailService
+
+- UI
+  - Controllers
+  - Views
+  - ViewModels
 
 Testbarhed:
 Du kan teste UserService uafhængigt af databasen ved at mocke IUserRepository.
@@ -41,95 +54,6 @@ Pull requests: Det bliver mere uoverskueligt at gå igennem opdatering af kode d
 
 ![clean architecture diagram](https://elitecsoft.com/wp-content/uploads/2023/03/Clean-Architecture-DDD.jpg)
 
-##### Mappestruktur
-
-###### Clean Architectur interactive server
-
-```mermaid
-block-beta
-  columns 3
-  afhdgjyfkigloydl,iydi:3
-  block:group1:2
-    columns 2
-    h i j k
-  end
-  g
-  block:group2:3
-    %% columns auto (default)
-    leoopl megsrgsrg srgsrgn srgsrgo srgsrgp srgq sgrr
-  end
-```
-
-```plantuml
-
-package "Server" {
-  package "FeatureOne" {
-    class ComponentOne
-    class ViewModelOne
-    class ServiceOne
-  }
-  package "FeatureTwo" {
-    class ComponentTwo
-    class ViewModelTwo
-    class ServiceTwo
-  }
-  package "FeatureThree" {
-    class ComponentThree
-    class ViewModelThree
-    class ServiceThree
-    class RepoThree
-  }
-}
-
-package "Domain" {
-  class EntityOne
-  class EntityTwo
-  class EntityThree
-}
-
-ComponentOne --> ViewModelOne 
-ViewModelOne --> ServiceOne
-ServiceOne --> EntityOne 
-
-ComponentTwo --> ViewModelTwo
-ViewModelTwo --> ServiceTwo
-
-ComponentThree --> ViewModelThree
-ViewModelThree --> ServiceThree 
-ServiceThree --> RepoThree
-```
-
-###### Clean Architectur interactive WebAssembly
-
-```plantuml
-package Client {
-  package Feature One {
-  }
-  package Feature One {
-  }
-  package Feature One {
-  }
-}
-
-package Server {
-  package Feature One {
-  }
-  package Feature One {
-  }
-  package Feature One {
-  }
-}
-
-package Shared {
-  package Feature One {
-  }
-  package Feature One {
-  }
-  package Feature One {
-  }
-}
-```
-
 Jeg har inkludered eksempler på klasser i mapperne, for at illustrerer hvordan det ser ud i en meget lille applikation.
 Man kan tænke sig til hvordan sværhedsgraden, i at finde rundt i de forskellige mapper, stiger liniært, i takt med at applikationen vokser.
 Ikke kun på grund af antallet af mapper, men også pga antallet a filer der er i hver mappe.
@@ -140,106 +64,14 @@ Der er low coupling i mellem lagene, via interfaces.
 Fordelen ved at bruge class library projects er at hver del kan have deres egen afhængigheder og er isolerede i det enkelte class library project.
 For eksempel er EF Core Nuget pakken isoleret i **Persistence** projektet i **Infrastructure** mappen.
 
-##### Presentation (mappe)
-
-**Ansvar**: UI-laget, der håndterer input og output fra brugeren via API'en.
-
-**API** (Class library)
-Kalder applikationslaget (fx UserService) for at udføre handlinger og returnere resultater til klienten.
-
-```HTML
-Presentation/
-├── API/
-│   └── UserController
-```
-
-##### Infrastructure (mappe)
-
-**Ansvar**: Implementerer tekniske detaljer, såsom datatilgang eller eksterne services.
-
-**Infrastructure** (Class library project)
-Implementerer generelle infrastrukturtjeneste interfaces fra domain-laget
-
-**Repositories** (Class library project)  
-Implementerer Repository interfaces fra domain-laget for at kommunikere med databasen.
-
-**Persistence** (Class library project)
-Database relaterede klasser
-
-```HTML
-Infrastructure/
-├── Infrastructure/
-│   └── Logger
-    └── FileStorageService
-    └── EmmailService
-├── Repositories/
-│   └── UserRepository
-├── Persistence/
-│   ├── DbContext
-│   └── Migrations
-```
-
-##### Core (mappe)
-
-**Ansvar**: Forretningslogik og applikationsregler.
-
-**Interfaces** (Class library project)
-Interfaces til datatilgang, så domain-laget er uafhængigt af infrastrukturen.
-
-- **RepositoryInterfaces** (mappe)
-  Indeholder interfaces til repositories, som muliggør datatilgang og gør domain-laget uafhængigt af den konkrete databaseimplementering.
-- **ServiceInterfaces** (mappe)
-  Indeholder interfaces til services, som definerer forretningslogik og gør domain-laget uafhængigt af konkrete serviceimplementeringer.
-- **InfrastructureInterfaces** (mappe)
-  Indeholder interfaces til infrastrukturtjenester som logning, filopbevaring og email-tjenester, hvilket gør domain-laget uafhængigt af konkrete infrastrukturtjenester.
-
-**Entities** (Class library project)
-Domæne-entiteter, der repræsenterer konkrete ting i systemet.
-
-**Application** (Class library project)
-Indeholder forretningslogik relateret til Domæne-entiteter og kalder et relateret repository til datatilgang.
-
-```HTML
-Core/
-├── Domain/
-│   ├── Interfaces/
-│   │   ├── RepositoryInterfaces
-│   │   │   └── IUserInterface
-│   │   └── ServiceInterfaces
-│   │   │   └── IUserService
-│   │   └── InfrastructureInterfaces
-│   │       └── ILogger
-│   │       └── FileStorageService
-│   │       └── EmmailService
-│   └── Entities/
-│       └── User
-├── Application/
-│   └── UserService
-
-```
-
-##### Shared (Class Library Project)
-
-**Ansvar**: Overfører data mellem lag.
-
-**UserDto (mappe)**  
-Indeholder dataoverførselsobjekter relateret til brugere og inkluderer valideringslogik.
-
-```HTML
-├──Shared/
-└── UserDto/
-    └── CreateUserDto
-        └── CreateUserDto.CreateUserDtoValidator
-```
-
-##### Modelering
+#### Modelering
 
 Det er muligt at modelerere på low-level, som [indsæt nogle navne på low-level diagrammer] niveau da man allerede har fastlagt programmeringsmønstre der skal følges.
 Hvis fokus er på low-level design, så øger det kompleksiten ved at sikre sporbarhed imellem design diagrammer og kode.
 En interesant bekymrer sig typisk ikke om hvordan at koden er implementeret, men har fokus på interactivitet.
 Low-level design bør derfor kun benyttes, hvis en en udvikler vil modelere for at få et overblik over en feature, inden at den bliver implementeret.
 
-##### Tests
+#### Tests
 
 Det er muligt at planlægge unit tests allerede inden at man har implementeret koden, da man ved hvilke dele der skal testes og hvad der skal testes for.
 Hvilket gør det muligt for UTDD(TODO: internt link "Unit Test Driven Design").
@@ -249,13 +81,18 @@ Interfaces sikrer en meget begrænset kontrakt til dens implimentation, da den k
 Den sikrer dermed en 'happy path', men sikrer ikke 'edge cases'.
 Ved at unit teste interfaces, kan man sikre at 'edge cases' også bliver sikret, hvis man har dækket alle interfaces i Core laget, med et Core test projekt.
 
-# [Vertical Slice Arkitektur](#tab/vertical-slice-arkitektur)
+Ved at dele applikationen i lag, har det ovenstående lag adgan til det nedenunder. Man kan så genbruge objekter fra det nedenstående lag, så man ikke skal gentage sig selv.
+For at sikre sig at hvert objekt gør som det skal, kan  man bruge et interface og lave unit tests for det interface, så man er sikker på at alle konkrete implementeringer af interfacet overholder kontrakten og de regler der er sat op for det.
+Man er mere eller mindre 'tvunget' til at bruge interfaces og unit tests, for at sikre sig at metoderne opfører sig korrek.  
+
+# [Vertical Slice Arkitektur](#tab/vsa)
 
 Man deler koden op i lodrette snit, typisk per feature, som er placeret i 1 folder.
 I en serverside applikation hvor at både front- og backend kører på serveren, kan et snit bestå af en Blazor komponent og alt loggiken der hører til den specifike komponent.
 I en WebAssembly applikation, som er delt op i flere projekter, vil man have foldere med det samme navn i hver projekt, som har alt hvad der er hører til den specifike feature.
 
-**Fordele**  
+#### Fordele
+
 Det er nemmere at overskue en feature når det hele ligger i den samme folder, i stedet for at den er spredt over flere foldere og projekter.
 I tilfælde at et distribueret system med et Client, Server og Shared projekt, kommer man ikke uden om at det bliver spredt ud, men det er stadig begrænset og folderne hedder det samme og er delt op på samme måde.
 
@@ -275,29 +112,14 @@ På samme måde er en metode i et snit, med til at understøtte en feature i at 
 
 Pull request: Det er nemt at se hvad der er ændret tilbage i tiden da koden er samlet i de samme folder/foldere. På samme måde er det også mere overskueligt at godkende en pull request.
 
-**Ulemper**  
+#### Ulemper
+
 Da der ikke er nogen kode delt imellem lagene, vil man kunne komme ud for at skulle gentage sig selv :scream:, det taler imod [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) ( gentag ikke dig selv ). Regler er til for at brydes, og hvis man er en erfaren udvikler, vil man vide at det ikke alt tid giver mening at være regelrytter.
 
 Delt forretningslogik vil man dog presse ned i domæne laget, i de tilfælde hvor det giver mening. TODO: ( SE: Hvordan man udvikler en feature )
 
-#### Vertical Slice eksempel
+#### TODO
 
-**Interactive Server**  
-
-Man kan implementere hver feature så den passer bedst.
-I den simpleste form vil der bare være en component, men det er op til udvikleren at implementere en feature så den passer bedst.
-
-<img src="/images/VSA_InteractiveServer.png" alt="drawing" width="40%" />
-
-**Interactive WebAssembly**  
-
-<img src="/images/VSA_InteractiveWebAssembly.png" alt="drawing" width="40%" />
-
-I den simpleste form er en feature en folder i **Client**, med en komponent, og koden skrives i kode blokken.
-I den simpleste form er en feature en folder i **Server** med et endpoint.
-I den simpleste form er en feature en folder i **Shared** en DTO, til at transportere data imellem **Client** og **Server**.
-
-**TODO:**
 SKRIV OM SÅ DET PASSER FOR VSA:
 "Jeg har inkludered eksempler på klasser i mapperne, for at illustrerer hvordan det ser ud i en meget lille applikation.
 Man kan tænke sig til hvordan sværhedsgraden, i at finde rundt i de forskellige mapper, stiger liniært, i takt med at applikationen vokser.
@@ -309,74 +131,7 @@ Der er low coupling i mellem lagene, via interfaces.
 Fordelen ved at bruge class library projects er at hver del kan have deres egen afhængigheder og er isolerede i det enkelte class library project.
 For eksempel er EF Core Nuget pakken isoleret i **Persistence** projektet i **Infrastructure** mappen."
 
-**Infrastructure (mappe)**  
-Indeholder infrastrukturtjenester som logning, filopbevaring og email-tjenester.
-
-**Persistence (mappe)**  
-Indeholder database relaterede klasser
-
-**Domain (mappe)**  
-Domæne-entiteter, der repræsenterer konkrete ting i systemet.
-
-```HTML
-Infrastructure/
-│ ├── Logger
-│ ├── FileStorageService
-│ └── EmmailService
-Persistence/
-│ ├── DbContext
-│ └── Migrations
-Domain/
-│ ├── User
-Features/
-├── User
-```
-
-**Features (mappe)**  
-Eksemplerne illusterer at en udvikler er fri til at implementerer koden som det passer bedst for den enkelte brugssag.
-
-I et simpelt brugstilfælde kan man nøjes med at implementere koden i et endpoint.
-
-**Eksempel 1**  
-
-```HTML
-├── Features/
-│   ├── User
-│   │   ├── Create
-│   │   │   └── Endpoint.cs
-```
-
-I et mere komplekst brugstilfælde kan det være at det giver mere mening at dele koden op i mindre bider, for at øge læsbarheden.
-I nogle tilfælde kan det være at man har et komplekst data access object som man gerne vil lave en unit test til, så man er fri for at debugge det manuelt, for at være sikker på at det er implementeret korrekt.
-
-**Eksempel 2**  
-
-```HTML
-├── Features/
-│   ├── User
-│   │   ├── Create
-│   │   │   ├── Endpoint.cs
-│   │   │   ├── Repository.cs
-│   │   │   ├── IRepository.cs
-│   │   │   ├── Mapper.cs 
-│   │   │   └── Service.cs
-```
-
-##### Shared (Class library Project)
-
-**Ansvar**: Overfører data mellem lag.
-
-**UserDto (mappe)**  
-Indeholder dataoverførselsobjekter relateret til brugere og inkluderer valideringslogik.
-
-```HTML
-├──Shared/
-└── UserDto/
-    └── CreateUserDto
-        └── CreateUserDto.CreateUserDtoValidator
-```
-
-##### Modelering
+#### Modelering
 
 Man kan holde det simpelt og fokusere på high-level diagrammer og på hvad interesanten gerne vil med applikationen.
 Det er mere effektivt at lade udvikleren, der skal implementere en feature, om detaljerne.
@@ -386,7 +141,7 @@ Det er muligt at modelere på et low-level niveau, men oftest er det mere effekt
 
 Derved kan man have mere tid og fokus på high-level diagrammer som betyder noget for interesanten, da de som oftest ikke har interesse i at vide hvordan at koden er implementeret.
 
-##### Tests
+#### Tests
 
 Da hver feature mappe er isoleret fra de andre, kan man nemt debugge en feature for at finde en mulig fejl. Når man ændrer i koden, og får rettet op på fejlen, så er man sikker på at det ikke har sideeffekter til andre features.
 
@@ -395,7 +150,181 @@ Man kan, men bør ikke fokusere på [unit tests](TODO: internt link), med mindre
 
 Da de forskellige features har adgang til domæne laget, er det værdifuldt at unit teste alt foretnings logik i domæne laget, for at sikre sig at den gør som den skal. 1 fejl i domænet kan have sideeffekter i flere features og vil ikke være isoleret til domænet selv.
 
+#### Mapper
+
+**Features (mappe)**  
+Man vil starte med den simpleste implementering og **kun** lave abstraktioner **hvis** at det giver mening.  
+Eksempler kan være hvis man vil øge læsbarheden eller at man har et komplekst objekt man gerne vil teste i isolation.
+Det er op til udvikleren at implementere en feature med mindst mulig kompleksitet.
+
+**Infrastructure (mappe)**  
+Indeholder infrastrukturtjenester som logning, filopbevaring og email-tjenester.
+
+**Persistence (mappe)**  
+Indeholder database relaterede klasser som DbContext og Migrations.
+
+**Domain (mappe)**  
+Domæne-entiteter, der repræsenterer konkrete ting i systemet.
+
+**Shared (Class library Project) (*Bruges kun ved Interactive WebAssembly*)**  
+Indeholder dataoverførselsobjekter (DTO), der transporterer data mellem Client og Server, og kan inkludere valideringslogik.  
+Ved at inkludere valdideringslogik og samtidigt bruge objekterne i både Client og Server, bruger man automatisk den samme validering begge steder.
+
 ---
+
+# [CA Interactive Server eksempel](#tab/interactive-server/ca)
+
+<img src="/images/CA_InteractiveServer.png" alt="drawing" width="40%" />
+
+```plantuml
+!define BG_COLOR_CHILD #FFF9B1
+skinparam packageBackgroundColor BG_COLOR_CHILD
+
+package "UI" {
+  [Component.cs] as Component
+  [ViewModel.cs] as ViewModel
+  [Endpoint.cs] as Endpoint
+}
+
+Component --> ViewModel
+ViewModel --> Endpoint
+
+package "Infrastructure" {
+  package "DataAccess" {
+    [Repository.cs] as Repository
+  }
+  package "EfCore" {
+    [DbContext.cs] as DbContext
+    [Migrations.cs] as Migrations 
+  }  
+  package "InfrastructureServices" {
+    [InfraService.cs] as InfraService
+  }
+}
+
+package "ApplicationCore" {
+  [IRepository.cs] as IRepository
+  [IDomainService.cs] as IDomainService
+  [DomainService.cs] as DomainService
+  [IInfraServiceService.cs] as IInfraService
+}
+
+IDomainService ..> DomainService
+DomainService --> IRepository
+Endpoint --> IDomainService
+IRepository ..> Repository
+Repository --> DbContext
+DomainService --> IInfraService
+IInfraService ..> InfraService
+Endpoint --> IInfraService
+```
+
+# [CA Interactive WebAssembly (TODO)](#tab/interactive-webassembly/ca)
+
+CA interactive webassembly
+
+# [VSA Interactive Server eksempel](#tab/interactive-server/vsa)
+
+<img src="/images/VSA_InteractiveServer.png" alt="drawing" width="40%" />
+
+```plantuml
+!define BG_COLOR_CHILD #FFF9B1
+skinparam packageBackgroundColor BG_COLOR_CHILD
+
+package "Simpel Feature" {
+  [Component.razor] as SimpleComponent
+}
+
+package "Kompleks Fetature" {
+  [Component.razor] as ComplexComponent
+  [ViewModel.cs] as ComplexViewModel
+  [IRepository.cs] as ComplexIRepository
+  [Repository.cs] as ComplexRepository
+}
+
+ComplexComponent --> ComplexViewModel
+ComplexViewModel --> ComplexIRepository
+ComplexIRepository --> ComplexRepository
+```
+
+# [VSA Interactive WebAssembly eksempel](#tab/interactive-webassembly/vsa)
+
+<img src="/images/VSA_InteractiveWebAssembly.png" alt="drawing" width="40%" />
+
+<div class="uml-vsa" style="display: flex;">
+  <div class="uml-vsa__server">
+
+<h5 style="text-align: center; margin-top: 5%">Simple Features</h5>
+
+```plantuml
+!define BG_COLOR #FFF9B1
+skinparam packageBackgroundColor BG_COLOR
+left to right direction
+ 
+package "Client" {
+  [Component.razor] as Component
+}
+
+package "Server" {
+  [Endpoint.cs] as Endpoint
+}
+
+package "Shared" {
+  [DTO.cs] as DTO
+}
+
+Client --> Shared
+Server --> Shared
+```
+
+  </div>
+
+<div class="uml-vsa__webassembly">
+  <h5 style="text-align: center; margin-top: 5%">Komplekse Features</h5>
+
+```plantuml
+!define BG_COLOR #FFF9B1
+skinparam packageBackgroundColor BG_COLOR
+
+package "Client" {
+  [Component.razor] as Component
+  [Service.cs] as ClientService
+}
+
+package "Server" {
+  [Endpoint.cs] as Endpoint
+  [IService.cs] as IService
+  [Service.cs] as Service
+  [Mapper.cs] as Mapper
+  [IRepository.cs] as IRepository
+  [Repository.cs] as Repository
+}
+
+package "Shared" {
+  [DTO.cs] as DTO
+}
+
+Component --> ClientService
+
+ClientService --> Endpoint
+Client --> DTO
+Endpoint --> IService
+IService --> Service
+Service --> Mapper
+Server --> DTO
+Service --> IRepository
+IRepository --> Repository
+```
+
+  </div>
+</div>
+
+---
+
+#### CA VS VSA
+
+Får man senere brug for at kunne skalere dele af applikationen kan man plukke enkelte fetatures ud som man kan lave til microservices.
+Det er på bekostning af en højere kompleksitet.
 
 Man ser ofte, når man læser om arkitektur, at en bestemt arkitektur passe godt til en bestemt størrelse.
 Baseret på hvor kompleks den er, hvor nem den er at overskue, hvad teamet kender til, eller andre udvikler baserede parametre.
@@ -412,13 +341,28 @@ Ting der kan øge omkstningerne og som man skal overveje inden:
 - Antallet af abstraktioner
 - Mængde af kode
 
+**CA** (blå linie)  
+Høj kompleksitet fra start, da man allerede inden at man har skrevet den første linje kode, har oprettet flere projekter i applikationen.
+Hver feature der implementeres har høj kompleksitet der ikke kan gøres mere simpelt.
+
+**VSA** (mellem blå og sort linie)
+Lav komplesitet fra start.
+Hver feature der implementeres er fleksibel og kan have lav eller høj kompleksitet.
+
 ```mermaid
+---
+config:
+    themeVariables:
+        xyChart:
+            plotColorPalette: "#000000, #0000FF"
+---
+        %% plotColorPalette: "black, blue"
 xychart-beta
   title "Omkostninger per feature"
   x-axis "Features (Antal)" [0, 10, 20, 30, 40, 50, 60,70, 80, 90, 100]
-  y-axis "Omkostninger" 0 --> 10000
-  line [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10.000]
-  line [2000, 4000, 6000, 8000, 10.000, 12.000, 14.000, 16.000, 18.000, 20.000]
+  y-axis "Omkostninger" 0 --> 20000
+  line [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000]
+  line [4000, 6000, 8000, 10000, 12000, 14000, 16000, 18000, 20000]
 ```
 
 Som udgangspunkt er det en go' ide at holde det simpelt(KISS link), og man skal ikke spekulere på hvad det måske kan udvikle sig til engang i fremtiden (YAGNY link), da det som udgangspunkt vil komplisere kodebasen og kompleksitet koster penge i implementering og vedligehold.

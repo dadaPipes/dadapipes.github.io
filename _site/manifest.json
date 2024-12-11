@@ -124,6 +124,16 @@
       "version": ""
     },
     {
+      "type": "Conceptual",
+      "source_relative_path": "docs/TechRamme/TestFile.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/TechRamme/TestFile.html"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Toc",
       "source_relative_path": "docs/TechRamme/toc.yml",
       "output": {
@@ -185,6 +195,16 @@
         },
         ".json": {
           "relative_path": "docs/toc.json"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/CA_InteractiveServer.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/CA_InteractiveServer.png"
         }
       },
       "version": ""

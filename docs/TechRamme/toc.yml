@@ -1,4 +1,6 @@
 items:
+- name: TestFile
+  href: TestFile.md
 - name: Valg af Tech Ramme
   href: TechRamme.md
 - name: Blazor
