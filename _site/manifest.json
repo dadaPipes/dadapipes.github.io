@@ -22,10 +22,30 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/Api.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Api.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/Arkitektur.md",
       "output": {
         ".html": {
           "relative_path": "docs/Arkitektur.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "docs/Blazor.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Blazor.html"
         }
       },
       "version": ""
@@ -79,69 +99,6 @@
         },
         ".json": {
           "relative_path": "docs/EksPåAndvendelse/toc.json"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/TechRamme/Api.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/TechRamme/Api.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/TechRamme/Blazor.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/TechRamme/Blazor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/TechRamme/MudBlazor.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/TechRamme/MudBlazor.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/TechRamme/TechRamme.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/TechRamme/TechRamme.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Conceptual",
-      "source_relative_path": "docs/TechRamme/TestFile.md",
-      "output": {
-        ".html": {
-          "relative_path": "docs/TechRamme/TestFile.html"
-        }
-      },
-      "version": ""
-    },
-    {
-      "type": "Toc",
-      "source_relative_path": "docs/TechRamme/toc.yml",
-      "output": {
-        ".html": {
-          "relative_path": "docs/TechRamme/toc.html"
-        },
-        ".json": {
-          "relative_path": "docs/TechRamme/toc.json"
         }
       },
       "version": ""

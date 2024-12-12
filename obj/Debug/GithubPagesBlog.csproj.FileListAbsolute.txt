@@ -1,0 +1,7 @@
+C:\Users\dadaP\source\repos\dadapipes.github.io\bin\Debug\GithubPagesBlog.exe.config
+C:\Users\dadaP\source\repos\dadapipes.github.io\bin\Debug\GithubPagesBlog.exe
+C:\Users\dadaP\source\repos\dadapipes.github.io\bin\Debug\GithubPagesBlog.pdb
+C:\Users\dadaP\source\repos\dadapipes.github.io\obj\Debug\GithubPagesBlog.csproj.AssemblyReference.cache
+C:\Users\dadaP\source\repos\dadapipes.github.io\obj\Debug\GithubPagesBlog.csproj.CoreCompileInputs.cache
+C:\Users\dadaP\source\repos\dadapipes.github.io\obj\Debug\GithubPagesBlog.exe
+C:\Users\dadaP\source\repos\dadapipes.github.io\obj\Debug\GithubPagesBlog.pdb

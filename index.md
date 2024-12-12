@@ -2,40 +2,45 @@
 _layout: landing
 ---
 
-# This is the **HOMEPAGE**
+<h1 style="text-align: center;">Blazor & .NET</h1>
 
-Refer to [Markdown](http://daringfireball.net/projects/markdown/) for how to write markdown files.
+<div style="max-width: 90ch; margin: auto">
 
-TODO: Kom ind på hvordan at det jeg skriver om handle om/relaterer til Blazor og .NET ( vigtigt da jeg berører nærmest samtlige fokusområder, så hvert fokusområde er nødt til at omhandle .NET på en eller anden måde ).
+<h6 style="text-align: center; margin: 20px">"Who pays the piper picks the tune"</h6>  
 
-Nogle af de mest diskuterrede emner i forskellige online forumer, inden for .NET, er hvilken arkitektur og hvilke endpoints man skal bruge. Ofte er argumenterne one-liners som "Clean Architectur is over engineering", "DbContext is a Repository", "Only test your endpoints" osv., og man kan undre sig over, om dem som kommenterer, virkelig har en forståelse og erfaring inden for de forskellige (dele/områder/værktøjer), eller om det bare handler om præferencer.
+Denne tankegang gælder også i softwareudvikling, hvor produktsejeren eller kunden, som finansierer projektet, ofte har det sidste ord i beslutninger om teknologi og arkitektur.
 
-Jeg ved fra mig selv af, at jeg er **super** dygtig til at kritisere ting jeg ikke aner en skid om.
-I mange år tænkte jeg for eksemplel at [Björn Afzelius](https://www.youtube.com/watch?v=-ZjbR7Qxxeg) var utrolig cringe, indtil at jeg lyttede til hans musik eller alt hvad der omhandler [Rick James](https://www.youtube.com/watch?v=iWa-6g-TbgI) AKA [Puddel Garn](https://i.pinimg.com/736x/e5/52/29/e55229099117485820ae563dab9449e7.jpg), udelukende baseret på hans hår.
-Musiken falder selfølgelig ikke i enhvers smag, og som en DJ skal vide hvilken musik han skal spille, for et bestemt publikum eller event, så skal en udvikler også vide hvilket værktøj der skal bruges i en given situation, og det er umuligt at vælge det rigtige værktøj uden at have undersøgt det grundigt først.
+Men som udviklere har vi et ansvar for at præsentere de forskellige muligheder og deres konsekvenser – både fordele, ulemper og omkostninger. Det handler om at skabe gennemsigtighed, så kunden kan træffe informerede valg, der balancerer mellem kvalitet, budget og produktets fremtidige potentiale.
 
-Argumenterne fra de online forumer kan også handle om [delt information bias](https://en.wikipedia.org/wiki/Shared_information_bias), hvor folk har delt sig i 2 grupper med hver deres viden, hvor ved at de to grupper hver især opnår consensus. Det kan holde folk fast i bruge de værktøjer de er bekendte og dygtige i.
-Det samme kan gøre sig gældene i et team hvor at man vælger at gøre det som man altid har gjort, hvilket kan være nemt, bekvemt og hurtigt at komme i gang med et projekt. Men muligvis ikke den rigtige strategi på længere sigt.
+Hvad udvikler teamet har erfaring med og er mest komfortabel med, er sekundært, og skal helst ikke spille en større role.
+Hvis de værktøjer der vælges ligger inden for .NET, og teamet ikke har erfaring med de specifike værktøjer, så må man vælge at sende sine medarbejdere på et kursus, for at man kan løfte opgaven og levere et produkt der bedst muligt lever op til kravene. Teamet må tilpasse sig kravene og ikke omvendt.
 
-"It depends" er det universielle svar inden for software udvikling. Så hvad er det lige præcis det kommer an på ?
-Det er nogle af de områder jeg vil dække i min blog, omkring Blazor og .NET i web baseret udvikling.
+I denne blog er udgangspunktet kunden. Det primære mål er at gøre teknologien og processerne forståelige for kunden, så de kan navigere systemets funktioner og deltage aktivt i beslutningsprocesserne.
 
-Inden at jeg startede ud med bloggen, havde jeg et projekt at arbejde på.
-Jeg kendte til de store dele af kravene, troede at jeg havde helt styr på hvordan koden skulle skæres og implimenteres.
+Dette gør vi ved at tage fat på følgende emner:
 
-Jeg tog grueligt fejl (emoji).
+**Blazor-varianter**  
+Hvordan valg af framework påvirker brugeroplevelse og systemets fleksibilitet.
 
-Nogle af de ting bankede hovedet ned i tastaturet over var kompleksiteten af implementeringen af dele af koden.
-"Hvorfor h... skal det være så komplekst ? Er der ikke en mere simpel måde at gøre det på ?"
-Men jeg havde ikke afsøgt de værktøjer (internt link) der var til rådighed med Blazor inden at jeg gik i gang.
+**Arkitekturvalg**  
+Overvejelser omkring monolitter kontra distribuerede systemer, herunder API’er og microservices, og hvordan disse påvirker skalerbarhed og vedligeholdelse.
 
-Det primære i sowtware udvikling er at løse problemer. "Har du problem ?"
-Men hvordan løser man et problem ? Man bryder det ned i mindre dele. Det lyder jo meget nemt.
-Der er mange andre ting man bliver nødt til at dække:
+**Udviklingsmetoder og tests**  
+Hvordan vi kan sikre kvalitet og stabilitet gennem acceptancetest og Gherkin-baserede user stories, som samtidig fungerer som dokumentation for kunden.
+
+**Docker**  
+Hvordan containerisering gør det muligt for kunden selv at teste systemet manuelt, inden det skubbes i produktion.
+
+**Dokumentation**  
+Organiseret på en måde, der afspejler applikationens struktur, og som gør det nemt for kunden at finde og forstå specifikke funktioner.
+
+Det sekundære mål er at skabe en bro mellem kunden og udviklerne. Ved at bruge teknologier og værktøjer, der er gennemsigtige og velbeskrevne, bliver tekniske beslutninger et samarbejde, hvor både kundens vision og systemets behov er i fokus.
+
+---  
 
 - Hvilke værktøjer skal man vælge og hvorfor/vælge det rigtige værktøj til jobbet ? (intern link)
 - Hvordan sikrer man at kunden får dækket alle krav til systemet ? (intern link)
 - Hordan sikrer man at ændringer i systemet fremover ikke skaber problemer andre steder i systemet ? (internt link).
 - Hvordan sikrer man en dækkende og overskuelig dokumentation som er nem at lave og vedligeholde ? og sikrer at den er korrekt (forkert dokumentation er værre end ikke at have nogen dokumentation) ? (internt link)
 
-Jeg vil give mit bud på hvordan man kan løse ovenstående problemer, med udgangspunkt i en web applikation med Blazor og .NET.
+</div>

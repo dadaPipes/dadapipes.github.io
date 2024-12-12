@@ -1,5 +1,10 @@
 # Dokumentation
 
+Swagger og [alternativer](https://www.youtube.com/watch?v=gAUaRslamYs&list=LL&index=0)
+
+TODO: få noget med om sporbarhed. Målet er at kunne sikre sporbarhed mellem den fælles dokumentation som både kunde og udvikler har til rådighed og den implimenterede kode.
+Ved at holde den fælles dokumentation på et højt niveau og dokumentere systemet som en sort box, kan kunde og udvikler få et hurtigt og solidt overblik over hvordan applikationen overordnet virker og hvordan enkelte dele fungerer.
+
 Hvad giver mening at dokumentere og hvorfor ?
 
 Acceptence tests for at PO og udviklere kan se hvad systemet kan, gør og begrænsninger i forskellige komponenter.

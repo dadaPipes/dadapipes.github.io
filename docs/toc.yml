@@ -1,6 +1,8 @@
 items:
-- name: TechRamme
-  href: TechRamme/toc.yml
+- name: Blazor
+  href: Blazor.md
+- name: API
+  href: Api.md
 - name: Arkitektur
   href: Arkitektur.md
 - name: Udvikling

@@ -1,21 +1,19 @@
-# Blazor Varianter
-
-## Overvejelser og Sammenligning af Blazor rammer
+# Blazor
 
 Jeg har undersøgt og sammenlignet de forskellige relevante Blazor varianter, for web udvikling, i .NET 8.0
 
-### Blazor Web App
+Blazor gør det muligt at udvikle moderne, interaktive brugerflader direkte i C#. En stor fordel er, at Blazor også understøtter JavaScript, hvilket åbner op for brug af JavaScript-biblioteker, fx til kompleks drag-and-drop-funktionalitet.
+
+.NET sikrer en skalerbar backend, hvor data kan håndteres sikkert og effektivt, fx via CRUD-operationer til databasen. .NET muliggør også integration med forskellige klienter og eksterne systemer, hvilket er vigtigt for krav som datalagring og brugerautentifikation.
 
 Introduktionen af Blazor Web App i .NET 8.0 har gjort det muligt at mixe forskellige render modes i Blazor, til forskel for
-.NET 7.0 hvor man kun kunne vælge imellem Blazor Server og Blazor WebAssembly.
+.NET 7.0 hvor man kun kunne vælge imellem Blazor Server eller Blazor WebAssembly.
 
-Man kan sætte rendermode for hele applikationen og ikke tænke mere over det eller man kan sætte en rendermode for hver individuel komponent, så man ikke er tvunget til at bruge enten server rendering eller webassembly rendering for hele applikationen.
+Man kan sætte rendermode for hele applikationen og ikke tænke mere over det eller man kan sætte en rendermode for hver individuel komponent.
 
-På den ene side giver det mere fleksibilitet, men på den anden side giver det mere kopmleksitet, hvilket jeg dækker senere.
-I nogle tilfælde kan det give mening at have forskelig rendermode, men for større dele af applikationen, som en epic (en gruppering af features, eller for en gruppe af epics der er relaterede).
-(TODO: INDSÆT INTERNT LINK TIL DER HVOR JEG BESKRIVER FEATURES OG HVORDAN MAN KAN ORGANISERE KODEN DYNAMISK, UD FRA KRAVENE, I TAKT MED AT APPLIKATIONEN VOKSER).
+Det giver mere fleksibilitet, men også en højere kompleksitet, da man har UI komponenter i både et Client og Server projekt at holde styr på.
 
-Begge har SPA funktionallitet, så de kan opdatere enkelte komponenter på en side uden at lave en fuld page refresh.
+## Blazor Varianter
 
 # [Interactive Server](#tab/interactive-server)
 
@@ -121,7 +119,9 @@ Der findes meget sparsom dokumentation om hvordan man sikrer Blazor Standalone m
 Idioten her fattede ikke en skid af alt det, før efter at have brugt 4 uger på at sikre Blazor Standalone med cookies, hvilket i den grad øgede kompleksiteten i frontend delen.
 Til gengæld er jeg fri for at være afhægig af en tedje part udbyder, og kan sikre applicationen via Microsoft Identity endpoints eller lave mine egne ( hvis ikke at jeg har brug for en lang række endpoints jeg ikke skal bruge).
 
-# [Progressive Web App](#tab/progressive-web-app)
+# [+ PWA](#tab/progressive-web-app)
+
+**Progressive Web App**  
 
 Hele applikationen kan downloades til en klient.
 Ordet ’Progressive’ kommer af at en bruger starter med at opdage applikationen, som kører i en browser, og derefter kan progress/fortsætte med at installerer applikationen på sin enhed.
@@ -147,37 +147,8 @@ Til gengæld gør det den mere sikker, da den ikke kan manipulere, opsnappe elle
 
 ---
 
-## Læringsmål
+## MudBlazor
 
-### Viden (Huske og Forstå)
-
-**Jeg kan identificere de forskellige Blazor rendermodes**  
-Jeg har viden om de forskellige Blazor rendermodes, herunder Blazor Server, Blazor WebAssembly og Blazor Web App med Interactive Auto.
-
-**Jeg kan beskrive forskellene mellem Blazor Server og Blazor WebAssembly**  
-Jeg forstår de grundlæggende forskelle i arkitektur og performance, som adskiller Blazor Server og Blazor WebAssembly.
-
-**Jeg kan forklare anvendelsen af Blazor rendermodes i webapplikationer**  
-Jeg har viden om, hvordan Blazor rendermodes anvendes i forhold til specifikke webapplikationers krav til skalering, hastighed og brugeroplevelse.
-
-### Færdigheder (Anvende og Analysere)
-
-**Jeg kan anvende Blazor rendermodes i udvikling af en webapplikation**
-Jeg er i stand til at vælge og implementere den rette Blazor rendermode baseret på applikationens krav og miljøforhold.
-
-**Jeg kan analysere, hvilken Blazor rendermode der er mest effektiv i et givet scenarie**  
-Jeg kan vurdere behovene for en applikation og analysere, om Blazor Server eller Blazor WebAssembly vil være mest effektiv i forhold til performance, sikkerhed og netværkskrav.
-
-**Jeg kan optimere en Blazor-applikation ved at vælge passende rendermode**  
-Jeg er i stand til at vælge den rette Blazor rendermode for at optimere både performance og brugeroplevelse i en webapplikation.
-
-### Kompetencer (Evaluere og Skabe)
-
-**Jeg kan evaluere de tekniske og praktiske konsekvenser af valget af Blazor rendermode**  
-Jeg kan vurdere, hvordan valget af Blazor rendermode påvirker faktorer som sikkerhed, netværksafhængighed og applikationens skalerbarhed.
-
-**Jeg kan skabe en webapplikation, der kombinerer Blazor Server og Blazor WebAssembly på en hensigtsmæssig måde**  
-Jeg er i stand til at kombinere forskellige Blazor rendermodes i én applikation for at opnå optimal performance og funktionalitet, afhængigt af de specifikke krav.
-
-**Jeg kan kombinere Blazor rendermodes med designmønstre for at opnå et specifikt mål**  
-Jeg kan integrere Blazor rendermodes med passende designmønstre (fx client-side og server-side separation) for at opnå applikationens mål om fleksibilitet, effektivitet og vedligeholdelse.
+Skriv om MudBlazor.
+Sammenlign MudBlazor syntax med Razor syntax
+Link til MudBlazor

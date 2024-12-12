@@ -87,16 +87,13 @@
         <article data-uid="">
 <h1 id="blazor-varianter">Blazor Varianter</h1>
 
-<h2 id="overvejelser-og-sammenligning-af-blazor-rammer">Overvejelser og Sammenligning af Blazor rammer</h2>
 <p>Jeg har undersøgt og sammenlignet de forskellige relevante Blazor varianter, for web udvikling, i .NET 8.0</p>
-<h3 id="blazor-web-app">Blazor Web App</h3>
+<p>Blazor gør det muligt at udvikle moderne, interaktive brugerflader direkte i C#. En stor fordel er, at Blazor også understøtter JavaScript, hvilket åbner op for brug af JavaScript-biblioteker, fx til kompleks drag-and-drop-funktionalitet.</p>
+<p>.NET sikrer en skalerbar backend, hvor data kan håndteres sikkert og effektivt, fx via CRUD-operationer til databasen. .NET muliggør også integration med forskellige klienter og eksterne systemer, hvilket er vigtigt for krav som datalagring og brugerautentifikation.</p>
 <p>Introduktionen af Blazor Web App i .NET 8.0 har gjort det muligt at mixe forskellige render modes i Blazor, til forskel for
-.NET 7.0 hvor man kun kunne vælge imellem Blazor Server og Blazor WebAssembly.</p>
-<p>Man kan sætte rendermode for hele applikationen og ikke tænke mere over det eller man kan sætte en rendermode for hver individuel komponent, så man ikke er tvunget til at bruge enten server rendering eller webassembly rendering for hele applikationen.</p>
-<p>På den ene side giver det mere fleksibilitet, men på den anden side giver det mere kopmleksitet, hvilket jeg dækker senere.
-I nogle tilfælde kan det give mening at have forskelig rendermode, men for større dele af applikationen, som en epic (en gruppering af features, eller for en gruppe af epics der er relaterede).
-(TODO: INDSÆT INTERNT LINK TIL DER HVOR JEG BESKRIVER FEATURES OG HVORDAN MAN KAN ORGANISERE KODEN DYNAMISK, UD FRA KRAVENE, I TAKT MED AT APPLIKATIONEN VOKSER).</p>
-<p>Begge har SPA funktionallitet, så de kan opdatere enkelte komponenter på en side uden at lave en fuld page refresh.</p>
+.NET 7.0 hvor man kun kunne vælge imellem Blazor Server eller Blazor WebAssembly.</p>
+<p>Man kan sætte rendermode for hele applikationen og ikke tænke mere over det eller man kan sætte en rendermode for hver individuel komponent.</p>
+<p>Det giver mere fleksibilitet, men også en højere kompleksitet, da man har UI komponenter i både et Client og Server projekt at holde styr på.</p>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
 <li role="presentation">
@@ -112,7 +109,7 @@ I nogle tilfælde kan det give mening at have forskelig rendermode, men for stø
 <a href="#tabpanel_1_blazor-standalone" role="tab" aria-controls="tabpanel_1_blazor-standalone" data-tab="blazor-standalone" tabindex="-1">Blazor Standalone</a>
 </li>
 <li role="presentation">
-<a href="#tabpanel_1_progressive-web-app" role="tab" aria-controls="tabpanel_1_progressive-web-app" data-tab="progressive-web-app" tabindex="-1">Progressive Web App</a>
+<a href="#tabpanel_1_progressive-web-app" role="tab" aria-controls="tabpanel_1_progressive-web-app" data-tab="progressive-web-app" tabindex="-1">+ PWA</a>
 </li>
 </ul>
 <section id="tabpanel_1_interactive-server" role="tabpanel" data-tab="interactive-server">
@@ -206,6 +203,7 @@ Til gengæld er jeg fri for at være afhægig af en tedje part udbyder, og kan s
 </section>
 <section id="tabpanel_1_progressive-web-app" role="tabpanel" data-tab="progressive-web-app" aria-hidden="true" hidden="hidden">
 
+<p><strong>Progressive Web App</strong></p>
 <p>Hele applikationen kan downloades til en klient.
 Ordet ’Progressive’ kommer af at en bruger starter med at opdage applikationen, som kører i en browser, og derefter kan progress/fortsætte med at installerer applikationen på sin enhed.</p>
 <p><strong>Fordele</strong></p>
