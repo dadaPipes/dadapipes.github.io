@@ -1,6 +1,8 @@
 items:
 - name: Blazor
   href: Blazor.md
+- name: MudBlazor
+  href: MudBlazor.md
 - name: API
   href: Api.md
 - name: Arkitektur

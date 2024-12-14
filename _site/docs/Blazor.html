@@ -88,12 +88,11 @@
 <h1 id="blazor">Blazor</h1>
 
 <p>Jeg har undersøgt og sammenlignet de forskellige relevante Blazor varianter, for web udvikling, i .NET 8.0</p>
-<p>Blazor gør det muligt at udvikle moderne, interaktive brugerflader direkte i C#. En stor fordel er, at Blazor også understøtter JavaScript, hvilket åbner op for brug af JavaScript-biblioteker, fx til kompleks drag-and-drop-funktionalitet.</p>
-<p>.NET sikrer en skalerbar backend, hvor data kan håndteres sikkert og effektivt, fx via CRUD-operationer til databasen. .NET muliggør også integration med forskellige klienter og eksterne systemer, hvilket er vigtigt for krav som datalagring og brugerautentifikation.</p>
+<p>Blazor gør det muligt at udvikle moderne, interaktive brugerflader direkte i C#. En stor fordel er, at Blazor også understøtter JavaScript, hvilket åbner op for brug af JavaScript-biblioteker og man kan skrive kode i Java Script.</p>
 <p>Introduktionen af Blazor Web App i .NET 8.0 har gjort det muligt at mixe forskellige render modes i Blazor, til forskel for
-.NET 7.0 hvor man kun kunne vælge imellem Blazor Server eller Blazor WebAssembly.</p>
-<p>Man kan sætte rendermode for hele applikationen og ikke tænke mere over det eller man kan sætte en rendermode for hver individuel komponent.</p>
-<p>Det giver mere fleksibilitet, men også en højere kompleksitet, da man har UI komponenter i både et Client og Server projekt at holde styr på.</p>
+.NET 7.0 hvor man kun kunne vælge imellem Blazor Server eller Blazor WebAssembly for sin applikation.</p>
+<p>Man kan sætte rendermode til for hele applikationen og ikke tænke mere over det eller man kan sætte en rendermode for hver individuel komponent.</p>
+<p>Det giver mere fleksibilitet, men også en højere kompleksitet, da man har UI komponenter i både et Client og Server projekt at holde styr på. Hvilken render mode man kan vælge og hvorfor, kigger jeg nærmere på herunder.</p>
 <h2 id="blazor-varianter">Blazor Varianter</h2>
 <div class="tabGroup" id="tabgroup_1">
 <ul role="tablist">
@@ -116,123 +115,183 @@
 <section id="tabpanel_1_interactive-server" role="tabpanel" data-tab="interactive-server">
 
 <p><strong>Sådan fungerer det</strong><br>
-Klienten viser kun det indhold som skal bruges, og bliver sendt via en SignalR-forbindelse, der muliggør realtidskommunikation mellem serveren og klienten gennem websockets (eller alternative protokoller som Server-Sent Events eller Long Polling, hvis websockets ikke er tilgængelige).</p>
+Serveren sender kun det det indhold der skal bruges, når en bruger navigerer til en side, og hvis brugeren har adgang til siden.
+Dataen bliver sendt via en SignalR-forbindelse, der muliggør realtidskommunikation mellem serveren og klienten gennem websockets (eller alternative protokoller som Server-Sent Events eller Long Polling, hvis websockets ikke er tilgængelige).</p>
 <p><strong>Interaktivitet</strong><br>
 Brugeraktivitet behandles direkte på serveren af ASP.NET Core runtime.</p>
 <p><strong>Stateful (tilstandsfuld):</strong>
-Applikationens tilstand er afhængig af serveren og håndterer forbindelsen for alle forbundne klienter og opdatering af UI.</p>
-<p><strong>Fordele:</strong></p>
+Applikationens tilstand er afhængig af en konstant forbindelse til serveren.
+Serveren håndterer forbindelsen for alle forbundne klienter og opdatering af UI.</p>
+<p><strong>Fordele</strong></p>
 <ul>
 <li>Hurtig initial indlæsning da alt bruger aktivitet på siden forgår direkte via serveren.
-Skal kun downloade Java Script bundle displaye den første side inklusiv HTML og CSS for den første side.
+Skal kun downloade Java Script, HTML og CSS per side.
 Uanset hvor stor applikationen er, vil den loade hurtigt.</li>
 <li>Lavere krav til klientens ydeevne, da alt beregnes på serveren.</li>
-<li>Man behøver kun 1 projekt da alt kører på serveren.</li>
-<li>Koden er simplere og man er ikke tvunget til at have et API lag.</li>
+<li>Man behøver kun 1 server projekt.</li>
+<li>Organisering af kode er enkelt da det er en monolith (med mindre at man bruger micro services).</li>
 </ul>
-<p><strong>Ulemper:</strong></p>
+<p><strong>Ulemper</strong></p>
 <ul>
 <li>Netværk:<br>
 Afhængighed af en stabil netværksforbindelse. Hvis forbindelsen afbrydes, mister applikationen sin funktionalitet.</li>
 <li>Omkostninger:
-Høj belastning på serveren, hvilket kan resultere i øgede omkostninger, især ved mange samtidige brugere eller meget aktivitet.</li>
+Høj belastning på serveren, især ved mange samtidige brugere eller meget interaktivitet.</li>
 <li>Udsving i netværksforbindelsen kan påvirke brugeroplevelsen negativt.</li>
 </ul>
 <p><strong>Sikkerhed</strong><br>
-Da hele applikationen ligger på serveren kan man sikre at det kun er brugere med de rette brugsrettigheder der har adgang til specifike begrænsede komponenter.
-Derfor(!) kan man sikre følsom kode direkte i en komponent (UI). ( Hård nød er knækket.. ).</p>
-<p>Hele koden holdes sikker på serveren og komponenter kan kun tilgås hvis man har brugerrettigheder til at tilgå dem.
-Validering af data kan derfor foregå direkte i UI, da det kun er autoriserede brugere der har adgang til serveren.
-Man skal selvfølgelig sørge for at de kun kan sende og modtage data der er relevante for dem, så de ikke kan fucke med hele systemet, men kun hvad der vedrører dem selv.</p>
+Da hele applikationen ligger på serveren, kan man sikre at det kun er brugere med de rette brugsrettigheder, der har adgang til specifike komponenter, sider eller layouts.
+Man kan bruge en ViewModel som man binder til en komponent, og validere modelen med eksemspelvis <a href="https://medium.com/@ravipatel.it/comprehensive-guide-to-data-annotations-in-net-8-a-beginner-friendly-approach-e6d6c8a8588f">dataannotations</a> eller <a href="https://docs.fluentvalidation.net/en/latest/">FluentValidation</a>.
+Det giver brugeren direkte feedback i klienten, men validering i klienten kan manipuleres, eksempelvis via <a href="https://developer.chrome.com/docs/devtools">Dev Tools</a>, hvis klienten er en browser.
+Da man allerede har validering for ViewModelen, kan man bruge den samme i en service eller metode der kører på severen, som en bruger ikke har direkte adgang til.</p>
 </section>
 <section id="tabpanel_1_interactive-webassembly" role="tabpanel" data-tab="interactive-webassembly" aria-hidden="true" hidden="hidden">
 
 <p><strong>Sådan fungerer det</strong><br>
-Hele frontend delen bliver downloaded og cached i klientens browser, inclusiv .NET WebAssembly runtime.
-UI og brugeraktivitet håndteres direkte i browseren. Ved første indlæsning af en komponent downloades hele .NET runtime sammen med applikationen til browseren og caches, hvor koden eksekveres i WebAssembly-format.
-API-kald og andre interaktioner med serveren håndteres via http(s) eller andre forbindelser som websockets.</p>
+.NET runtime og app bundle downloades og lagres i browserens cache, ved første indlæsning en komponent.
+Komponenter skal bygges fra et separat client projekt, der opsætter Blazor WebAssembly-værten.
+Skal der sendes eller modtages data til eller fra en server, foregår det via en API, typisk via HTTPS.</p>
 <p><strong>Interaktivitet</strong><br>
-Brugeraktivitet håndteres i browseren på klienten via den WebAssembly baserede Blazor runtime.</p>
+Brugeraktivitet håndteres direkte i klientens browser.</p>
 <p><strong>Stateless (tilstandsløs):</strong>
 Den håndterer tilstanden af applikationen i browseren, uafhængig af serveren, da alt er lagret i browseren.</p>
-<p><strong>Fordele</strong><br>
-Kan bruges offline, efter at den er downloaded, da frontend delen ligger i browseren, derfor kan den stadig fungere, selv hvis netværksforbindelsen svigter efterfølgende.
-Hurtig UI-reaktionstid, da al interaktivitet udføres lokalt i browseren uden afhængighed af netværksforbindelsen,
-kan man opnå en hastighed der er det tæt på desktop app hastighed.</p>
-<p>Bedre skalerbarhed, da klient og server kan udvikles og skaleres separat.
-Nemmere vedligehold i tilfælde af en omfattende applikation, da kommunikationen imellem front- og backend foregår via HTTTP(S), er der en meget løs kobling og to udviklere kan arbejde i hver deres ende, uden at påvirke hinanden.
-Server projektet kan bruges til forskellige klienter.</p>
+<p><strong>Fordele</strong></p>
+<ul>
+<li>Kan bruges offline, efter at den er downloaded, da klient delen ligger, der er catched i browseren, så den kan stadig fungere, selv hvis netværksforbindelsen svigter efterfølgende.</li>
+<li>Hurtig UI-reaktionstid, da al interaktivitet udføres lokalt i browseren uden afhængighed af netværksforbindelsen,
+og man kan opnå en hastighed der er det tæt på desktop app hastighed.</li>
+<li>Klient- og serverprojekt kan udvikles og skaleres separat.</li>
+<li>Server projektet (API) kan bruges til forskellige klienter.</li>
+<li>Man kan bruge den samme C# kode for validering i både Klient og Serber projektet.</li>
+</ul>
 <p><strong>Ulemper</strong></p>
 <ul>
-<li>Længere initial indlæsningstid da hele frontend delen skal downloades før at en bruger kan interiger med appen.</li>
+<li>Længere initial indlæsningstid da hele klientprojektet skal downloades før at en bruger kan interigere med applikationen.</li>
 <li>Kræver en mere kraftfuld klientenhed, da al interaktion foregår lokalt i browseren.</li>
-<li>Er afhængig af en .NET backend for at kunne fungere, og skal ligge på den samme server, da det er backend der 'serverer' frontenden delen til browseren.</li>
-<li>Øget kompleksitet:
-Kræver et seperat server projekt i form af en API og typisk også et delt projekt bibliotek der har objekter til at transportere data imellem front- og backend.
-Implimenterer CORS for at begrænse hvilke domæner der har adgang til API’en.</li>
+<li>Er afhængig af en et .NET serverprojekt for at kunne fungere, da det er serverprojektet der 'serverer' klientprojekt til browseren</li>
 </ul>
 <p><strong>Sikkerhed</strong>
-Validering i UI er ikke beskyttet da det kan manipuleres direkte i browseren. Oven i hatten, så er alle UI komponenter downloaded og catched i browseren og en bruger har derfor adgang til alle dele af frontend delen.
-Validering SKAL derfor sikres på backend delen (serveren) for at være sikker.</p>
-<p>Du må ikke sige det til nogen.. men hvis man højreklikker på et website, trykker inspect, klikker på 'application' knappen, kan man finde filerne under 'cache storage'. Ingenting er gemt eller glemt i <a href="https://developer.chrome.com/docs/devtools">Dev tools</a>.</p>
-<p>De forskellige dele af UI er derfor <strong>IKKE</strong> sikret imod brugere uden de rigtige retigheder. Den begrænsede adgang man kan tilføje i Blazor er rent kosmetisk.
-Derfor er man nødt til at sikre sin API og det er ikke nok bare at sikre sin UI komponenter.</p>
+I en WebAssembly-applikation downloades og caches alle komponenter i browserens cache, hvilket giver brugeren adgang til hele klientprojektet via værktøjer som browserens Developer Tools.
+Validering skal derfor altid foretages på backenden (serveren) for at sikre dataintegritet og forhindre misbrug.
+For eksempel kan man ved at højreklikke på et website, vælge Inspicér, og navigere til fanen Application finde cachelagrede filer under Cache Storage. Intet i klienten er skjult eller sikkert fra brugere med adgang til Developer Tools.</p>
+<p>UI-komponenterne i Blazor WebAssembly tilbyder ikke reel sikkerhed mod uautoriserede brugere, da eventuelle adgangsbegrænsninger i UI’et kun er kosmetiske.
+Det er derfor afgørende at beskytte API'en og sikre korrekt adgangskontrol og validering på serveren frem for at stole på UI-komponenternes sikkerhed.</p>
 </section>
 <section id="tabpanel_1_interactive-auto" role="tabpanel" data-tab="interactive-auto" aria-hidden="true" hidden="hidden">
 
-<p>Fungerer på samme måde som Blazor WebAssembly, men bruger .NET runtime på serveren indtil at hele applikationen er downloaded og catched i browseren.</p>
+<p><strong>Sådan fungerer det</strong><br>
+Fungerer som Blazor WebAssembly, men med den vigtige forskel, at .NET runtime kører på serveren, indtil hele applikationen er downloadet og cached i brugerens browser. Dette giver en hurtigere &quot;first render&quot; for brugeren og en mere glidende overgang til en fuldt klientbaseret applikation.</p>
+<p><strong>Fordele</strong></p>
+<ul>
+<li><p>Brugeren kan se og interagere med UI'et næsten med det samme, fordi serveren midlertidigt håndterer logik og rendering. Dette skaber en hurtig og responsiv oplevelse, selv for brugere med langsom internetforbindelse, da serveren kun skal håndtere den specifike side som brugeren har navigeret til.</p>
+</li>
+<li><p>Når applikationen er fuldt downloadet og cached, skifter den automatisk til at køre som en Blazor WebAssembly-app, hvilket reducerer serverbelastningen og udnytter klientens ressourcer optimalt.
+Brugeren oplever derfor ikke en tom side eller en langsom load-fase, da serveren straks leverer UI.</p>
+</li>
+</ul>
+<p><strong>Ulemper</strong></p>
+<ul>
+<li>Brugeren kan se UI'et hurtigt, men de kan ikke sende eller modtage data fra API'en, før .NET runtime er fuldt downloadet og kører lokalt i browseren. Dette kan give en begrænset interaktivitet i starten.</li>
+<li>Overgangen fra server til klient kan skabe potentielle problemer, hvis noget går galt under download eller caching-processen.</li>
+</ul>
 </section>
 <section id="tabpanel_1_blazor-standalone" role="tabpanel" data-tab="blazor-standalone" aria-hidden="true" hidden="hidden">
 
-<p>Blazor Standalone er en bunke statiske filer som HTML CSS of Java Script.
-Den har den de samme fordele og ulemper som Blazor Standalone, men adskilder sig stadig på nogle punkter.</p>
-<p>Den er server uafhængig.
-Den er uafhængig af .NET og kan hostes på en hvilken som helst server der kan sende filerne til borowseren.
-Skal man sikre foretningslogik eller databaseadgang, skal den kommunikere med en API.</p>
-<p><strong>Fordele</strong><br>
-Blazor Standalone templated understøtter Progressive Web App, som det eneste template.</p>
-<p><strong>Ulemper</strong><br>
-Det er et sandt mareridt at sikre forbindelsen mellem Standalone og en API.
-Den officielle dokumentation opfordrer til at man bruger OpenID Connect (OIDC) Identity Provider (IP), som er et tredje parts bibliotek der håndterer tokens uden for applikationen.
-Den typiske brugssag er Social Media login, så man kan logge ind via Google, Facebook, X, Twitter etc.
-Problemet er at mange Auth leverandører ikke har lavet noget til Blazor Standalone så man hurtigt kan spinde Authentication op.
-En mulig årsag er at Blazor som statiske filer, ikke er nært så populært som React, Angular, Vue.</p>
-<p>Det er <strong>IKKE</strong> en mulighed at vælge authentication i Blazor Standalone templated, så man er overladt til sig selv.
-Der findes meget sparsom dokumentation om hvordan man sikrer Blazor Standalone med cookies, hvilket er det rekomenderede, da browseren håndterer cookies, uden at eksponere dem for Java Script.</p>
-<p>Idioten her fattede ikke en skid af alt det, før efter at have brugt 4 uger på at sikre Blazor Standalone med cookies, hvilket i den grad øgede kompleksiteten i frontend delen.
-Til gengæld er jeg fri for at være afhægig af en tedje part udbyder, og kan sikre applicationen via Microsoft Identity endpoints eller lave mine egne ( hvis ikke at jeg har brug for en lang række endpoints jeg ikke skal bruge).</p>
+<p>Blazor Standalone bygger på samme klient-side rendering (CSR)-principper som Blazor WebAssembly, men adskiller sig ved ikke at være afhængig af en .NET-server til hosting. Den genererer en samling statiske filer som HTML, CSS og JavaScript, som kan hostes på enhver server, der understøtter levering af statiske filer. Dette gør den særligt velegnet til enklere hostingløsninger, mens forretningslogik og databaseadgang håndteres via en ekstern API.</p>
+<p>Blazor Standalone deler mange af de samme fordele og ulemper med Blazor WebAssembly: Hurtig UI-reaktionstid, offline-funktionalitet og genbrug af C#-kode. Samtidig kræver begge løsninger, at sikkerhed og validering implementeres på serversiden. Den væsentligste forskel ligger i Blazor Standalones større hostingfleksibilitet og dens mangel på indbygget Microsoft Identity-support.</p>
+<p><strong>Fordele</strong></p>
+<ul>
+<li>Kan hostes på enhver server, der understøtter statiske filer, inklusiv billigere løsninger som GitHub Pages eller Azure Static Web Apps.</li>
+<li>Kræver ikke en .NET-server til at levere klientprojektet, hvilket kan reducere kompleksiteten i drift.</li>
+<li>Hurtig UI, offline-funktionalitet og genbrug af C#-kode gælder også for Blazor Standalone.</li>
+</ul>
+<p><strong>Ulemper</strong></p>
+<ul>
+<li>Blazor Standalone-templaten inkluderer ikke en indbygget løsning med Microsoft Identity til authentication. Udviklere skal selv implementere sikkerhed, ofte ved brug af tredjepartsløsninger eller en API, der sikrer kommunikationen.</li>
+<li>For at sikre forbindelsen mellem Blazor Standalone og en API anbefales det ofte at bruge OpenID Connect (OIDC) med en Identity Provider (IP). Dette kan øge kompleksiteten og afhængigheden af tredjepartsudbydere.</li>
+<li>Dokumentation om emner som sikkerhed og cookiebaseret authentication i Blazor Standalone er sparsom. Dette kan gøre det udfordrende at implementere robuste løsninger uden ekstern hjælp. Manglen af dokumentation gælder også authentication for OIDC udbydere som OAuth, da Blazor Standalone er ikke lige så udbredt som andre frameworks som React, Angular eller Vue.</li>
+</ul>
 </section>
 <section id="tabpanel_1_progressive-web-app" role="tabpanel" data-tab="progressive-web-app" aria-hidden="true" hidden="hidden">
 
 <p><strong>Progressive Web App</strong></p>
-<p>Hele applikationen kan downloades til en klient.
-Ordet ’Progressive’ kommer af at en bruger starter med at opdage applikationen, som kører i en browser, og derefter kan progress/fortsætte med at installerer applikationen på sin enhed.</p>
+<p>En Progressive Web App (PWA) er en webapplikation, der kan downloades og lagres i browserens cache. Dette gælder for Interactive WebAssembly, Interactive Auto og Standalone applikationer. Efter download kan applikationen installeres direkte på klientens enhed.</p>
+<p>Ordet &quot;Progressive&quot; refererer til, at en bruger starter med at opdage applikationen via browseren og derefter kan fortsætte med at installere den som en app på sin enhed.</p>
 <p><strong>Fordele</strong></p>
 <ul>
-<li>Kan kører offline og med det samme, uafhængig af netværksforbindelse, hvis applikationen er downloaded.</li>
-<li>Kan kører i sit eget vindue og ikke kun et browser vindue.</li>
-<li>Startes fra en brugers Operations Systems start menu eller skrivebord.</li>
-<li>Modtage push notifikationer og håndtere baggrunds tasks via en serviceworker, selv hvis en bruger ikke bruger applikationen.</li>
-<li>Kan bruges alle klienter der har en browser, som desktop, laptop, tablet og mobiltelefon.</li>
-<li>Kan downloades fra App Store.</li>
-<li>Har sit eget icon.</li>
+<li>Kan køre offline og starte med det samme, uafhængigt af netværksforbindelse, hvis applikationen er downloadet.</li>
+<li>Kan køre i sit eget vindue, uafhængigt af browseren.</li>
+<li>Kan startes fra brugerens operativsystems startmenu eller skrivebord med et dedikeret ikon.
+Understøtter push-notifikationer og kan håndtere baggrundsopgaver via en service worker, selv når applikationen ikke aktivt bruges.</li>
+<li>Kan bruges på alle enheder med en browser, herunder desktop, laptop, tablet og mobiltelefon.</li>
+<li>Kan downloades fra platforme som App Store eller Microsoft Store.</li>
+<li>Bygger bro mellem web og native apps ved at udnytte standard webteknologier til funktioner, der tidligere krævede enhedsspecifikke programmeringssprog. Dog er der stadig begrænsninger, afhængigt af brugerens browser og enhed. For et overblik over, hvad der understøttes i forskellige browsere, kan man besøge <a href="https://whatwebcando.today/">What Web Can Do Today</a>. Denne liste opdateres løbende, da browser- og OS-udviklere konstant udvider adgangen til native funktioner. Funktioner som filsystemadgang og hardwarekonfiguration vil dog sandsynligvis forblive sandboxed af sikkerhedsmæssige årsager.</li>
 </ul>
 <p><strong>Ulemper</strong></p>
 <ul>
-<li>Offline support er kun tilgængelig hvis applikationen er udrullet. Man kan kun manuelt teste applikationen i offline tilstand efter at den er udrullet.</li>
-<li>Updateringer er kun tilgængelige hvis en bruger lukker helt ned for applikationen. Det er ikke nok, kun at refreshe browseren. Som udvikler skal man være opmærksom på det og det skal kommunikeres til brugerne.
-Hvis der udrulles en opdatering som ikke kan bruges med en tidligere version, er der risiko for at en bruger ikke kan bruge applikationen og samtidigt ikke har nogen som helst ide om hvorfor at den ikke kan bruges ( noget som folkene bag NemID ikke havde prioriteret som et essentielt krav. Rant out ).</li>
-<li>Hvis en bruger ikke har netværksforbindelse, kan man ikke authentikeres og få en access token, og har derved ikke adgang til dele af applikationen som kræver authentikering.</li>
+<li>I Blazor Standalone-templaten kan man tilvælge PWA, men dette gælder ikke for Blazor Web App Interactive WebAssembly-templaten, hvor PWA-funktionaliteten skal tilføjes manuelt.
+Applikationen kan kun testes manuelt i offline-tilstand efter deployment.</li>
+<li>Opdateringer er kun tilgængelige, hvis brugeren lukker applikationen helt. En simpel opdatering af browseren er ikke tilstrækkelig. Dette skal overvejes af udviklere og kommunikeres klart til brugerne.</li>
+<li>Hvis en opdatering udrulles, som ikke er kompatibel med tidligere versioner, kan brugeren risikere at miste adgang til applikationen uden at forstå hvorfor. Det er afgørende at kommunikere opdateringer tydeligt (noget som eksempelvis NemID ikke prioriterede – rant out!).</li>
+<li>Hvis brugeren ikke har netværksforbindelse, er det ikke muligt at få en ny access token til autentificering. Dette forhindrer adgang til beskyttede dele af applikationen. Det afhænger dog af, om access tokens har en udløbstid, hvilket generelt anbefales.</li>
 </ul>
-<p><strong>Begrænsninger</strong><br>
-Den har <strong>IKKE</strong> adgang til klientens Operations System, da den kører i browserens sandbox, så den kan ikke gøre brug af eksempelvis kammera på en telefon.
-Til gengæld gør det den mere sikker, da den ikke kan manipulere, opsnappe eller plante ting i klienten.</p>
 </section>
 </div>
-<h2 id="mudblazor">MudBlazor</h2>
-<p>Skriv om MudBlazor.
-Sammenlign MudBlazor syntax med Razor syntax
-Link til MudBlazor</p>
+<h2 id="omkostninger">Omkostninger</h2>
+<h5 id="udvikling">Udvikling</h5>
+<ul>
+<li><p><strong>Blazor Server</strong><br>
+Da koden er samlet i ét projekt, er det hurtigt og nemt at implementere nye funktioner. Kodebasen er enkel og gør det muligt at udvikle direkte i en enkelt komponent uden at skulle opdele koden i separate klasser, hvilket reducerer kompleksitet og sparer tid.</p>
+</li>
+<li><p><strong>Blazor WebAssembly</strong><br>
+Applikationen kræver opdeling i to projekter: frontend og backend. Dette betyder ekstra opsætning og behov for et delt bibliotek til DTO'er (Data Transfer Objects) for at sikre korrekt dataoverførsel mellem frontend og backend. Det kan tage længere tid at strukturere og udvikle funktioner sammenlignet med Blazor Server.</p>
+</li>
+<li><p><strong>Blazor Standalone</strong><br>
+Opsætning af sikkerhed og authentication kræver betydelig indsats og erfaring, især hvis der bruges tredjepartsbiblioteker eller custom integrationer. Dette kan føre til længere udviklingstid sammenlignet med de andre løsninger.</p>
+</li>
+</ul>
+<h5 id="vedligehold">Vedligehold</h5>
+<ul>
+<li><p><strong>Blazor Server</strong><br>
+Den simple struktur gør det nemt at organisere og overskue kodebasen, hvilket gør vedligeholdelse relativt enkel. Nye udviklere kan hurtigt forstå applikationens opbygning.</p>
+</li>
+<li><p><strong>Blazor WebAssembly</strong><br>
+Vedligeholdelse kan være mere kompleks, da frontend og backend skal holdes synkroniseret, især ved ændringer i API'et eller DTO'er. Et delt bibliotek kan reducere risikoen for fejl, men det introducerer en afhængighed, der kræver løbende opdatering.</p>
+</li>
+<li><p><strong>Blazor Auto</strong><br>
+Samme som WebAssembly</p>
+</li>
+<li><p><strong>Blazor Standalone</strong><br>
+Authentication og sikkerhedsløsninger er ofte brugerdefinerede og kræver løbende tilpasninger, især når tredjepartsbiblioteker ændrer standarder. Dette kan gøre vedligeholdelse mere tidskrævende end de andre modeller.</p>
+</li>
+</ul>
+<h5 id="drift">Drift</h5>
+<ul>
+<li><p><strong>Blazor Server</strong><br>
+Hele applikationen kører på serveren, hvilket kan føre til betydelige omkostninger ved høj brugeraktivitet. Serveren skal håndtere både forretningslogik og UI-opdateringer, hvilket kræver kraftigere serverressourcer og begrænser fleksibiliteten i hosting.</p>
+</li>
+<li><p><strong>Blazor WebAssembly</strong><br>
+Klienten kører direkte i brugerens browser, hvilket reducerer belastningen på serveren. Dette resulterer ofte i lavere serveromkostninger, især ved mange samtidige brugere, da backenden kun håndterer API-kald. Ressourcer caches i browseren, hvilket reducerer behovet for gentagne downloads.</p>
+</li>
+<li><p><strong>Blazor Standalone</strong><br>
+Hostingomkostningerne er typisk lave, da applikationen kun består af statiske filer. Dette gør Standalone til en økonomisk løsning, hvis der ikke er behov for en server. Hvis der kræves en backend til forretningslogik via API, kan driftsomkostningerne stige og gøre løsningen mindre fordelagtig sammenlignet med andre modeller.</p>
+</li>
+<li><p><strong>Blazor Auto</strong><br>
+Interactive Auto har stort set samme omkostninger som Blazor WebAssembly, da serveraktiviteten kun er midlertidig, indtil applikationen er downloadet og kører som WebAssembly. Hostingomkostningerne kan være en anelse højere i applikationens opstartsfase, men dette er typisk ubetydeligt, da brugeren hurtigt overgår til en klientbaseret oplevelse.</p>
+</li>
+</ul>
+<h2 id="omkostninger-pwa">Omkostninger PWA</h2>
+<p>Da PWA skilder sig ud ved at være en tilføjelse til applikationen har den sit eget afsnit.</p>
+<p><strong>Udvikling</strong><br>
+Blazor Standalone:
+Tilføjelsen af PWA-funktionalitet kræver en konfiguration af en service worker og en manifestfil. Det er en relativt simpel proces, især med indbyggede templates, hvilket gør det hurtigt at implementere PWA i applikationen.</p>
+<p>Blazor WebAssembly:
+PWA skal konfigureres manuelt, da standard WebAssembly-template ikke inkluderer PWA. Dette kræver mere tid og erfaring med service workers og caching-strategier, hvilket kan øge udviklingstiden.</p>
+<p><strong>Vedligehold</strong><br>
+PWA kræver, at service workers holdes opdateret for at sikre, at applikationen fungerer korrekt, især ved ændringer i kodebasen. Derudover skal versionering håndteres effektivt for at undgå problemer med kompatibilitet mellem applikationsversioner.</p>
+<p>Opdateringshåndtering kan også være en udfordring, da applikationen kun vil blive opdateret, når brugeren lukker og genstarter den, hvilket kræver opmærksomhed og kommunikation fra udviklerens side.</p>
+<p><strong>Drift</strong><br>
+Driftsomkostningerne for PWA er i vid udstrækning de samme som Interactive WebAssembly, Interactive auto eller Standalone, da store dele af applikationen caches og kører lokalt i brugerens browser.</p>
 
 </article>
 

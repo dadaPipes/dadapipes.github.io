@@ -10,14 +10,14 @@ _layout: landing
 
 Denne tankegang gælder også i softwareudvikling, hvor produktsejeren eller kunden, som finansierer projektet, ofte har det sidste ord i beslutninger om teknologi og arkitektur.
 
-Men som udviklere har vi et ansvar for at præsentere de forskellige muligheder og deres konsekvenser – både fordele, ulemper og omkostninger. Det handler om at skabe gennemsigtighed, så kunden kan træffe informerede valg, der balancerer mellem kvalitet, budget og produktets fremtidige potentiale.
+Men som udviklere har vi et ansvar for at præsentere de forskellige muligheder og deres konsekvenser – både fordele, ulemper og omkostninger. Det handler om at skabe gennemsigtighed, så kunden kan træffe informerede valg, med fokus på **udviklings-**, **vedligeholds-** og **driftsomkostninger**.
 
 Hvad udvikler teamet har erfaring med og er mest komfortabel med, er sekundært, og skal helst ikke spille en større role.
 Hvis de værktøjer der vælges ligger inden for .NET, og teamet ikke har erfaring med de specifike værktøjer, så må man vælge at sende sine medarbejdere på et kursus, for at man kan løfte opgaven og levere et produkt der bedst muligt lever op til kravene. Teamet må tilpasse sig kravene og ikke omvendt.
 
 I denne blog er udgangspunktet kunden. Det primære mål er at gøre teknologien og processerne forståelige for kunden, så de kan navigere systemets funktioner og deltage aktivt i beslutningsprocesserne.
 
-Dette gør vi ved at tage fat på følgende emner:
+Dette gør jeg ved at tage fat på følgende emner:
 
 **Blazor-varianter**  
 Hvordan valg af framework påvirker brugeroplevelse og systemets fleksibilitet.
