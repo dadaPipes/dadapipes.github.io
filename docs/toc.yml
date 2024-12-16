@@ -1,23 +1,25 @@
 items:
 - name: Blazor
   href: Blazor.md
-- name: MudBlazor
+- name: MudBlazor (under udvikling)
   href: MudBlazor.md
-- name: API
+- name: API (under udvikling)
   href: Api.md
 - name: Arkitektur
   href: Arkitektur.md
-- name: Udvikling
+- name: Udvikling (under udvikling)
   href: Udvikling.md
-- name: Tests
+- name: Tests (under udvikling)
   href: Tests.md
-- name: Docker
+- name: Docker (under udvikling)
   href: Docker.md
-- name: CI/CD
+- name: CI/CD (under udvikling)
   href: CICD.md
-- name: Dokumentation
+- name: Dokumentation (under udvikling)
   href: Dokumentation.md
 - name: Eksempler på anvendelse
   href: EksPåAndvendelse/toc.yml
 - name: Afslutning
   href: Afslutning.md
+- name: Miscellaneous
+  href: Miscellaneous.md

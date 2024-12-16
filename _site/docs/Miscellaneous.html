@@ -2,9 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
-      <title>MudBlazor | dadaPipes </title>
+      <title>Miscellaneous | dadaPipes </title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="title" content="MudBlazor | dadaPipes ">
+      <meta name="title" content="Miscellaneous | dadaPipes ">
       
       
       <link rel="icon" href="../favicon.ico">
@@ -16,7 +16,7 @@
       <meta name="docfx:rel" content="../">
       
       
-      <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/MudBlazor.md/#L1">
+      <meta name="docfx:docurl" content="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/Miscellaneous.md/#L1">
       <meta name="loc:inThisArticle" content="In this article">
       <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
       <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
@@ -85,20 +85,28 @@
         </div>
 
         <article data-uid="">
-<h1 id="mudblazor">MudBlazor</h1>
+<h1 id="miscellaneous">Miscellaneous</h1>
 
-<p>TODO:
-Skriv om MudBlazor.
-Sammenlign MudBlazor syntax med Razor syntax</p>
-<p><a href="https://learn.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-9.0">Razor syntaks</a>
-MudBlazor: <a href="https://mudblazor.com/">https://mudblazor.com/</a>
-Sandbox: <a href="https://try.mudblazor.com/">https://try.mudblazor.com/</a></p>
-<p>IBrowserFile VS IFormFile</p>
+<p>Som udgangspunkt er det en god ide at holde det simpelt (<a href="https://en.wikipedia.org/wiki/KISS_principle">KISS-princippet</a>), og man skal ikke spekulere for meget på, hvad applikationen måske kan udvikle sig til i fremtiden (<a href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it">YAGNI-princippet</a>). At gætte på fremtidige behov kan komplicere kodebasen unødvendigt, og kompleksitet koster penge i både implementering og vedligehold. Der skal derfor være en meget god grund til at vælge Clean Architecture for at retfærdiggøre den øgede kompleksitet.</p>
+<p>Med fokus på arkitektur er Vertical Slice Architecture det mest simple at starte med. Hver &quot;skive&quot; har ét fokusområde, og alt, hvad denne skive skal bruge, er samlet i én folder. Hvis man i fremtiden skulle få brug for at genbruge domænedelen af applikationen, kan man opdatere én skive ad gangen, indtil man har et domæne, der kan skilles ud og deles på tværs af projekter.</p>
+<p>Repositories har sine fordele, men de er ikke altid nødvendige, især når man kan bruge en ORM (Object Relational Mapper) som <a href="https://learn.microsoft.com/en-us/ef/core/">EF CORE</a>, der fungerer som dataadgangslag til en database. Hvis man skulle få brug for at skifte til en anden database (jf. <a href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it">YAGNI-princippet</a>), understøtter EF Core allerede mange <a href="https://learn.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli">forskellige</a> databaser via DbContext.</p>
+<p>Når man afklarer kravene til applikationen, kan man i modelleringsfasen dele applikationen op i dele som i <a href="/docs/Udvikling.html?tabs=fdd%2Ccontroller#tabpanel_1_fdd">Feature Driven Development</a>:</p>
+<ul>
+<li><p>Theme</p>
+</li>
+<li><p>Epic</p>
+</li>
+<li><p>Feature</p>
+</li>
+<li><p>User Story</p>
+</li>
+</ul>
+<p>Disse kan afspejle mappestrukturen i applikationen, hvilket giver sporbarhed mellem modellen og applikationen. Udover sporbarhed giver det, som applikationen udvikler sig, en klar afgrænsning af domænet, hvilket kan være svært at opnå enighed om i et team. Hvis applikationen på sigt bliver stor nok, kan dele af den nemt skilles ud og håndteres som selvstændige services, der kan bruges på tværs af andre applikationer.</p>
 
 </article>
 
         <div class="contribution d-print-none">
-          <a href="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/MudBlazor.md/#L1" class="edit-link">Edit this page</a>
+          <a href="https://github.com/dadaPipes/dadapipes.github.io/blob/main/docs/Miscellaneous.md/#L1" class="edit-link">Edit this page</a>
         </div>
 
         <div class="next-article d-print-none border-top" id="nextArticle"></div>

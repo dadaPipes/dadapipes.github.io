@@ -68,3 +68,5 @@ Indsæt links: ...
 [Xunit.Gherkin.Quick](https://github.com/ttutisani/Xunit.Gherkin.Quick)
 [Reqnroll](https://reqnroll.net/about/)
 [User Stories](https://www.mountaingoatsoftware.com/agile/user-stories)
+
+Hvordan vi kan sikre kvalitet og stabilitet gennem acceptancetest og Gherkin-baserede user stories, som samtidig fungerer som dokumentation for kunden.

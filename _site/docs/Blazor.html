@@ -87,7 +87,6 @@
         <article data-uid="">
 <h1 id="blazor">Blazor</h1>
 
-<p>Jeg har undersøgt og sammenlignet de forskellige relevante Blazor varianter, for web udvikling, i .NET 8.0</p>
 <p>Blazor gør det muligt at udvikle moderne, interaktive brugerflader direkte i C#. En stor fordel er, at Blazor også understøtter JavaScript, hvilket åbner op for brug af JavaScript-biblioteker og man kan skrive kode i Java Script.</p>
 <p>Introduktionen af Blazor Web App i .NET 8.0 har gjort det muligt at mixe forskellige render modes i Blazor, til forskel for
 .NET 7.0 hvor man kun kunne vælge imellem Blazor Server eller Blazor WebAssembly for sin applikation.</p>
@@ -119,7 +118,7 @@ Serveren sender kun det det indhold der skal bruges, når en bruger navigerer ti
 Dataen bliver sendt via en SignalR-forbindelse, der muliggør realtidskommunikation mellem serveren og klienten gennem websockets (eller alternative protokoller som Server-Sent Events eller Long Polling, hvis websockets ikke er tilgængelige).</p>
 <p><strong>Interaktivitet</strong><br>
 Brugeraktivitet behandles direkte på serveren af ASP.NET Core runtime.</p>
-<p><strong>Stateful (tilstandsfuld):</strong>
+<p><strong>Stateful (tilstandsfuld)</strong><br>
 Applikationens tilstand er afhængig af en konstant forbindelse til serveren.
 Serveren håndterer forbindelsen for alle forbundne klienter og opdatering af UI.</p>
 <p><strong>Fordele</strong></p>
@@ -153,7 +152,7 @@ Komponenter skal bygges fra et separat client projekt, der opsætter Blazor WebA
 Skal der sendes eller modtages data til eller fra en server, foregår det via en API, typisk via HTTPS.</p>
 <p><strong>Interaktivitet</strong><br>
 Brugeraktivitet håndteres direkte i klientens browser.</p>
-<p><strong>Stateless (tilstandsløs):</strong>
+<p><strong>Stateless (tilstandsløs)</strong><br>
 Den håndterer tilstanden af applikationen i browseren, uafhængig af serveren, da alt er lagret i browseren.</p>
 <p><strong>Fordele</strong></p>
 <ul>
@@ -197,7 +196,8 @@ Brugeren oplever derfor ikke en tom side eller en langsom load-fase, da serveren
 </section>
 <section id="tabpanel_1_blazor-standalone" role="tabpanel" data-tab="blazor-standalone" aria-hidden="true" hidden="hidden">
 
-<p>Blazor Standalone bygger på samme klient-side rendering (CSR)-principper som Blazor WebAssembly, men adskiller sig ved ikke at være afhængig af en .NET-server til hosting. Den genererer en samling statiske filer som HTML, CSS og JavaScript, som kan hostes på enhver server, der understøtter levering af statiske filer. Dette gør den særligt velegnet til enklere hostingløsninger, mens forretningslogik og databaseadgang håndteres via en ekstern API.</p>
+<p><strong>Sådan fungerer det</strong><br>
+Blazor Standalone bygger på samme klient-side rendering (CSR)-principper som Blazor WebAssembly, men adskiller sig ved ikke at være afhængig af en .NET-server til hosting. Den genererer en samling statiske filer som HTML, CSS og JavaScript, som kan hostes på enhver server, der understøtter levering af statiske filer. Dette gør den særligt velegnet til enklere hostingløsninger, mens forretningslogik og databaseadgang håndteres via en ekstern API.</p>
 <p>Blazor Standalone deler mange af de samme fordele og ulemper med Blazor WebAssembly: Hurtig UI-reaktionstid, offline-funktionalitet og genbrug af C#-kode. Samtidig kræver begge løsninger, at sikkerhed og validering implementeres på serversiden. Den væsentligste forskel ligger i Blazor Standalones større hostingfleksibilitet og dens mangel på indbygget Microsoft Identity-support.</p>
 <p><strong>Fordele</strong></p>
 <ul>
@@ -214,8 +214,8 @@ Brugeren oplever derfor ikke en tom side eller en langsom load-fase, da serveren
 </section>
 <section id="tabpanel_1_progressive-web-app" role="tabpanel" data-tab="progressive-web-app" aria-hidden="true" hidden="hidden">
 
-<p><strong>Progressive Web App</strong></p>
-<p>En Progressive Web App (PWA) er en webapplikation, der kan downloades og lagres i browserens cache. Dette gælder for Interactive WebAssembly, Interactive Auto og Standalone applikationer. Efter download kan applikationen installeres direkte på klientens enhed.</p>
+<p><strong>Sådan fungerer det</strong><br>
+En Progressive Web App (PWA) er en webapplikation, der kan downloades og lagres i browserens cache. Dette gælder for Interactive WebAssembly, Interactive Auto og Standalone applikationer. Efter download kan applikationen installeres direkte på klientens enhed.</p>
 <p>Ordet &quot;Progressive&quot; refererer til, at en bruger starter med at opdage applikationen via browseren og derefter kan fortsætte med at installere den som en app på sin enhed.</p>
 <p><strong>Fordele</strong></p>
 <ul>

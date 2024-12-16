@@ -1,7 +1,5 @@
 # Blazor
 
-Jeg har undersøgt og sammenlignet de forskellige relevante Blazor varianter, for web udvikling, i .NET 8.0
-
 Blazor gør det muligt at udvikle moderne, interaktive brugerflader direkte i C#. En stor fordel er, at Blazor også understøtter JavaScript, hvilket åbner op for brug af JavaScript-biblioteker og man kan skrive kode i Java Script.
 
 Introduktionen af Blazor Web App i .NET 8.0 har gjort det muligt at mixe forskellige render modes i Blazor, til forskel for
@@ -22,7 +20,7 @@ Dataen bliver sendt via en SignalR-forbindelse, der muliggør realtidskommunikat
 **Interaktivitet**  
 Brugeraktivitet behandles direkte på serveren af ASP.NET Core runtime.
 
-**Stateful (tilstandsfuld):**
+**Stateful (tilstandsfuld)**  
 Applikationens tilstand er afhængig af en konstant forbindelse til serveren.
 Serveren håndterer forbindelsen for alle forbundne klienter og opdatering af UI.
 
@@ -59,7 +57,7 @@ Skal der sendes eller modtages data til eller fra en server, foregår det via en
 **Interaktivitet**  
 Brugeraktivitet håndteres direkte i klientens browser.
 
-**Stateless (tilstandsløs):**
+**Stateless (tilstandsløs)**  
 Den håndterer tilstanden af applikationen i browseren, uafhængig af serveren, da alt er lagret i browseren.
 
 **Fordele**  
@@ -104,6 +102,7 @@ Brugeren oplever derfor ikke en tom side eller en langsom load-fase, da serveren
 
 # [Blazor Standalone](#tab/blazor-standalone)
 
+**Sådan fungerer det**  
 Blazor Standalone bygger på samme klient-side rendering (CSR)-principper som Blazor WebAssembly, men adskiller sig ved ikke at være afhængig af en .NET-server til hosting. Den genererer en samling statiske filer som HTML, CSS og JavaScript, som kan hostes på enhver server, der understøtter levering af statiske filer. Dette gør den særligt velegnet til enklere hostingløsninger, mens forretningslogik og databaseadgang håndteres via en ekstern API.
 
 Blazor Standalone deler mange af de samme fordele og ulemper med Blazor WebAssembly: Hurtig UI-reaktionstid, offline-funktionalitet og genbrug af C#-kode. Samtidig kræver begge løsninger, at sikkerhed og validering implementeres på serversiden. Den væsentligste forskel ligger i Blazor Standalones større hostingfleksibilitet og dens mangel på indbygget Microsoft Identity-support.
@@ -122,8 +121,7 @@ Blazor Standalone deler mange af de samme fordele og ulemper med Blazor WebAssem
 
 # [+ PWA](#tab/progressive-web-app)
 
-**Progressive Web App**  
-
+**Sådan fungerer det**  
 En Progressive Web App (PWA) er en webapplikation, der kan downloades og lagres i browserens cache. Dette gælder for Interactive WebAssembly, Interactive Auto og Standalone applikationer. Efter download kan applikationen installeres direkte på klientens enhed.
 
 Ordet "Progressive" refererer til, at en bruger starter med at opdage applikationen via browseren og derefter kan fortsætte med at installere den som en app på sin enhed.

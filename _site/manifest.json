@@ -105,6 +105,16 @@
     },
     {
       "type": "Conceptual",
+      "source_relative_path": "docs/Miscellaneous.md",
+      "output": {
+        ".html": {
+          "relative_path": "docs/Miscellaneous.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
       "source_relative_path": "docs/MudBlazor.md",
       "output": {
         ".html": {

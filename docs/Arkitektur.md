@@ -2,13 +2,9 @@
 
 Når man udvikler i .NET til webapplikationer, spiller valg af arkitektur en afgørende rolle for, hvordan systemet struktureres, vedligeholdes og skaleres. To populære arkitekturer er Clean Architecture (lagdelt arkitektur) og Vertical Slice Architecture (lodrette skiver).
 
-Begge arkitekturer har deres styrker og kan tilpasses forskellige behov, uanset om systemet bygges som en monolit eller som et distribueret system – enten ved hjælp af en central API eller gennem microservices.
+Begge arkitekturer har deres styrker og kan tilpasses forskellige behov, uanset om systemet bygges som en monolith eller som et distribueret system – enten ved hjælp af en central API eller gennem microservices.
 
-Clean Architecture fokuserer på at adskille applikationens forretningslogik fra tekniske detaljer. Den giver en tydelig lagdeling, der gør det nemt at vedligeholde og teste systemet, især i større løsninger.
-Vertical Slice Architecture tager derimod udgangspunkt i funktionalitet frem for lag, hvilket betyder, at hver feature behandles som en selvstændig enhed med sin egen logik, dataadgang og præsentationslag. Denne tilgang kan gøre koden mere fokuseret og nemmere at navigere, især i projekter med høj kompleksitet eller mange uafhængige features.
-Valget mellem de to arkitekturer afhænger ofte af projektets størrelse, kompleksitet og behovet for fleksibilitet. Mens Clean Architecture er ideel til større projekter, hvor strukturel klarhed er altafgørende, er Vertical Slice Architecture oplagt, når man ønsker at undgå overflødige lag og i stedet fokusere på funktionelle enheder.
-
-Når man kombinerer disse arkitekturer med forskellige implementeringsformer (monolit eller distribueret system), er der også andre faktorer at tage højde for, såsom skalerbarhed, teamets størrelse og behovet for uafhængig udvikling af forskellige dele af systemet.
+Begge arkitekturer understøtter principperne om high cohesion og loose coupling, men på forskellige måder
 
 ## Arkitektur varianter
 
@@ -16,71 +12,88 @@ Når man kombinerer disse arkitekturer med forskellige implementeringsformer (mo
 
 [Steven Smith om CA](https://www.youtube.com/watch?v=yF9SwL0p0Y0&t=1s)
 
-#### Fordele
+**Sådan fungerer det**
+Clean Architecture fremmer high cohesion (høj sammenhængskraft) og loose coupling (løs kobling) gennem en lagdelt struktur og abstraktioner. Hvert lag har et klart ansvar, og afhængigheder går kun én vej – fra de ydre lag mod de indre lag.
 
-**Tydelig adskillelse af ansvar**  
-Hvert lag har et klart og veldefineret ansvar, hvilket gør det nemmere at forstå og vedligeholde koden.
+**High Cohesion**  
+Alle elementer i hvert lag har en tæt sammenhæng, da de fokuserer på ét specifikt ansvar.
+Dette gør hvert lag fokuseret og let at forstå.
 
-**Testbarhed**  
-Du kan planlægge og skrive unit tests allerede før implementeringen, da du ved, hvilke dele af applikationen der skal testes, og hvad der skal testes for. Dette muliggør brugen af Unit Test Driven Design (UTDD), hvor tests fungerer som en guide for implementeringen.
+**Loose Coupling**  
+Lagene er uafhængige af hinanden og interagerer kun via interfaces.
+Et lag kender kun til de abstraktioner, det afhænger af, og ikke de konkrete implementeringer.
 
-- Brugen af interfaces gør det nemt at sikre, at både "happy paths" og "edge cases" dækkes gennem tests. Interfaces sikrer en kontrakt, der kun dækker returtyper og argumenter, men ikke forretningslogikkens kanttilfælde. Ved at skrive unit tests for interfaces kan man validere, at implementeringer opfører sig korrekt i alle scenarier.
-- Et særskilt Core-testprojekt kan anvendes til at teste hele Core-laget, hvor forretningslogikken er placeret, og sikrer, at alle interfaces er dækket og overholder deres kontrakter.
+**Fordele**  
 
-**Udvidelighed**  
-Arkitekturen gør det nemt at udskifte eller ændre dele af systemet. Hvis du fx ønsker at skifte EF Core ud med en anden ORM eller database, behøver du kun at opdatere UserRepository, uden at påvirke resten af applikationen.
+- **Forudsigelighed og konsistens**  
+Når man skal implementere en ny feature, ved man præcis, hvordan den skal opdeles, fordi hver del af koden har en fast plads i hver sit lag, da hele kodebasen er bygget op på samme måde.
 
-**Forudsigelighed og konsistens**  
-- Når du arbejder på en ny feature, ved du præcis, hvordan den skal opdeles, fordi hver del af koden har en fast plads i strukturen.
-- Hele kodebasen er bygget op på samme måde, hvilket giver en ensartet struktur og gør det lettere for teamet at navigere og samarbejde.
+- **Modelering**  
+Når der allerede er fastlagt klare programmeringsmønstre, gør det det muligt at modellere på low-level niveau med diagrammer som fx [TODO: indsæt diagramnavne], for en feature, allerede inden at man går i gang med at implementere koden.
 
-**Overholdelse af SOLID-principper og DRY**  
-Denne arkitektur lægger ofte vægt på at følge SOLID-principperne (Single Responsibility, Open/Closed, etc.) og DRY-princippet (Don't Repeat Yourself). Dette skaber en mere struktureret og genanvendelig kode.
+- **Testbarhed**  
+  
+  - Man kan planlægge og skrive tests for hver feature, allerede før implementeringen, da man ved hvilke dele af applikationen der skal testes, og hvad der skal testes for.
 
-**Modellering på low-level niveau**  
-Når der allerede er fastlagt klare programmeringsmønstre, gør det det muligt at modellere på low-level niveau med diagrammer som fx [indsæt diagramnavne].
+  - Det muliggør brugen af Unit Test Driven Design (UTDD), hvor tests fungerer som en guide for implementeringen.
+  Brugen af interfaces gør det nemt at sikre, at både "happy paths" og "edge cases" dækkes gennem tests. Interfaces sikrer en kontrakt, der kun dækker returtyper og argumenter, men ikke forretningslogikkens kanttilfælde.
 
-- Low-level design giver et overblik over specifikke features, inden de bliver implementeret. Dette er især nyttigt for udviklere, der ønsker en visuel forståelse af, hvordan dele af systemet fungerer.
-- Dog øger det kompleksiteten at sikre sporbarhed mellem design-diagrammer og kode. Interessenter fokuserer sjældent på den konkrete implementering, men på interaktiviteten. Derfor bør low-level design kun bruges som et værktøj til udviklere, ikke som et krav.
+  - Ved at skrive unit tests for interfaces kan man validere, at implementeringer opfører sig korrekt i alle scenarier.
 
-**Løs kobling mellem lag**  
-Brugen af interfaces fremmer løs kobling, hvilket gør det nemt at skifte lag ud, fx at erstatte en service eller et repository.
+  - Et særskilt Core-testprojekt kan anvendes til at teste hele Core-laget, hvor forretningslogikken er placeret, og sikrer, at alle interfaces er dækket og overholder deres kontrakter.
 
-#### Ulemper
+- **DRY**  
+  Man kan genbruge de enkelte dele i et lag, i forskellige dele i et andet lag.
 
-**Overhead og fragmentering**  
-- Enkel kode skal opdeles i mange små filer og lag, hvilket kan føles overflødigt i mindre eller simple projekter.
-- Den samme struktur skal følges i hele applikationen, selvom det måske ikke er nødvendigt i alle dele.
+- **Udvidelighed**  
+Arkitekturen gør det nemt at udskifte eller ændre dele af systemet.
+Hvis man fx ønsker at skifte EF Core ud med en anden ORM eller database, behøver man kun at opdatere Repository implementationerne, uden at det påvirker resten af applikationen.
 
-**Låst fast i et mønster**  
-Koden bliver bundet til en bestemt arkitektur allerede fra starten, hvilket kan begrænse fleksibiliteten, hvis kravene ændrer sig senere. Det giver udvikleren nogle meget stramme rammer for hvordan at de kan implementere en feature.
+**Ulemper**  
 
-**Kompleksitet i projektstruktur**  
-Nogle arkitekturer placerer lagene i separate projekter i stedet for blot foldere. Dette kan gøre det lettere at udskifte lag, men øger samtidig den samlede kompleksitet og kan være unødvendigt, hvis der ikke er behov for at skifte lagene ud senere.
+- **Overhead og fragmentering**  
 
-**Overflødig brug af repositories og interfaces**  
-Et almindeligt argument i .NET-verdenen er, at repositories og interfaces gør det lettere at skifte database. Men i praksis fungerer EF Core allerede som et repository via DbContext og understøtter mange forskellige databaser. Derfor kan det virke som overengineering at bygge et ekstra lag ovenpå.
+  - Features skal opdeles i mange små filer og lag, hvilket kan føles overflødigt i mindre eller simple projekter.
+  
+  - Den samme struktur skal følges i hele applikationen, selvom i simple features
 
-**Tidskrævende implementering**  
-Den høje brug af interfaces og unit tests betyder, at udviklingen tager længere tid. Samtidig øger det kompleksiteten i både implementeringen og vedligeholdelsen af koden.
+- **Gengbrug af objekter**  
+Genbrug af dele fra 1 lag i et andet kan føre til problemer, hvis der opstår ændringer eller fejl.
+Hvis et objekt i et lag ændres, kan det påvirke alle de dele, der genbruger den – både i det samme lag og på tværs af lag. Dette betyder, at en enkelt fejl kan spredes til flere steder i systemet og skabe uforudsete problemer.
+Derfor er det vigtigt at unit teste alle interfaces.
 
-**Kompleksitet i pull requests**  
-Når kode er spredt ud på mange små filer og lag, bliver det mere udfordrende at gennemgå pull requests og få et overblik over de ændringer, der er lavet. Dette kan også gøre det vanskeligere og mere tidskrævende at godkende pull requests.
+- **Overblik**  
+Som udvikler kan det være svært at skabe sig et overblik over hvilke dele der er afhængig af andre dele, da en feature er spredt ud på flere lag, hvilket gør det svært for nye udviklere at sætte sig ind i kodebasen
+
+- **Modelering**  
+Det gør det også svært at automatisere dokumentation via UML diagrammer, da en feature er delt ud på flere lag og flere objekter i 1 lag kan have den samme afhængighed i laget under
+
+- **Overflødig brug af repositories og interfaces**  
+Et almindeligt argument i .NET-verdenen er, at repositories og interfaces gør det lettere at skifte database. Men i praksis fungerer EF Core allerede som et repository via DbContext og understøtter mange forskellige databaser
+
+- **Tests**
+  - Da objekter kan bruges på tværs af lag, kan det skabe side effekter i andre dele af applikationen.
+    Derfor er det nødvendigt med fokus på at man unit tester interfaces i isolation, for at mindske fejl i systemet.
 
 # [Vertical Slice Arkitektur](#tab/vsa)
 
 [Jimmi Bogard om VSA](https://www.youtube.com/watch?v=oAoaMlS1PWo&t=1s)
 
-Man deler koden op i lodrette snit, typisk per feature, som er placeret i 1 folder.
-I en serverside applikation hvor at både front- og backend kører på serveren, kan et snit bestå af en Blazor komponent og alt loggiken der hører til den specifike komponent.
-I en WebAssembly applikation, som er delt op i flere projekter, vil man have foldere med det samme navn i hver projekt, som har alt hvad der er hører til den specifike feature.
+**Sådan fungerer det**  
+Vertical Slice Architecture opnår high cohesion (høj sammenhængskraft) og loose coupling (løs kobling) ved at fokusere på at samle al kode, der relaterer sig til én specifik feature, i én "slice". Hver slice er en autonom enhed, der kun afhænger af det, den selv har brug for.
 
-#### Fordele
+**High Cohesion**  
+Fokuserer på high cohesion ved at samle alt, der relaterer til en feature, ét sted.
 
-Det er nemmere at overskue en feature, når al kode relateret til den ligger i samme mappe, fremfor at være spredt ud over flere mapper og projekter.
-Selv i et distribueret system med Client-, Server- og Shared-projekter forbliver strukturen overskuelig, da mapperne har samme navne og er organiseret på samme måde.
+**Loose Coupling**  
+Opnår loose coupling ved at holde slices uafhængige af hinanden.
 
-Da koden er opdelt per feature, bliver det nemmere for nye udviklere at sætte sig ind i kodebasen og forstå, hvordan den fungerer.
+**Fordele**
+
+- **Overblik**  
+  - Det er nemmere at overskue en feature, når al kode relateret til den ligger i samme mappe, fremfor at være spredt ud over flere mapper og projekter.  
+  - Selv i et distribueret system med Client-, Server- og Shared-projekter forbliver strukturen overskuelig, da mapperne har samme navne og er organiseret på samme måde.  
+  - Da koden er opdelt per feature, bliver det nemmere for nye udviklere at sætte sig ind i kodebasen og forstå, hvordan den fungerer.
 
 Debugging bliver enklere, fordi al relevant kode til en feature er samlet ét sted.
 
@@ -135,6 +148,7 @@ Derfor er det vigtigt at lave unit tests for interfaces, så alle edge cases i d
 
 ```plantuml
 !define BG_COLOR_CHILD #FFF9B1
+skinparam dpi 60
 skinparam packageBackgroundColor BG_COLOR_CHILD
 
 top to bottom direction
@@ -184,6 +198,7 @@ DomainService --> IInfraService
 IInfraService ..> InfraService
 Endpoint --> IInfraService
 IRepository --> Entity
+
 ```
 
 # [CA Interactive WebAssembly (TODO)](#tab/interactive-webassembly/ca)
@@ -293,22 +308,33 @@ DTO --> Validation
 
 ---
 
-## CA VS VSA
+## Omkostninger
 
-Får man senere brug for at kunne skalere dele af applikationen, kan man plukke enkelte features ud og lave dem om til microservices. Dette er dog på bekostning af en højere kompleksitet.
+##### Udvikling
 
-Man ser ofte, når man læser om arkitektur, at en bestemt arkitektur passer godt til en bestemt størrelse af applikationer. Dette vurderes typisk ud fra faktorer som kompleksitet, overblik, udviklerteamets kendskab til arkitekturen eller andre udviklingsrelaterede parametre. Men det er som nævnt ofte baseret på udviklerperspektivet.
+- **VSA**
+  - Hurtig start med minimal kompleksitet, da hver feature bygges som en selvstændig enhed uden behov for omfattende arkitektoniske overvejelser.
+  - Udviklingstiden er generelt kortere, fordi der ikke kræves mange abstraktioner, og der er mindre fokus på at etablere komplekse lag.
+  - Da hver feature bygges som en selvstændig enhed, kan den også testes isoleret, hvilket reducerer kompleksiteten i testprocessen.
 
-Det, der burde være i fokus, er ikke ovenstående faktorer, men i stedet hvad kravene til applikationen er, og hvad der passer bedst til den konkrete situation. Jo mere kompliceret applikationen er, jo højere er omkostningerne til udvikling og vedligehold.
+- **CA**
+  - Høj kompleksitet fra start, da man allerede inden den første linje kode skal oprette flere projekter og definere lag og abstraktioner.
+  - Den omfattende brug af interfaces og unit tests betyder, at udviklingen tager længere tid.
+  - Hver feature, der implementeres, har en høj kompleksitet, som ikke kan reduceres, da arkitekturens regler er hugget i sten.
 
-Ting, der kan øge omkostningerne, og som man skal overveje:
+##### Vedligehold
 
-- Overskuelighed og navigation i koden (man bruger mere tid på at læse kode end på at skrive den).
-- Tilføjelse af nye features.
-- Ændring af eksisterende features.
-- Antal tests.
-- Antal abstraktioner.
-- Mængden af kode.
+- **VSA**
+  - Lav kompleksitet fra start gør det lettere at forstå og tilpasse eksisterende features.
+  - Hver feature er fleksibel og kan have enten lav eller høj kompleksitet afhængigt af behov og udviklerens tilgang.
+  - Når projektet vokser, kan vedligeholdelsesomkostningerne stige, **hvis** features ikke holdes tilstrækkeligt adskilte, da manglende struktur kan føre til overlap og uforudsigelige afhængigheder.
+  - Da hver feature kan testes som en selvstændig enhed, bliver det lettere at identificere og løse problemer da de er isoleret i 1 feature, hvilket mindsker kompleksiteten ved vedligeholdelse.
+  - Forskellige features kan have objekter der gør præcis det samme, så hvis at der ændres noget i såadan et objekt, skal det ændres i flere forskellige features.
+
+- **CA**  
+  - Når koden er spredt ud på mange små filer og lag, kan det være mere udfordrende at gennemgå pull requests og få et samlet overblik over ændringerne. Dette gør godkendelse af pull requests mere tidskrævende.
+  - Ændringer i kravene kræver ofte, at flere lag opdateres, hvilket kan være tidskrævende. Derudover skal alle berørte unit tests skrives om, hvilket yderligere forlænger vedligeholdelsestiden.
+  - De firkantede regler og omfattende brug af abstraktioner gør det svært at implementere hurtige ændringer eller prototyper.
 
 **CA** (blå linie)
 
@@ -336,20 +362,30 @@ xychart-beta
   line [4000, 6000, 8000, 10000, 12000, 14000, 16000, 18000, 20000]
 ```
 
-Som udgangspunkt er det en god ide at holde det simpelt ([KISS-princippet](https://en.wikipedia.org/wiki/KISS_principle)), og man skal ikke spekulere for meget på, hvad applikationen måske kan udvikle sig til i fremtiden ([YAGNI-princippet](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)). At gætte på fremtidige behov kan komplicere kodebasen unødvendigt, og kompleksitet koster penge i både implementering og vedligehold. Der skal derfor være en meget god grund til at vælge Clean Architecture for at retfærdiggøre den øgede kompleksitet.
+##### Drift
 
-Med fokus på arkitektur er Vertical Slice Architecture det mest simple at starte med. Hver "skive" har ét fokusområde, og alt, hvad denne skive skal bruge, er samlet i én folder. Hvis man i fremtiden skulle få brug for at genbruge domænedelen af applikationen, kan man opdatere én skive ad gangen, indtil man har et domæne, der kan skilles ud og deles på tværs af projekter.
+- ###### Skalering
+  
+  - ###### VSA  
+  
+    - ###### UI
+  
+    - I en server-rendered applikation er det mere kompliceret at skalere hele UI, da komponenter er opdelt i individuelle features. Dette kan gøre det vanskeligt at allokere ressourcer samlet til UI. 
+    - Den nemmeste løsning for at skalere hele UI samlet i en server-rendered applikation vil ofte være at skalere hele applikationen. Dette kan dog føre til, at ressourcer også bliver tildelt dele, der ikke nødvendigvis har brug for det.
 
-Repositories har sine fordele, men de er ikke altid nødvendige, især når man kan bruge en ORM (Object Relational Mapper) som [EF CORE](https://learn.microsoft.com/en-us/ef/core/), der fungerer som dataadgangslag til en database. Hvis man skulle få brug for at skifte til en anden database (jf. [YAGNI-princippet](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)), understøtter EF Core allerede mange [forskellige](https://learn.microsoft.com/en-us/ef/core/providers/?tabs=dotnet-core-cli) databaser via DbContext.
+    - **Andre dele af kodebasen:**
+    - Det er nemt at identificere og optimere specifikke dele af en feature, som for eksempel
+      ressourcetunge endpoints eller databaser.
+    - Domain- og Infrastruktur-lag kan skaleres uafhængigt for at imødekomme krav om øget belastning.
 
-Når man afklarer kravene til applikationen, kan man i modelleringsfasen dele applikationen op i dele som i [Feature Driven Development](/docs/Udvikling.html?tabs=fdd%2Ccontroller#tabpanel_1_fdd):
+  - ###### CA
+  
+    - ###### UI
 
-- Theme
+    - I server-rendered applikationer kan man nemt dynamisk skalere de forskellige lag baseret på efterspørgsel, da hele UI er samlet ét sted.
+    - Man kan samtidigt skalere individuelle komponenter for at håndtere specifikke belastninger.
 
-- Epic
-
-- Feature
-
-- User Story
-
-Disse kan afspejle mappestrukturen i applikationen, hvilket giver sporbarhed mellem modellen og applikationen. Udover sporbarhed giver det, som applikationen udvikler sig, en klar afgrænsning af domænet, hvilket kan være svært at opnå enighed om i et team. Hvis applikationen på sigt bliver stor nok, kan dele af den nemt skilles ud og håndteres som selvstændige services, der kan bruges på tværs af andre applikationer.
+    - ###### Andre dele af kodebasen
+  
+    - Lagene i CA-arkitekturen kan skaleres individuelt, hvilket gør det muligt at optimere eksempelvis applikationslaget eller databasen afhængigt af belastning.
+    - Ved at have en klar adskillelse mellem lagene er det nemmere at justere ressourcerne for specifikke behov uden at påvirke de øvrige lag negativt.
